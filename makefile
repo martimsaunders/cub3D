@@ -1,0 +1,97 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: praders <praders@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/10/20 12:20:09 by praders           #+#    #+#              #
+#    Updated: 2025/10/20 13:44:45 by praders          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+NAME = cub3D
+LIBFT_DIR = ./libraries/libft
+MLX_DIR = ./libraries/minilibx-linux
+LIBFT = $(LIBFT_DIR)/libft.a
+MLX = $(MLX_DIR)/libmlx.a
+
+SRCS = cub3d.c
+
+OBJ_DIR = obj
+OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
+
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -g -Ilibraries -Ilibraries/minilibx-linux
+AR = ar rcs
+
+GREEN = \033[0;32m
+BLUE = \033[0;34m
+RED = \033[0;31m
+YELLOW = \033[0;33m
+MAGENTA = \033[0;35m
+CYAN = \033[0;36m
+PURPLE = \033[0;35m
+WHITE = \033[0;37m
+RESET = \033[0m
+BOLD_GREEN = \033[1;32m
+BOLD_BLUE = \033[1;34m
+BOLD_RED = \033[1;31m
+BOLD_YELLOW = \033[1;33m
+BOLD_MAGENTA = \033[1;35m
+BOLD_CYAN = \033[1;36m
+BOLD_WHITE = \033[1;97m
+
+all: $(LIBFT) $(MLX) $(NAME)
+
+$(LIBFT):
+	@echo "$(CYAN)Compilando libft...$(RESET)"
+	@$(MAKE) -C $(LIBFT_DIR) --no-print-directory > /dev/null 2>&1
+	@echo "$(GREEN)✓ libft compilada!$(RESET)"
+
+$(MLX):
+	@echo "$(CYAN)Compilando MinilibX...$(RESET)"
+	@$(MAKE) -C $(MLX_DIR) --no-print-directory > /dev/null 2>&1
+	@echo "$(GREEN)✓ MinilibX compilada!$(RESET)"
+
+$(OBJ_DIR):
+	@mkdir -p $(OBJ_DIR)
+
+$(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
+	@echo "$(BOLD_BLUE)Compilando $<...$(RESET)"
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+$(NAME): $(OBJS)
+	@$(CC) $(CFLAGS) $(OBJS) -L$(LIBFT_DIR) -lft -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -o $(NAME)
+	@echo ""
+	@echo "$(BOLD_BLUE)   ██████╗██╗   ██╗██████╗ $(BOLD_CYAN) ██████╗ ██████╗ $(RESET)"
+	@echo "$(BOLD_BLUE)  ██╔════╝██║   ██║██╔══██╗ $(BOLD_CYAN)╚════██╗██╔══██╗$(RESET)"
+	@echo "$(BOLD_BLUE)  ██║     ██║   ██║██████╔╝ $(BOLD_CYAN) █████╔╝██║  ██║$(RESET)"
+	@echo "$(BOLD_BLUE)  ██║     ██║   ██║██╔══██╗ $(BOLD_CYAN) ╚═══██╗██║  ██║$(RESET)"
+	@echo "$(BOLD_BLUE)  ╚██████╗╚██████╔╝██████╔╝ $(BOLD_CYAN)██████╔╝██████╔╝$(RESET)"
+	@echo "$(BOLD_BLUE)   ╚═════╝ ╚═════╝ ╚═════╝ $(BOLD_CYAN) ╚═════╝ ╚═════╝ $(RESET)"
+	@echo "$(BOLD_MAGENTA)  ╔══════════════════════════════════════╗$(RESET)"
+	@echo "$(BOLD_MAGENTA)  ║  🎮  Raycasting Engine Ready!  🎮    ║$(RESET)"
+	@echo "$(BOLD_MAGENTA)  ╚══════════════════════════════════════╝$(RESET)"
+
+mlx_download:
+	@if [ ! -d $(MLX_DIR) ]; then \
+		git clone https://github.com/42Paris/minilibx-linux.git $(MLX_DIR); \
+	else \
+		echo "MinilibX já existe em $(MLX_DIR)"; \
+	fi
+
+clean:
+	@rm -rf $(OBJ_DIR)
+	@$(MAKE) -C $(LIBFT_DIR) clean --no-print-directory > /dev/null 2>&1
+	@$(MAKE) -C $(MLX_DIR) clean --no-print-directory > /dev/null 2>&1
+	@echo "$(YELLOW)✗ Objetos limpos!$(RESET)"
+
+fclean: clean
+	@rm -f $(NAME)
+	@$(MAKE) -C $(LIBFT_DIR) fclean --no-print-directory > /dev/null 2>&1
+	@echo "$(RED)✗ Tudo limpo!$(RESET)"
+
+re: fclean all
+
+.PHONY: all clean fclean re mlx_download
