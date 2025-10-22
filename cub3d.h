@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 12:07:57 by praders           #+#    #+#             */
-/*   Updated: 2025/10/20 16:39:56 by praders          ###   ########.fr       */
+/*   Updated: 2025/10/22 15:38:56 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,10 @@
 # include <X11/keysym.h>
 #include "libraries/minilibx-linux/mlx.h"
 #include "libraries/libft/libft.h"
+#include <stdbool.h>
 
-#define LENGHT 1280
-#define WIDTH 720
+#define WIDTH 1280
+#define HEIGHT 720
 
 typedef struct s_enemy
 {
@@ -35,6 +36,14 @@ typedef struct s_enemy
     float speed;
     int direction;
 }   t_enemy;
+
+typedef struct s_buttons
+{
+	bool A;
+	bool W;
+	bool S;
+	bool D;
+}	t_buttons;
 
 typedef struct s_player
 {
@@ -66,6 +75,7 @@ typedef struct s_game
     t_enemy *enemies;
     t_player player;
     t_image image;
+	t_buttons button;
 } t_game;
 
 #endif
