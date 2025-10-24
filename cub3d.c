@@ -6,7 +6,7 @@
 /*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 12:10:34 by praders           #+#    #+#             */
-/*   Updated: 2025/10/24 16:02:01 by praders          ###   ########.fr       */
+/*   Updated: 2025/10/24 19:19:53 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,11 @@ void init_player_map()
 	pc()->map[0] = "1111111111";
 	pc()->map[1] = "10000000P1";
 	pc()->map[2] = "1011000001";
-	pc()->map[3] = "1010000001";
-	pc()->map[4] = "1000000001";
-	pc()->map[5] = "1000000001";
+	pc()->map[3] = "1010001001";
+	pc()->map[4] = "1000001001";
+	pc()->map[5] = "1000011001";
 	pc()->map[6] = "1000000001";
-	pc()->map[7] = "1000000001";
+	pc()->map[7] = "1000001101";
 	pc()->map[8] = "1000000001";
 	pc()->map[9] = "1111111111";
 	pc()->map[10] = NULL;
@@ -152,8 +152,8 @@ void find_player()
 		{
 			if (pc()->map[y][x] == 'P')
 			{
-				pc()->player.x = x + 0.375;
-				pc()->player.y = y + 0.375;
+				pc()->player.x = x + 0.25;
+				pc()->player.y = y + 0.25;
 				return ;
 			}
 		}
@@ -200,26 +200,53 @@ void move_player()
 	pc()->player.dir_y = sin(pc()->player.angle);
 	pc()->player.plane_x  = -pc()->player.dir_y * 0.66;
 	pc()->player.plane_y  = pc()->player.dir_x * 0.66;
+	float newx = pc()->player.x;
+	float newy = pc()->player.y;
 	if (pc()->button.W)
 	{
-		pc()->player.x += pc()->player.dir_x * pc()->player.move_speed;
-		pc()->player.y += pc()->player.dir_y * pc()->player.move_speed;
+		newx += pc()->player.dir_x * pc()->player.move_speed;
+		newy += pc()->player.dir_y * pc()->player.move_speed;
 	}
 	if (pc()->button.S)
 	{
-		pc()->player.x -= pc()->player.dir_x * pc()->player.move_speed;
-		pc()->player.y -= pc()->player.dir_y * pc()->player.move_speed;
+		newx -= pc()->player.dir_x * pc()->player.move_speed;
+		newy -= pc()->player.dir_y * pc()->player.move_speed;
 	}
 	if (pc()->button.A)
 	{
-		pc()->player.x += pc()->player.dir_y * pc()->player.move_speed;
-		pc()->player.y -= pc()->player.dir_x * pc()->player.move_speed;
+		newx += pc()->player.dir_y * pc()->player.move_speed;
+		newy -= pc()->player.dir_x * pc()->player.move_speed;
 	}
 	if (pc()->button.D)
 	{
-		pc()->player.x -= pc()->player.dir_y * pc()->player.move_speed;
-		pc()->player.y += pc()->player.dir_x * pc()->player.move_speed;
+		newx -= pc()->player.dir_y * pc()->player.move_speed;
+		newy += pc()->player.dir_x * pc()->player.move_speed;
 	}
+	int start_x = (int)newx;
+	int end_x = (int)(newx + 0.5);
+	int start_y = (int)newy;
+	int end_y = (int)(newy + 0.5);
+	
+	for (int ty = start_y; ty <= end_y; ty++)
+	{
+		for (int tx = start_x; tx <= end_x; tx++)
+		{
+			if (pc()->map[ty][tx] == '1')
+				return;
+		}
+	}
+
+	pc()->player.x = newx;
+	pc()->player.y = newy;
+	/* float margin = 0.02;
+	if (pc()->map[(int)(newy + margin)][(int)(newx + margin)] != '1' && 
+		pc()->map[(int)(newy + 0.5 - margin)][(int)(newx + margin)] != '1' &&
+		pc()->map[(int)(newy + margin)][(int)(newx + 0.5 - margin)] != '1' && 
+		pc()->map[(int)(newy + 0.5 - margin)][(int)(newx + 0.5 - margin)] != '1')
+	{
+		pc()->player.x = newx;
+		pc()->player.y = newy;
+	} */
 }
 
 void draw_player_square(int pixel_x, int pixel_y, int size, int color)
@@ -302,8 +329,10 @@ void ray_cast()
 	while (x < WIDTH)
 	{
 		float camerax = 2 * x / (float)WIDTH - 1;
-		int mapx = (int)pc()->player.x;
-		int mapy = (int)pc()->player.y;
+		float player_center_x = pc()->player.x + 0.25;
+		float player_center_y = pc()->player.y + 0.25;
+		int mapx = (int)player_center_x;
+		int mapy = (int)player_center_y;
 		float raydirx = pc()->player.dir_x + pc()->player.plane_x * camerax;
 		float raydiry = pc()->player.dir_y + pc()->player.plane_y * camerax;
 		if (raydirx == 0)
@@ -318,13 +347,13 @@ void ray_cast()
 		float sidedisty;
 
 		if (raydirx < 0)
-			(stepx = -1, sidedistx = (pc()->player.x - mapx) * deltadistx);
+			(stepx = -1, sidedistx = (player_center_x - mapx) * deltadistx);
 		else
-			(stepx = 1, sidedistx = (mapx + 1.0 - pc()->player.x) * deltadistx);
+			(stepx = 1, sidedistx = (mapx + 1.0 - player_center_x) * deltadistx);
 		if (raydiry < 0)
-			(stepy = -1, sidedisty = (pc()->player.y - mapy) * deltadisty);
+			(stepy = -1, sidedisty = (player_center_y - mapy) * deltadisty);
 		else
-			(stepy = 1, sidedisty = (mapy + 1.0 - pc()->player.y) * deltadisty);
+			(stepy = 1, sidedisty = (mapy + 1.0 - player_center_y) * deltadisty);
 		int hit = 0;
 		int side;
 		while (hit == 0)
@@ -338,9 +367,9 @@ void ray_cast()
 		}
 		float perpwalldist;
 		if (side == 0)
-			perpwalldist = (mapx - pc()->player.x + (1 - stepx) / 2) / raydirx;
+			perpwalldist = (mapx - player_center_x + (1 - stepx) / 2) / raydirx;
 		else
-			perpwalldist = (mapy - pc()->player.y + (1 - stepy) / 2) / raydiry;
+			perpwalldist = (mapy - player_center_y + (1 - stepy) / 2) / raydiry;
 		int lineheight = (int)(HEIGHT / perpwalldist);
 		int drawstart = -lineheight / 2 + HEIGHT / 2;
 		if (drawstart < 0)
@@ -370,9 +399,9 @@ int draw_move()
 {
 	clear_image();
 	move_player();
+	ray_cast();
 	draw_map();
 	draw_player_square(pc()->player.x * BLOCK, pc()->player.y * BLOCK, BLOCK / 2, 0xff0000);
-	ray_cast();
 	mlx_put_image_to_window(pc()->mlx, pc()->win, pc()->image.image, 0, 0);
 	return (0);
 }
@@ -385,7 +414,6 @@ int	main(void)
 	pc()->image.addr = mlx_get_data_addr(pc()->image.image, &pc()->image.bpp,
 			&pc()->image.line_lenght, &pc()->image.endian);
 	init_player_map();
-	printf("%f %f\n", pc()->player.x, pc()->player.y);
 	mlx_put_image_to_window(pc()->mlx, pc()->win, pc()->image.image, 0, 0);
 	mlx_hook(pc()->win, 2, 1L << 0, key_press, NULL);
 	mlx_hook(pc()->win, 3, 1L << 1, key_release, NULL);
