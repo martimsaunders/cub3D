@@ -3,72 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 12:10:34 by praders           #+#    #+#             */
-/*   Updated: 2025/10/22 17:57:27 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/10/24 16:02:01 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_game	*pc(void)
+t_game *pc()
 {
-	static t_game	pc;
+	static t_game pc;
 
 	return (&pc);
-}
-
-int	end_window(void)
-{
-	mlx_destroy_window(pc()->mlx, pc()->win);
-	mlx_destroy_display(pc()->mlx);
-	free(pc()->mlx);
-	exit(0);
-	return (0);
-}
-
-int	key_press(int keycode)
-{
-	if (keycode == XK_a)
-		pc()->button.A = true; 
-	if (keycode == XK_w)
-		pc()->button.W = true; 
-	if (keycode == XK_s)
-		pc()->button.S = true; 
-	if (keycode == XK_d)
-		pc()->button.D = true; 
-	return (0);
-}
-
-int	key_release(int keycode)
-{
-	if (keycode == XK_a)
-		pc()->button.A = false;
-	if (keycode == XK_w)
-		pc()->button.W = false;
-	if (keycode == XK_s)
-		pc()->button.S = false;
-	if (keycode == XK_d)
-		pc()->button.D = false;
-	return (0);
-}
-
-
-void	create_map_player(void)
-{
-	int	temp[6][6] = {{1, 1, 1, 1, 1, 1}, {1, 0, 0, 0, 0, 1}, {1, 0, 0, 1, 0,
-			1}, {1, 0, 1, 0, 0, 1}, {1, 0, 0, 0, 0, 1}, {1, 1, 1, 1, 1, 1}};
-
-	ft_memcpy(pc()->map, temp, sizeof(temp));
-	pc()->player.x = 2.5;
-	pc()->player.y = 2.5;
-	pc()->player.dir_x = -1.0;
-	pc()->player.dir_y = 0.0;
-	pc()->player.plane_x = 0.0;
-	pc()->player.plane_y = 0.66;
-	pc()->player.move_speed = 0.05;
-	pc()->player.rot_speed = 0.03;
 }
 
 void	put_pixel(int x, int y, int color)
@@ -81,60 +29,364 @@ void	put_pixel(int x, int y, int color)
 	*(unsigned int *)(pc()->image.addr + index) = color;
 }
 
+int key_press(int keycode)
+{
+	if (keycode == XK_w)
+		pc()->button.W = true;
+	if (keycode == XK_a)
+		pc()->button.A = true;
+	if (keycode == XK_s)
+		pc()->button.S = true;
+	if (keycode == XK_d)
+		pc()->button.D = true;
+	if (keycode == XK_Left)
+		pc()->button.left = true;
+	if (keycode == XK_Right)
+		pc()->button.right = true;
+	return (0);
+}
+
+int key_release(int keycode)
+{
+	if (keycode == XK_w)
+		pc()->button.W = false;
+	if (keycode == XK_a)
+		pc()->button.A = false;
+	if (keycode == XK_s)
+		pc()->button.S = false;
+	if (keycode == XK_d)
+		pc()->button.D = false;
+	if (keycode == XK_Left)
+		pc()->button.left = false;
+	if (keycode == XK_Right)
+		pc()->button.right = false;
+	return (0);
+}
+
+int end_window()
+{
+	mlx_destroy_image(pc()->mlx, pc()->image.image);
+	mlx_destroy_window(pc()->mlx, pc()->win);
+	mlx_destroy_display(pc()->mlx);
+	free(pc()->mlx);
+	exit(0);
+}
+
+void init_player_map()
+{
+	pc()->map = malloc(sizeof(char *) * 11);
+	pc()->map[0] = "1111111111";
+	pc()->map[1] = "10000000P1";
+	pc()->map[2] = "1011000001";
+	pc()->map[3] = "1010000001";
+	pc()->map[4] = "1000000001";
+	pc()->map[5] = "1000000001";
+	pc()->map[6] = "1000000001";
+	pc()->map[7] = "1000000001";
+	pc()->map[8] = "1000000001";
+	pc()->map[9] = "1111111111";
+	pc()->map[10] = NULL;
+
+	find_player();
+	pc()->player.move_speed = 0.03;
+	pc()->player.rot_speed = 0.03;
+	pc()->player.angle = PI * 1.5;
+	pc()->player.dir_x = cos(pc()->player.angle);
+	pc()->player.dir_y = sin(pc()->player.angle);
+	pc()->player.plane_x  = -pc()->player.dir_y * 0.66;
+	pc()->player.plane_y  = pc()->player.dir_x * 0.66;
+}
+
+void clear_image()
+{
+	int x;
+	int y;
+
+	y = 0;
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+			put_pixel(x++, y, 0x000000);
+		y++;
+	}
+}
+
 void draw_square(int x, int y, int size, int color)
 {
 	int i;
 	int j;
+	char **a;
 
-	i = 0;
-	while (i < size)
+	a = pc()->map;
+	i = -1;
+	while (++i < size)
 	{
-		j = 0;
-		while (j < size)
-			put_pixel(x + j++, y + i, color);
-		i++;
+		j = -1;
+		while (++j < size)
+		{
+			if (x > 0 && a[y][x - 1] != '1' && i == 0)
+				put_pixel((x * BLOCK) + i, (y * BLOCK) + j, 0x000000);
+			else if (a[y][x + 1] && a[y][x + 1] != '1' && i == size - 1)
+				put_pixel((x * BLOCK) + i, (y * BLOCK) + j, 0x000000);
+			else if (y > 0 && a[y - 1][x] != '1' && j == 0)
+				put_pixel((x * BLOCK) + i, (y * BLOCK) + j, 0x000000);
+			else if (a[y + 1] && a[y + 1][x] != '1' && j == size - 1)
+				put_pixel((x * BLOCK) + i, (y * BLOCK) + j, 0x000000);
+			else
+				put_pixel((x * BLOCK) + i, (y * BLOCK) + j, color);
+		}
 	}
 }
 
-void init_player(void)
+void find_player()
 {
-	pc()->player.x = WIDTH / 2;
-	pc()->player.y = HEIGHT / 2;
+	int x;
+	int y;
+
+	y = -1;
+	while (pc()->map[++y])
+	{
+		x = -1;
+		while (pc()->map[y][++x])
+		{
+			if (pc()->map[y][x] == 'P')
+			{
+				pc()->player.x = x + 0.375;
+				pc()->player.y = y + 0.375;
+				return ;
+			}
+		}
+		
+	}
+}
+
+void draw_checkered_square(int x, int y, int size, int color1, int color2)
+{
+	int i;
+	int j;
+	int cell_size;
+	int cell_x;
+	int cell_y;
+
+	cell_size = size / 2;
+	i = -1;
+	while (++i < size)
+	{
+		j = -1;
+		while (++j < size)
+		{
+			cell_x = i / cell_size;
+			cell_y = j / cell_size;
+			if ((cell_x + cell_y) % 2 == 0)
+				put_pixel(x + i, y + j, color1);
+			else
+				put_pixel(x + i, y + j, color2);
+		}
+	}
 }
 
 void move_player()
 {
-	float speed = 0.5;
-	
+	if (pc()->button.left)
+		pc()->player.angle -= pc()->player.rot_speed;
+	if (pc()->button.right)
+		pc()->player.angle += pc()->player.rot_speed;
+	if (pc()->player.angle > 2 * PI)
+		pc()->player.angle = 0;
+	if (pc()->player.angle < 0)
+		pc()->player.angle = 2 * PI;
+	pc()->player.dir_x = cos(pc()->player.angle);
+	pc()->player.dir_y = sin(pc()->player.angle);
+	pc()->player.plane_x  = -pc()->player.dir_y * 0.66;
+	pc()->player.plane_y  = pc()->player.dir_x * 0.66;
 	if (pc()->button.W)
-		pc()->player.y -= speed;
+	{
+		pc()->player.x += pc()->player.dir_x * pc()->player.move_speed;
+		pc()->player.y += pc()->player.dir_y * pc()->player.move_speed;
+	}
 	if (pc()->button.S)
-		pc()->player.y += speed;
-	if (pc()->button.D)
-		pc()->player.x += speed;
+	{
+		pc()->player.x -= pc()->player.dir_x * pc()->player.move_speed;
+		pc()->player.y -= pc()->player.dir_y * pc()->player.move_speed;
+	}
 	if (pc()->button.A)
-		pc()->player.x -= speed;
+	{
+		pc()->player.x += pc()->player.dir_y * pc()->player.move_speed;
+		pc()->player.y -= pc()->player.dir_x * pc()->player.move_speed;
+	}
+	if (pc()->button.D)
+	{
+		pc()->player.x -= pc()->player.dir_y * pc()->player.move_speed;
+		pc()->player.y += pc()->player.dir_x * pc()->player.move_speed;
+	}
 }
 
-int draw_move(void)
+void draw_player_square(int pixel_x, int pixel_y, int size, int color)
 {
+	int i;
+	int j;
+
+	i = -1;
+	while (++i < size)
+	{
+		j = -1;
+		while (++j < size)
+		{
+			if (i == 0 || i == size - 1 || j == 0 || j == size - 1)
+				put_pixel(pixel_x + i, pixel_y + j, 0x000000);
+			else
+				put_pixel(pixel_x + i, pixel_y + j, color);
+		}
+	}
+}
+
+void draw_map()
+{
+	int x;
+	int y;
+
+	y = 0;
+	while (pc()->map[y])
+	{
+		x = -1;
+		while (pc()->map[y][++x])
+			if (pc()->map[y][x] == '1')
+				draw_square(x, y, BLOCK, 0x7B68EE);
+			else if (pc()->map[y][x] == '0' || pc()->map[y][x] == 'P')
+				draw_checkered_square(x * BLOCK, y * BLOCK, BLOCK, 0xFFFFFF, 0xE6E6FA);
+		y++;
+	}
+}
+
+void draw_line(int x1, int y1, int color)
+{
+	int x0 = pc()->player.x * BLOCK;
+	int y0 = pc()->player.y * BLOCK;
+	int dx = abs(x1 - x0);
+	int dy = abs(y1 - y0);
+	int sx;
+	if (x0 < x1)
+		sx = 1;
+	else
+		sx = -1;
+	int sy;
+	if (y0 < y1)
+		sy = 1;
+	else
+		sy = -1;
+	int err = dx - dy;
+	while (1)
+	{
+		put_pixel(x0, y0, color);
+		if (x0 == x1 && y0 == y1)
+			break;
+		int e2 = 2 * err;
+		if (e2 > -dy)
+		{
+			err -= dy;
+			x0 += sx;
+		}
+		if (e2 < dx)
+		{
+			err += dx;
+			y0 += sy;
+		}
+	}
+}
+
+void ray_cast()
+{
+	int x = 0;
+
+	while (x < WIDTH)
+	{
+		float camerax = 2 * x / (float)WIDTH - 1;
+		int mapx = (int)pc()->player.x;
+		int mapy = (int)pc()->player.y;
+		float raydirx = pc()->player.dir_x + pc()->player.plane_x * camerax;
+		float raydiry = pc()->player.dir_y + pc()->player.plane_y * camerax;
+		if (raydirx == 0)
+			raydirx = 0.0001;
+		if (raydiry == 0)
+			raydiry = 0.0001;	
+		float deltadistx = fabs(1 / raydirx);
+		float deltadisty = fabs(1 / raydiry);
+		int stepx;
+		int stepy;
+		float sidedistx;
+		float sidedisty;
+
+		if (raydirx < 0)
+			(stepx = -1, sidedistx = (pc()->player.x - mapx) * deltadistx);
+		else
+			(stepx = 1, sidedistx = (mapx + 1.0 - pc()->player.x) * deltadistx);
+		if (raydiry < 0)
+			(stepy = -1, sidedisty = (pc()->player.y - mapy) * deltadisty);
+		else
+			(stepy = 1, sidedisty = (mapy + 1.0 - pc()->player.y) * deltadisty);
+		int hit = 0;
+		int side;
+		while (hit == 0)
+		{
+			if (sidedistx < sidedisty)
+				(sidedistx += deltadistx, mapx += stepx, side = 0);
+			else
+				(sidedisty += deltadisty, mapy += stepy, side = 1);
+			if (pc()->map[mapy][mapx] == '1')
+				hit = 1;
+		}
+		float perpwalldist;
+		if (side == 0)
+			perpwalldist = (mapx - pc()->player.x + (1 - stepx) / 2) / raydirx;
+		else
+			perpwalldist = (mapy - pc()->player.y + (1 - stepy) / 2) / raydiry;
+		int lineheight = (int)(HEIGHT / perpwalldist);
+		int drawstart = -lineheight / 2 + HEIGHT / 2;
+		if (drawstart < 0)
+			drawstart = 0;
+		int drawend = lineheight / 2 + HEIGHT / 2;
+		if (drawend >= HEIGHT)
+			drawend = HEIGHT - 1;
+		int color;
+		if (side == 0)
+			color = 0xFF0000;
+		else
+			color = 0x880000;
+		int y = drawstart;
+		while (y < drawend)
+		{
+			put_pixel(x, y, color);
+			y++;
+		}
+		/* float wallx = pc()->player.x + raydirx * perpwalldist;
+		float wally = pc()->player.y + raydiry * perpwalldist;
+		draw_line(wallx * BLOCK, wally * BLOCK, 0xFF0000); */
+		x++;
+	}
+}
+
+int draw_move()
+{
+	clear_image();
 	move_player();
-	draw_square(pc()->player.x, pc()->player.y, 10, 0xFF00FF);
+	draw_map();
+	draw_player_square(pc()->player.x * BLOCK, pc()->player.y * BLOCK, BLOCK / 2, 0xff0000);
+	ray_cast();
 	mlx_put_image_to_window(pc()->mlx, pc()->win, pc()->image.image, 0, 0);
 	return (0);
 }
 
 int	main(void)
 {
-	init_player();
 	pc()->mlx = mlx_init();
 	pc()->win = mlx_new_window(pc()->mlx, WIDTH, HEIGHT, "cub3d");
 	pc()->image.image = mlx_new_image(pc()->mlx, WIDTH, HEIGHT);
 	pc()->image.addr = mlx_get_data_addr(pc()->image.image, &pc()->image.bpp,
 			&pc()->image.line_lenght, &pc()->image.endian);
+	init_player_map();
+	printf("%f %f\n", pc()->player.x, pc()->player.y);
 	mlx_put_image_to_window(pc()->mlx, pc()->win, pc()->image.image, 0, 0);
-	create_map_player();
-	//draw_square(WIDTH / 2, HEIGHT / 2, 10, 0xFF00FF);
 	mlx_hook(pc()->win, 2, 1L << 0, key_press, NULL);
 	mlx_hook(pc()->win, 3, 1L << 1, key_release, NULL);
 	mlx_hook(pc()->win, 17, 0, end_window, NULL);
