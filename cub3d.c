@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 12:10:34 by praders           #+#    #+#             */
-/*   Updated: 2025/10/24 19:19:53 by praders          ###   ########.fr       */
+/*   Updated: 2025/10/27 16:21:25 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ void init_player_map()
 	pc()->map[10] = NULL;
 
 	find_player();
-	pc()->player.move_speed = 0.03;
-	pc()->player.rot_speed = 0.03;
+	pc()->player.move_speed = 0.02;
+	pc()->player.rot_speed = 0.02;
 	pc()->player.angle = PI * 1.5;
 	pc()->player.dir_x = cos(pc()->player.angle);
 	pc()->player.dir_y = sin(pc()->player.angle);
@@ -222,31 +222,17 @@ void move_player()
 		newx -= pc()->player.dir_y * pc()->player.move_speed;
 		newy += pc()->player.dir_x * pc()->player.move_speed;
 	}
-	int start_x = (int)newx;
-	int end_x = (int)(newx + 0.5);
-	int start_y = (int)newy;
-	int end_y = (int)(newy + 0.5);
-	
-	for (int ty = start_y; ty <= end_y; ty++)
-	{
-		for (int tx = start_x; tx <= end_x; tx++)
-		{
-			if (pc()->map[ty][tx] == '1')
-				return;
-		}
-	}
-
-	pc()->player.x = newx;
-	pc()->player.y = newy;
-	/* float margin = 0.02;
-	if (pc()->map[(int)(newy + margin)][(int)(newx + margin)] != '1' && 
-		pc()->map[(int)(newy + 0.5 - margin)][(int)(newx + margin)] != '1' &&
-		pc()->map[(int)(newy + margin)][(int)(newx + 0.5 - margin)] != '1' && 
-		pc()->map[(int)(newy + 0.5 - margin)][(int)(newx + 0.5 - margin)] != '1')
-	{
+	float check = 0.5 - pc()->player.move_speed;
+	if (pc()->map[(int)(pc()->player.y)][(int)(newx)] != '1' && 
+		pc()->map[(int)(pc()->player.y + check)][(int)(newx)] != '1' &&
+		pc()->map[(int)(pc()->player.y)][(int)(newx + check)] != '1' && 
+		pc()->map[(int)(pc()->player.y + check)][(int)(newx + check)] != '1')
 		pc()->player.x = newx;
+	if (pc()->map[(int)(newy)][(int)(pc()->player.x)] != '1' && 
+		pc()->map[(int)(newy + check)][(int)(pc()->player.x)] != '1' &&
+		pc()->map[(int)(newy)][(int)(pc()->player.x + check)] != '1' && 
+		pc()->map[(int)(newy + check)][(int)(pc()->player.x + check)] != '1')
 		pc()->player.y = newy;
-	} */
 }
 
 void draw_player_square(int pixel_x, int pixel_y, int size, int color)
@@ -325,72 +311,60 @@ void draw_line(int x1, int y1, int color)
 void ray_cast()
 {
 	int x = 0;
+	t_ray ray;
 
+	ft_memset(&ray, 0, sizeof(t_ray));
 	while (x < WIDTH)
 	{
-		float camerax = 2 * x / (float)WIDTH - 1;
-		float player_center_x = pc()->player.x + 0.25;
-		float player_center_y = pc()->player.y + 0.25;
-		int mapx = (int)player_center_x;
-		int mapy = (int)player_center_y;
-		float raydirx = pc()->player.dir_x + pc()->player.plane_x * camerax;
-		float raydiry = pc()->player.dir_y + pc()->player.plane_y * camerax;
-		if (raydirx == 0)
-			raydirx = 0.0001;
-		if (raydiry == 0)
-			raydiry = 0.0001;	
-		float deltadistx = fabs(1 / raydirx);
-		float deltadisty = fabs(1 / raydiry);
-		int stepx;
-		int stepy;
-		float sidedistx;
-		float sidedisty;
-
-		if (raydirx < 0)
-			(stepx = -1, sidedistx = (player_center_x - mapx) * deltadistx);
+		ray.camerax = 2 * x / (float)WIDTH - 1;
+		ray.pctrx = pc()->player.x + 0.25;
+		ray.pctry = pc()->player.y + 0.25;
+		int mapx = (int)ray.pctrx;
+		int mapy = (int)ray.pctry;
+		ray.raydirx = pc()->player.dir_x + pc()->player.plane_x * ray.camerax;
+		ray.raydiry = pc()->player.dir_y + pc()->player.plane_y * ray.camerax;
+		if (ray.raydirx == 0)
+			ray.raydirx = 0.0001;
+		if (ray.raydiry == 0)
+			ray.raydiry = 0.0001;	
+		ray.ddistx = fabs(1 / ray.raydirx);
+		ray.ddisty = fabs(1 / ray.raydiry);
+		if (ray.raydirx < 0)
+			(ray.stepx = -1, ray.sdistx = (ray.pctrx - mapx) * ray.ddistx);
 		else
-			(stepx = 1, sidedistx = (mapx + 1.0 - player_center_x) * deltadistx);
-		if (raydiry < 0)
-			(stepy = -1, sidedisty = (player_center_y - mapy) * deltadisty);
+			(ray.stepx = 1, ray.sdistx = (mapx + 1.0 - ray.pctrx) * ray.ddistx);
+		if (ray.raydiry < 0)
+			(ray.stepy = -1, ray.sdisty = (ray.pctry - mapy) * ray.ddisty);
 		else
-			(stepy = 1, sidedisty = (mapy + 1.0 - player_center_y) * deltadisty);
+			(ray.stepy = 1, ray.sdisty = (mapy + 1.0 - ray.pctry) * ray.ddisty);
 		int hit = 0;
-		int side;
 		while (hit == 0)
 		{
-			if (sidedistx < sidedisty)
-				(sidedistx += deltadistx, mapx += stepx, side = 0);
+			if (ray.sdistx < ray.sdisty)
+				(ray.sdistx += ray.ddistx, mapx += ray.stepx, ray.side = 0);
 			else
-				(sidedisty += deltadisty, mapy += stepy, side = 1);
+				(ray.sdisty += ray.ddisty, mapy += ray.stepy, ray.side = 1);
 			if (pc()->map[mapy][mapx] == '1')
 				hit = 1;
 		}
-		float perpwalldist;
-		if (side == 0)
-			perpwalldist = (mapx - player_center_x + (1 - stepx) / 2) / raydirx;
+		if (ray.side == 0)
+			ray.perpwalldist = (mapx - ray.pctrx + (1 - ray.stepx) / 2) / ray.raydirx;
 		else
-			perpwalldist = (mapy - player_center_y + (1 - stepy) / 2) / raydiry;
-		int lineheight = (int)(HEIGHT / perpwalldist);
-		int drawstart = -lineheight / 2 + HEIGHT / 2;
-		if (drawstart < 0)
-			drawstart = 0;
-		int drawend = lineheight / 2 + HEIGHT / 2;
-		if (drawend >= HEIGHT)
-			drawend = HEIGHT - 1;
+			ray.perpwalldist = (mapy - ray.pctry + (1 - ray.stepy) / 2) / ray.raydiry;
+		ray.lineheight = (int)(HEIGHT / ray.perpwalldist);
+		ray.drawstart = -ray.lineheight / 2 + HEIGHT / 2;
+		if (ray.drawstart < 0)
+			ray.drawstart = 0;
+		ray.drawend = ray.lineheight / 2 + HEIGHT / 2;
+		if (ray.drawend >= HEIGHT)
+			ray.drawend = HEIGHT - 1;
 		int color;
-		if (side == 0)
+		if (ray.side == 0)
 			color = 0xFF0000;
 		else
 			color = 0x880000;
-		int y = drawstart;
-		while (y < drawend)
-		{
-			put_pixel(x, y, color);
-			y++;
-		}
-		/* float wallx = pc()->player.x + raydirx * perpwalldist;
-		float wally = pc()->player.y + raydiry * perpwalldist;
-		draw_line(wallx * BLOCK, wally * BLOCK, 0xFF0000); */
+		while (ray.drawstart <= ray.drawend)
+			put_pixel(x, ray.drawstart++, color);
 		x++;
 	}
 }
