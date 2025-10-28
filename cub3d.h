@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 12:07:57 by praders           #+#    #+#             */
-/*   Updated: 2025/10/27 16:18:15 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/10/28 14:24:19 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,17 @@ typedef struct s_ray
 	int			side;
 }				t_ray;
 
+typedef struct s_asset
+{
+	void		*image;
+	char		*addr;
+	int			width;
+	int			height;
+	int			bpp;
+	int			line_lenght;
+	int			endian;
+}				t_asset;
+
 typedef struct s_image
 {
 	void		*image;
@@ -103,6 +114,10 @@ typedef struct s_game
 	t_player	player;
 	t_image		image;
 	t_buttons	button;
+	t_asset		wall_n;
+	t_asset		wall_s;
+	t_asset		wall_e;
+	t_asset		wall_o;
 }				t_game;
 
 void			put_pixel(int x, int y, int color);
@@ -122,5 +137,6 @@ void			draw_player_square(int pixel_x, int pixel_y, int size,
 void			find_player(void);
 void			ray_cast(void);
 void			draw_line(int x1, int y1, int color);
+int				draw_move();
 
 #endif

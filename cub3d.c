@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 12:10:34 by praders           #+#    #+#             */
-/*   Updated: 2025/10/27 16:21:25 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/10/28 14:55:46 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -351,20 +351,51 @@ void ray_cast()
 			ray.perpwalldist = (mapx - ray.pctrx + (1 - ray.stepx) / 2) / ray.raydirx;
 		else
 			ray.perpwalldist = (mapy - ray.pctry + (1 - ray.stepy) / 2) / ray.raydiry;
+		float wallx;
+		if (ray.side == 0)
+			wallx = ray.pctry + ray.perpwalldist * ray.raydiry;
+		else
+			wallx = ray.pctrx + ray.perpwalldist * ray.raydirx;
+		wallx -= (int)wallx;
 		ray.lineheight = (int)(HEIGHT / ray.perpwalldist);
 		ray.drawstart = -ray.lineheight / 2 + HEIGHT / 2;
+		int y = ray.drawstart;
 		if (ray.drawstart < 0)
 			ray.drawstart = 0;
 		ray.drawend = ray.lineheight / 2 + HEIGHT / 2;
 		if (ray.drawend >= HEIGHT)
 			ray.drawend = HEIGHT - 1;
+		int texx = wallx * pc()->wall_n.width;
+		float step = (float)pc()->wall_n.height / ray.lineheight;
+		float texpos = (ray.drawstart - y) * step;
+		int index;
 		int color;
-		if (ray.side == 0)
-			color = 0xFF0000;
-		else
-			color = 0x880000;
 		while (ray.drawstart <= ray.drawend)
-			put_pixel(x, ray.drawstart++, color);
+		{
+			int texy = (int)texpos;
+			if (ray.side == 0)
+			{
+				if (ray.raydirx > 0)
+					(index = texy * pc()->wall_e.line_lenght + texx * (pc()->wall_e.bpp / 8), color = *(int *)(pc()->wall_e.addr + index));
+				else
+					(index = texy * pc()->wall_o.line_lenght + texx * (pc()->wall_o.bpp / 8), color = *(int *)(pc()->wall_o.addr + index));
+			}
+			else
+			{
+				if (ray.raydiry > 0)
+					(index = texy * pc()->wall_s.line_lenght + texx * (pc()->wall_s.bpp / 8), color = *(int *)(pc()->wall_s.addr + index));
+				else
+					(index = texy * pc()->wall_n.line_lenght + texx * (pc()->wall_n.bpp / 8), color = *(int *)(pc()->wall_n.addr + index));
+			}
+			float brightness = 1.0 - (ray.perpwalldist / 10.0);
+			if (brightness < 0.2)
+				brightness = 0.2;
+			int darker_color = ((int)(((color >> 16) & 0xFF) * brightness) << 16) |
+				((int)(((color >> 8) & 0xFF) * brightness) << 8) |
+				(int)((color & 0xFF) * brightness);
+			put_pixel(x, ray.drawstart++, darker_color);
+			texpos += step;
+		}
 		x++;
 	}
 }
@@ -380,13 +411,30 @@ int draw_move()
 	return (0);
 }
 
+void init_images()
+{
+	pc()->image.image = mlx_new_image(pc()->mlx, WIDTH, HEIGHT);
+	pc()->image.addr = mlx_get_data_addr(pc()->image.image, &pc()->image.bpp,
+			&pc()->image.line_lenght, &pc()->image.endian);
+	pc()->wall_n.image = mlx_xpm_file_to_image(pc()->mlx, "assets/wall.xpm", &pc()->wall_n.width, &pc()->wall_n.height);
+	pc()->wall_n.addr = mlx_get_data_addr(pc()->wall_n.image, &pc()->wall_n.bpp,
+			&pc()->wall_n.line_lenght, &pc()->wall_n.endian);
+	pc()->wall_s.image = mlx_xpm_file_to_image(pc()->mlx, "assets/wall_s.xpm", &pc()->wall_s.width, &pc()->wall_s.height);
+	pc()->wall_s.addr = mlx_get_data_addr(pc()->wall_s.image, &pc()->wall_s.bpp,
+			&pc()->wall_s.line_lenght, &pc()->wall_s.endian);
+	pc()->wall_e.image = mlx_xpm_file_to_image(pc()->mlx, "assets/wall_e.xpm", &pc()->wall_e.width, &pc()->wall_e.height);
+	pc()->wall_e.addr = mlx_get_data_addr(pc()->wall_e.image, &pc()->wall_e.bpp,
+			&pc()->wall_e.line_lenght, &pc()->wall_e.endian);
+	pc()->wall_o.image = mlx_xpm_file_to_image(pc()->mlx, "assets/wall_o.xpm", &pc()->wall_o.width, &pc()->wall_o.height);
+	pc()->wall_o.addr = mlx_get_data_addr(pc()->wall_o.image, &pc()->wall_o.bpp,
+			&pc()->wall_o.line_lenght, &pc()->wall_o.endian);
+}
+
 int	main(void)
 {
 	pc()->mlx = mlx_init();
 	pc()->win = mlx_new_window(pc()->mlx, WIDTH, HEIGHT, "cub3d");
-	pc()->image.image = mlx_new_image(pc()->mlx, WIDTH, HEIGHT);
-	pc()->image.addr = mlx_get_data_addr(pc()->image.image, &pc()->image.bpp,
-			&pc()->image.line_lenght, &pc()->image.endian);
+	init_images();
 	init_player_map();
 	mlx_put_image_to_window(pc()->mlx, pc()->win, pc()->image.image, 0, 0);
 	mlx_hook(pc()->win, 2, 1L << 0, key_press, NULL);
