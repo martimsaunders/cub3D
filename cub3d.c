@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 12:10:34 by praders           #+#    #+#             */
-/*   Updated: 2025/10/28 14:55:46 by praders          ###   ########.fr       */
+/*   Updated: 2025/10/29 11:41:43 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void init_player_map()
 	find_player();
 	pc()->player.move_speed = 0.02;
 	pc()->player.rot_speed = 0.02;
-	pc()->player.angle = PI * 1.5;
+	pc()->player.angle = PI * 2;
 	pc()->player.dir_x = cos(pc()->player.angle);
 	pc()->player.dir_y = sin(pc()->player.angle);
 	pc()->player.plane_x  = -pc()->player.dir_y * 0.66;
