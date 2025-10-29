@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: praders <praders@student.42.fr>            +#+  +:+       +#+         #
+#    By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/20 12:20:09 by praders           #+#    #+#              #
-#    Updated: 2025/10/20 13:44:45 by praders          ###   ########.fr        #
+#    Updated: 2025/10/29 16:41:06 by mprazere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ MLX_DIR = ./libraries/minilibx-linux
 LIBFT = $(LIBFT_DIR)/libft.a
 MLX = $(MLX_DIR)/libmlx.a
 
-SRCS = cub3d.c
+SRCS = cub3d.c cub_init_everything.c cub_error.c cub_hook.c cub_draw_map.c \
+cub_move_player.c cub_ray_cast.c cub_ray_cast_utils.c
 
 OBJ_DIR = obj
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))

@@ -6,13 +6,12 @@
 /*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 12:07:57 by praders           #+#    #+#             */
-/*   Updated: 2025/10/29 11:35:46 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/10/29 17:59:21 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
-
 # include "libraries/libft/libft.h"
 # include "libraries/minilibx-linux/mlx.h"
 # include <X11/X.h>
@@ -28,6 +27,7 @@
 # define HEIGHT 720
 # define BLOCK 32
 # define PI 3.14159265359
+# define FOV 1
 
 typedef struct s_enemy
 {
@@ -84,6 +84,19 @@ typedef struct s_ray
 	int			side;
 }				t_ray;
 
+typedef struct s_tex
+{
+	float		wallx;
+	int			texx;
+	int			texy;
+	float		step;
+	float		texpos;
+	int			index;
+	int			color;
+	float		brightness;
+	int			darker_color;
+}				t_tex;
+
 typedef struct s_asset
 {
 	void		*image;
@@ -102,6 +115,10 @@ typedef struct s_image
 	int			bpp;
 	int			line_lenght;
 	int			endian;
+	t_asset		wall_n;
+	t_asset		wall_s;
+	t_asset		wall_e;
+	t_asset		wall_o;
 }				t_image;
 
 typedef struct s_game
@@ -114,10 +131,6 @@ typedef struct s_game
 	t_player	player;
 	t_image		image;
 	t_buttons	button;
-	t_asset		wall_n;
-	t_asset		wall_s;
-	t_asset		wall_e;
-	t_asset		wall_o;
 }				t_game;
 
 void			put_pixel(int x, int y, int color);
@@ -126,7 +139,6 @@ int				key_press(int keycode);
 int				key_release(int keycode);
 int				end_window(void);
 void			init_player_map(void);
-void			clear_image(void);
 void			draw_square(int x, int y, int size, int color);
 void			move_player(void);
 void			draw_map(void);
@@ -136,7 +148,21 @@ void			draw_player_square(int pixel_x, int pixel_y, int size,
 					int color);
 void			find_player(void);
 void			ray_cast(void);
-void			draw_line(int x1, int y1, int color);
-int				draw_move();
+int				draw_move(void);
+void			init_images(void);
+void			destroy_everything(int exit_status);
+void			init_game(void);
+void			hook_and_loop(void);
+void			calculate_player_values(void);
+void			check_collision(float newx, float newy);
+void			set_ray_values_hit(t_ray *ray, int x);
+void			check_wall(t_ray *ray, int hit);
+void			set_tex_values(t_ray *ray, t_tex *tex);
+void			put_brightness(t_ray *ray, t_tex *tex, int x);
+void			draw_e_o_wall(t_ray *ray, t_tex *tex);
+void			draw_n_s_wall(t_ray *ray, t_tex *tex);
+void			draw_line(t_ray *ray, t_tex *tex, int x);
+void			free_array(void);
+void			find_steps(t_ray *ray);
 
 #endif
