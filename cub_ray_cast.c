@@ -6,7 +6,7 @@
 /*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 15:27:44 by mprazere          #+#    #+#             */
-/*   Updated: 2025/10/30 11:13:52 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/10/30 16:01:05 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	ray_cast(void)
 	int		x;
 	t_ray	ray;
 	t_tex	tex;
+	float	zbuffer[WIDTH];
 
 	x = 0;
 	ft_memset(&ray, 0, sizeof(t_ray));
@@ -81,6 +82,7 @@ void	ray_cast(void)
 		set_tex_values(&ray, &tex);
 		draw_ceiling_floor(ray, x);
 		draw_line(&ray, &tex, x);
+		zbuffer[x] = ray.perpwalldist;
 		x++;
 	}
 }

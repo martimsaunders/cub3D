@@ -6,7 +6,7 @@
 /*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 11:35:23 by mprazere          #+#    #+#             */
-/*   Updated: 2025/10/30 11:38:02 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/10/30 16:23:55 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define HEIGHT 720
 # define BLOCK 32
 # define PI 3.14159265359
-# define FOV 1
+# define FOV 0.66
 
 typedef struct s_enemy
 {
@@ -129,7 +129,7 @@ typedef struct s_game
 	char		**map;
 	void		*mlx;
 	void		*win;
-	t_enemy		*enemies;
+	t_enemy		enemies[3];
 	t_image		image;
 	t_player	player;
 	t_buttons	button;

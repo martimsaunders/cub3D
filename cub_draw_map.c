@@ -6,7 +6,7 @@
 /*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:56:33 by mprazere          #+#    #+#             */
-/*   Updated: 2025/10/30 11:38:45 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/10/30 16:25:45 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,11 @@ void	draw_map(void)
 		{
 			if (pc()->map[y][x] == '1')
 				draw_square(x, y, BLOCK, 0x7B68EE);
-			else if (pc()->map[y][x] == '0' || pc()->map[y][x] == 'P')
+			else if (pc()->map[y][x] != '1')
 				draw_checkered_square(x * BLOCK, y * BLOCK, BLOCK, 0xFFFFFF,
 					0xE6E6FA);
+			if (pc()->map[y][x] == 'E')
+				draw_player_square((x + 0.25) * BLOCK, (y + 0.25) * BLOCK, BLOCK / 2, 0x00FF00);
 		}
 		y++;
 	}
