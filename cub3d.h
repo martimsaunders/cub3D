@@ -6,7 +6,7 @@
 /*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 12:07:57 by praders           #+#    #+#             */
-/*   Updated: 2025/10/29 17:59:21 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/10/30 11:29:35 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,20 @@
 
 typedef struct s_enemy
 {
+	int			direction;
 	float		x;
 	float		y;
 	float		min_x;
 	float		min_y;
 	float		speed;
-	int			direction;
 }				t_enemy;
 
 typedef struct s_buttons
 {
-	bool		A;
-	bool		W;
-	bool		S;
-	bool		D;
+	bool		a;
+	bool		d;
+	bool		s;
+	bool		w;
 	bool		left;
 	bool		right;
 }				t_buttons;
@@ -64,105 +64,128 @@ typedef struct s_player
 
 typedef struct s_ray
 {
-	float		camerax;
-	float		pctrx;
-	float		pctry;
 	int			mapx;
 	int			mapy;
-	float		raydirx;
-	float		raydiry;
-	float		ddistx;
-	float		ddisty;
+	int			side;
 	int			stepx;
 	int			stepy;
+	int			drawend;
+	int			drawstart;
+	int			lineheight;
+	float		pctrx;
+	float		pctry;
+	float		ddistx;
+	float		ddisty;
 	float		sdistx;
 	float		sdisty;
+	float		raydirx;
+	float		raydiry;
+	float		camerax;
 	float		perpwalldist;
-	int			lineheight;
-	int			drawstart;
-	int			drawend;
-	int			side;
 }				t_ray;
 
 typedef struct s_tex
 {
-	float		wallx;
 	int			texx;
 	int			texy;
-	float		step;
-	float		texpos;
-	int			index;
 	int			color;
-	float		brightness;
+	int			index;
 	int			darker_color;
+	float		step;
+	float		wallx;
+	float		texpos;
+	float		brightness;
 }				t_tex;
 
 typedef struct s_asset
 {
-	void		*image;
-	char		*addr;
-	int			width;
-	int			height;
 	int			bpp;
-	int			line_lenght;
+	int			width;
 	int			endian;
+	int			height;
+	int			line_lenght;
+	char		*addr;
+	void		*image;
 }				t_asset;
 
 typedef struct s_image
 {
-	void		*image;
-	char		*addr;
 	int			bpp;
-	int			line_lenght;
+	int			floor;
 	int			endian;
-	t_asset		wall_n;
-	t_asset		wall_s;
+	int			ceiling;
+	int			line_lenght;
+	char		*addr;
+	void		*image;
 	t_asset		wall_e;
+	t_asset		wall_n;
 	t_asset		wall_o;
+	t_asset		wall_s;
 }				t_image;
 
 typedef struct s_game
 {
+	int			enemy_count;
+	char		**map;
 	void		*mlx;
 	void		*win;
-	char		**map;
-	int			enemy_count;
 	t_enemy		*enemies;
-	t_player	player;
 	t_image		image;
+	t_player	player;
 	t_buttons	button;
 }				t_game;
 
-void			put_pixel(int x, int y, int color);
-t_game			*pc(void);
-int				key_press(int keycode);
-int				key_release(int keycode);
-int				end_window(void);
-void			init_player_map(void);
-void			draw_square(int x, int y, int size, int color);
-void			move_player(void);
+// cub_draw_map.c
 void			draw_map(void);
-void			draw_checkered_square(int x, int y, int size, int color1,
-					int color2);
+void			put_pixel(int x, int y, int color);
+void			draw_square(int x, int y, int size, int color);
 void			draw_player_square(int pixel_x, int pixel_y, int size,
 					int color);
-void			find_player(void);
-void			ray_cast(void);
-int				draw_move(void);
-void			init_images(void);
+void			draw_checkered_square(int x, int y, int size, int color1,
+					int color2);
+
+// cub_error.c
+int				end_window(void);
+void			free_array(void);
 void			destroy_everything(int exit_status);
-void			init_game(void);
+
+// cub_hook.c
+int				draw_move(void);
+int				key_press(int keycode);
+int				key_release(int keycode);
 void			hook_and_loop(void);
+
+// cub_init_everything.c
+void			safe_image(char *str, t_asset *asset, t_image *image, int type);
+void			safe_address(t_asset *asset, t_image *image, int type);
+void			init_images(void);
+void			init_game(void);
+
+// cub_move_player.c
+void			move_player(void);
 void			calculate_player_values(void);
 void			check_collision(float newx, float newy);
-void			set_ray_values_hit(t_ray *ray, int x);
+
+// cub_ray_cast_cf.c
+int				put_brightness_cf(int color, float distance);
+void			draw_ceiling_floor(t_ray ray, int x);
+
+// cub_ray_cast_utils.c
+void			find_steps(t_ray *ray);
 void			check_wall(t_ray *ray, int hit);
-void			set_tex_values(t_ray *ray, t_tex *tex);
-void			put_brightness(t_ray *ray, t_tex *tex, int x);
 void			draw_e_o_wall(t_ray *ray, t_tex *tex);
 void			draw_n_s_wall(t_ray *ray, t_tex *tex);
+void			put_brightness_wall(t_ray *ray, t_tex *tex, int x);
+
+// cub_ray_cast.c
+void			ray_cast(void);
+void			set_ray_values_hit(t_ray *ray, int x);
+void			set_tex_values(t_ray *ray, t_tex *tex);
 void			draw_line(t_ray *ray, t_tex *tex, int x);
-void			free_array(void);
-void			find_steps(t_ray *ray);
+
+// cub3d.c
+void			find_player(void);
+void			init_player_map(void);
+t_game			*pc(void);
 
 #endif

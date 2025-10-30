@@ -6,7 +6,7 @@
 /*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 12:10:34 by praders           #+#    #+#             */
-/*   Updated: 2025/10/29 17:02:37 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/10/30 10:37:27 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,15 @@ void	init_player_map(void)
 	pc()->map[9] = "1111111111";
 	pc()->map[10] = NULL;
 	find_player();
-	pc()->player.move_speed = 0.02;
+	pc()->player.move_speed = 0.025;
 	pc()->player.rot_speed = 0.02;
 	pc()->player.angle = PI * 2;
 	pc()->player.dir_x = cos(pc()->player.angle);
 	pc()->player.dir_y = sin(pc()->player.angle);
 	pc()->player.plane_x = -pc()->player.dir_y * 0.66;
 	pc()->player.plane_y = pc()->player.dir_x * 0.66;
+	pc()->image.floor = 0xFF0000;
+	pc()->image.ceiling = 0x00FF00;
 }
 
 void	find_player(void)

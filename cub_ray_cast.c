@@ -6,7 +6,7 @@
 /*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 15:27:44 by mprazere          #+#    #+#             */
-/*   Updated: 2025/10/29 17:30:37 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/10/30 11:13:52 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	draw_line(t_ray *ray, t_tex *tex, int x)
 			draw_e_o_wall(ray, tex);
 		else
 			draw_n_s_wall(ray, tex);
-		put_brightness(ray, tex, x);
+		put_brightness_wall(ray, tex, x);
 	}
 }
 
@@ -79,6 +79,7 @@ void	ray_cast(void)
 	{
 		set_ray_values_hit(&ray, x);
 		set_tex_values(&ray, &tex);
+		draw_ceiling_floor(ray, x);
 		draw_line(&ray, &tex, x);
 		x++;
 	}

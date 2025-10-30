@@ -6,7 +6,7 @@
 /*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 16:38:15 by mprazere          #+#    #+#             */
-/*   Updated: 2025/10/29 17:36:50 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/10/30 11:11:58 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	draw_n_s_wall(t_ray *ray, t_tex *tex)
 	}
 }
 
-void	put_brightness(t_ray *ray, t_tex *tex, int x)
+void	put_brightness_wall(t_ray *ray, t_tex *tex, int x)
 {
 	tex->brightness = 1.0 - (ray->perpwalldist / 10.0);
 	if (tex->brightness < 0.2)

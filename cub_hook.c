@@ -6,7 +6,7 @@
 /*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:40:37 by mprazere          #+#    #+#             */
-/*   Updated: 2025/10/29 17:56:07 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/10/30 11:30:32 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ int	key_press(int keycode)
 	if (keycode == XK_Escape)
 		(ft_putstr_fd("You exited the game\n", 1), destroy_everything(0));
 	if (keycode == XK_w)
-		pc()->button.W = true;
+		pc()->button.w = true;
 	if (keycode == XK_a)
-		pc()->button.A = true;
+		pc()->button.a = true;
 	if (keycode == XK_s)
-		pc()->button.S = true;
+		pc()->button.s = true;
 	if (keycode == XK_d)
-		pc()->button.D = true;
+		pc()->button.d = true;
 	if (keycode == XK_Left)
 		pc()->button.left = true;
 	if (keycode == XK_Right)
@@ -43,13 +43,13 @@ int	key_press(int keycode)
 int	key_release(int keycode)
 {
 	if (keycode == XK_w)
-		pc()->button.W = false;
+		pc()->button.w = false;
 	if (keycode == XK_a)
-		pc()->button.A = false;
+		pc()->button.a = false;
 	if (keycode == XK_s)
-		pc()->button.S = false;
+		pc()->button.s = false;
 	if (keycode == XK_d)
-		pc()->button.D = false;
+		pc()->button.d = false;
 	if (keycode == XK_Left)
 		pc()->button.left = false;
 	if (keycode == XK_Right)

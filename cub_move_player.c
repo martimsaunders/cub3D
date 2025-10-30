@@ -6,7 +6,7 @@
 /*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 15:07:38 by mprazere          #+#    #+#             */
-/*   Updated: 2025/10/29 16:49:53 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/10/30 11:30:03 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,22 +53,22 @@ void	move_player(void)
 	calculate_player_values();
 	newx = pc()->player.x;
 	newy = pc()->player.y;
-	if (pc()->button.W)
+	if (pc()->button.w)
 	{
 		newx += pc()->player.dir_x * pc()->player.move_speed;
 		newy += pc()->player.dir_y * pc()->player.move_speed;
 	}
-	if (pc()->button.S)
+	if (pc()->button.s)
 	{
 		newx -= pc()->player.dir_x * pc()->player.move_speed;
 		newy -= pc()->player.dir_y * pc()->player.move_speed;
 	}
-	if (pc()->button.A)
+	if (pc()->button.a)
 	{
 		newx += pc()->player.dir_y * pc()->player.move_speed;
 		newy -= pc()->player.dir_x * pc()->player.move_speed;
 	}
-	if (pc()->button.D)
+	if (pc()->button.d)
 	{
 		newx -= pc()->player.dir_y * pc()->player.move_speed;
 		newy += pc()->player.dir_x * pc()->player.move_speed;
