@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_draw_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:56:33 by mprazere          #+#    #+#             */
-/*   Updated: 2025/10/30 16:25:45 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/10/31 16:29:06 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,12 @@ void	draw_map(void)
 			else if (pc()->map[y][x] != '1')
 				draw_checkered_square(x * BLOCK, y * BLOCK, BLOCK, 0xFFFFFF,
 					0xE6E6FA);
-			if (pc()->map[y][x] == 'E')
-				draw_player_square((x + 0.25) * BLOCK, (y + 0.25) * BLOCK, BLOCK / 2, 0x00FF00);
 		}
 		y++;
 	}
+	y = -1;
+	while (++y < pc()->enemy_count)
+		draw_player_square(pc()->enemies[y].x * BLOCK, pc()->enemies[y].y * BLOCK, BLOCK / 2, 0x00FF00);
 	draw_player_square(pc()->player.x * BLOCK, pc()->player.y * BLOCK, BLOCK
 		/ 2, 0xff0000);
 }

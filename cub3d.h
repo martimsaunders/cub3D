@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 11:35:23 by mprazere          #+#    #+#             */
-/*   Updated: 2025/10/30 16:23:55 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/10/31 17:09:42 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_enemy
 	float		min_x;
 	float		min_y;
 	float		speed;
+	float		distance;
 }				t_enemy;
 
 typedef struct s_buttons
@@ -84,13 +85,31 @@ typedef struct s_ray
 	float		perpwalldist;
 }				t_ray;
 
+typedef struct s_rend
+{
+	int			draw_end_x;	
+	int			draw_end_y;
+	int			draw_start_x;
+	int			draw_start_y;
+	int			sprite_width;
+	int			sprite_height;
+	int			sprite_screen_x;
+	float		spritex;
+	float		spritey;
+	float		invdet;
+	float		transform_x;
+	float		transform_y;
+}				t_rend;
+
 typedef struct s_tex
 {
+	int			x;
+	int			y;
 	int			texx;
 	int			texy;
 	int			color;
 	int			index;
-	int			darker_color;
+	int			sprite_y_pos;
 	float		step;
 	float		wallx;
 	float		texpos;
@@ -117,6 +136,7 @@ typedef struct s_image
 	int			line_lenght;
 	char		*addr;
 	void		*image;
+	t_asset		enemy;
 	t_asset		wall_e;
 	t_asset		wall_n;
 	t_asset		wall_o;
@@ -155,6 +175,11 @@ int				key_press(int keycode);
 int				key_release(int keycode);
 void			hook_and_loop(void);
 
+//cub_move_enemy.c
+int				iswall(float newx, float newy, t_enemy *enemy);
+void			check_enemy_colision(void);
+void			move_enemy(t_enemy *enemy);
+
 // cub_init_everything.c
 void			safe_image(char *str, t_asset *asset, t_image *image, int type);
 void			safe_address(t_asset *asset, t_image *image, int type);
@@ -175,7 +200,7 @@ void			find_steps(t_ray *ray);
 void			check_wall(t_ray *ray, int hit);
 void			draw_e_o_wall(t_ray *ray, t_tex *tex);
 void			draw_n_s_wall(t_ray *ray, t_tex *tex);
-void			put_brightness_wall(t_ray *ray, t_tex *tex, int x);
+void			put_brightness(t_ray *ray, t_tex *tex, t_rend *rend, int x);
 
 // cub_ray_cast.c
 void			ray_cast(void);
@@ -183,9 +208,18 @@ void			set_ray_values_hit(t_ray *ray, int x);
 void			set_tex_values(t_ray *ray, t_tex *tex);
 void			draw_line(t_ray *ray, t_tex *tex, int x);
 
+//cub_sprite_rendering.c
+int				set_rend_values(t_enemy *enemy, t_rend *rend);
+void			sort_enemies(void);
+void			distance(t_enemy *enemy);
+void			sprite_rendering(float zbuffer[WIDTH]);
+void			draw_sprite_columns(t_rend rend, t_tex tex, float zbuffer[WIDTH]);
+
 // cub3d.c
 void			find_player(void);
 void			init_player_map(void);
 t_game			*pc(void);
+
+
 
 #endif

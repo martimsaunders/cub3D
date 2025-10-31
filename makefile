@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+         #
+#    By: praders <praders@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/20 12:20:09 by praders           #+#    #+#              #
-#    Updated: 2025/10/30 11:13:39 by mprazere         ###   ########.fr        #
+#    Updated: 2025/10/31 17:24:58 by praders          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ LIBFT = $(LIBFT_DIR)/libft.a
 MLX = $(MLX_DIR)/libmlx.a
 
 SRCS = cub3d.c cub_init_everything.c cub_error.c cub_hook.c cub_draw_map.c \
-cub_move_player.c cub_ray_cast.c cub_ray_cast_utils.c cub_ray_cast_cf.c
+cub_move_player.c cub_ray_cast.c cub_ray_cast_utils.c cub_ray_cast_cf.c \
+cub_sprite_rendering.c cub_move_enemy.c
 
 OBJ_DIR = obj
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))

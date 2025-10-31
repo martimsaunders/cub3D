@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_ray_cast_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 16:38:15 by mprazere          #+#    #+#             */
-/*   Updated: 2025/10/30 11:11:58 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/10/31 17:21:49 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,28 @@ void	draw_n_s_wall(t_ray *ray, t_tex *tex)
 	}
 }
 
-void	put_brightness_wall(t_ray *ray, t_tex *tex, int x)
+void	put_brightness(t_ray *ray, t_tex *tex, t_rend *rend, int x)
 {
-	tex->brightness = 1.0 - (ray->perpwalldist / 10.0);
-	if (tex->brightness < 0.2)
+	if(rend)
+	{
+		tex->brightness = 1.0 - (rend->transform_y / 10.0);
+		if (tex->brightness < 0.2)
 		tex->brightness = 0.2;
-	tex->darker_color = ((int)(((tex->color >> 16) & 0xFF)
+		tex->color = ((int)(((tex->color >> 16) & 0xFF)
 				* tex->brightness) << 16) | ((int)(((tex->color >> 8) & 0xFF)
 				* tex->brightness) << 8) | (int)((tex->color & 0xFF)
 			* tex->brightness);
-	put_pixel(x, ray->drawstart++, tex->darker_color);
+		put_pixel(tex->x, tex->y, tex->color);
+		return;
+	}
+	tex->brightness = 1.0 - (ray->perpwalldist / 10.0);
+	if (tex->brightness < 0.2)
+		tex->brightness = 0.2;
+	tex->color = ((int)(((tex->color >> 16) & 0xFF)
+				* tex->brightness) << 16) | ((int)(((tex->color >> 8) & 0xFF)
+				* tex->brightness) << 8) | (int)((tex->color & 0xFF)
+			* tex->brightness);
+	put_pixel(x, ray->drawstart++, tex->color);
 	tex->texpos += tex->step;
 }
 

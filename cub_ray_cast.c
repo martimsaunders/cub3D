@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_ray_cast.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 15:27:44 by mprazere          #+#    #+#             */
-/*   Updated: 2025/10/30 16:01:05 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/10/31 15:47:44 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	draw_line(t_ray *ray, t_tex *tex, int x)
 			draw_e_o_wall(ray, tex);
 		else
 			draw_n_s_wall(ray, tex);
-		put_brightness_wall(ray, tex, x);
+		put_brightness(ray, tex, NULL, x);
 	}
 }
 
@@ -85,4 +85,5 @@ void	ray_cast(void)
 		zbuffer[x] = ray.perpwalldist;
 		x++;
 	}
+	sprite_rendering(zbuffer);
 }

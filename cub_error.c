@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_error.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 12:37:26 by mprazere          #+#    #+#             */
-/*   Updated: 2025/10/29 17:30:13 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/10/31 17:24:20 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	destroy_everything(int exit_status)
 {
 	if (pc()->image.image)
 		mlx_destroy_image(pc()->mlx, pc()->image.image);
+	if (pc()->image.enemy.image)
+		mlx_destroy_image(pc()->mlx, pc()->image.enemy.image);
 	if (pc()->image.wall_n.image)
 		mlx_destroy_image(pc()->mlx, pc()->image.wall_n.image);
 	if (pc()->image.wall_s.image)
@@ -35,10 +37,10 @@ void	destroy_everything(int exit_status)
 
 void	free_array(void)
 {
-	int	y;
+	/* int	y;
 
 	y = 0;
-	/* while (pc()->map[y])
+	while (pc()->map[y])
 		free(pc()->map[y++]); */
 	free(pc()->map);
 }
