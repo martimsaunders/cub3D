@@ -40,3 +40,14 @@ int	main(int argc, char **argv)
 	destroy_everything(1);
 	return (0);
 }
+/*
+features
+cam move with mouse
+compass right upper corner
+lifes counter
+change level
+menu de jogo com opçoes de jogo
+ideias
+bussola que mostra a saida
+distancia da saida
+*/

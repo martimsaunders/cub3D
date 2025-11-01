@@ -90,4 +90,3 @@ void draw_mini_map()
     }
     draw_player();
 }
-//comparar com minha versao profundamente e entender porque valor esta ao contrario e nao atualiza
