@@ -1,18 +1,5 @@
 #include "../cub3d.h"
 
-static void map_pixel_put(int x, int y, int color)
-{
-    float angle;
-    float rotx;
-    float roty;
-
-    angle = pc()->player.angle;
-    rotx = x * cos(-angle) - y * sin(-angle);
-    roty = x * sin(-angle) + y * cos(-angle);
-    put_pixel(MAP_RADIUS + rotx, MAP_RADIUS + roty, color);
-    put_pixel(MAP_RADIUS + rotx, MAP_RADIUS + roty + 1, color);
-}
-
 static void draw_player()
 {
     int player_radius = BLOCK / 4;
@@ -33,53 +20,56 @@ static void draw_player()
     }
 }
 
-static void put_floor_wall_pixel(int mapx, int mapy, int x, int y)
+static void put_floor_wall_pixel(int x, int y, t_mmap *m)
 {
-    if(pc()->map[mapy][mapx] == '1') //wall
+    int mapy;
+    int mapx;
+
+    mapy = m->mapy;
+    mapx = m->mapx;
+    if(pc()->map[mapy][mapx] == '1')
     {
-        if (fmod(pc()->player.x + x, BLOCK) == 0.0f) //grid block edge x
-        {
-            if (mapx == 0 || mapx == (int)ft_strlen(pc()->map[mapy]) - 1 || pc()->map[mapy][mapx - 1] != '1' || pc()->map[mapy][mapx + 1] != '1')
-                return (map_pixel_put(x, y, 0x000000));
-        }
-        if (fmod(pc()->player.y + y, BLOCK) == 0.0f) //grid block edge y
-        {
-            if (mapy == 0 || mapy == ps()->map_h || pc()->map[mapy + 1][mapx] != '1' || pc()->map[mapy - 1][mapx] != '1')
-                return (map_pixel_put(x, y, 0x000000));
-        }
-        return (map_pixel_put(x, y, 0x7B68EE));
+        m->frac_x = m->world_x - floor(m->world_x); //pixel x position on the block
+        m->frac_y = m->world_y - floor(m->world_y); //pixel y position on the block
+        m->relx = (int)(m->frac_x * BLOCK); //pixel x relative position on the grid
+        m->rely = (int)(m->frac_y * BLOCK); //pixel y relative position on the grid
+        if (m->relx == 0 && (mapx == 0 || pc()->map[mapy][mapx - 1] != '1')) //left edge
+            return (put_pixel(MAP_RADIUS + x, MAP_RADIUS + y, 0x000000));
+        if (m->relx == BLOCK - 1 && (pc()->map[mapy][mapx + 1] == '\0' || pc()->map[mapy][mapx + 1] != '1')) //right edge
+            return (put_pixel(MAP_RADIUS + x, MAP_RADIUS + y, 0x000000));
+        if (m->rely == 0 && (mapy == 0 || pc()->map[mapy - 1][mapx] != '1')) //up edge
+            return (put_pixel(MAP_RADIUS + x, MAP_RADIUS + y, 0x000000));
+        if (m->rely == BLOCK - 1 && (pc()->map[mapy + 1] == NULL || pc()->map[mapy + 1][mapx] != '1')) //down edge
+            return (put_pixel(MAP_RADIUS + x, MAP_RADIUS + y, 0x000000));
+        return (put_pixel(MAP_RADIUS + x, MAP_RADIUS + y, 0x7B68EE));
     }
-    else
-    {
-        //floor
-        if ((mapx + mapy) % 2 == 0)
-            return (map_pixel_put(x, y, 0xFFFFFF));
-        return (map_pixel_put(x, y, 0xE6E6FA));
-    }
+    if ((mapx + mapy) % 2 == 0)
+        return (put_pixel(MAP_RADIUS + x, MAP_RADIUS + y, 0xFFFFFF));
+    return (put_pixel(MAP_RADIUS + x, MAP_RADIUS + y, 0xE6E6FA));
 }
 
-static void map_element_draw(int x, int y)
+static void map_element_draw(int x, int y, t_mmap *m)
 {
-    int mapx;
-    int mapy;
-
-    mapx = ((int)(pc()->player.x * BLOCK) + x) / BLOCK;
-    mapy = ((int)(pc()->player.y * BLOCK) + y) / BLOCK;
-    if (mapy >= 0 && mapy < ps()->map_h)
+    m->angle = pc()->player.angle + PI / 2;
+    // posição pixel relativo a player e rotação da camera
+    m->world_x = pc()->player.x + 0.25 + (x * cos(m->angle) - y * sin(m->angle)) / BLOCK;
+    m->world_y = pc()->player.y + 0.25 + (x * sin(m->angle) + y * cos(m->angle)) / BLOCK;
+    //coordenadas na grid do pixel
+    m->mapx = (int)floor(m->world_x);
+    m->mapy = (int)floor(m->world_y);
+    if (m->mapy >= 0 && m->mapy < ps()->map_h && m->mapx >= 0 && m->mapx < (int)ft_strlen(pc()->map[m->mapy]))
     {
-        if(mapx >= 0 && mapx < (int)ft_strlen(pc()->map[mapy]))
-        {
-            put_floor_wall_pixel(mapx, mapy, x, y);
-            return ;
-        }
+        put_floor_wall_pixel(x, y, m);
     }
-    map_pixel_put(x, y, 0x000000);
+    else
+        put_pixel(MAP_RADIUS + x, MAP_RADIUS + y, 0x000000);
 }
 
 void draw_mini_map()
 {
     int x;
     int y;
+    t_mmap m;
 
     y = -MAP_RADIUS;
     while (y <= MAP_RADIUS)
@@ -87,8 +77,13 @@ void draw_mini_map()
         x = -MAP_RADIUS;
         while (x <= MAP_RADIUS)
         {
-            if(x*x + y*y <= MAP_RADIUS*MAP_RADIUS)
-                map_element_draw(x, y);
+            if (x * x + y * y <= MAP_RADIUS * MAP_RADIUS)
+            {
+                if (x * x + y * y > (MAP_RADIUS - 2) * (MAP_RADIUS - 2))
+                    put_pixel(MAP_RADIUS + x, MAP_RADIUS + y, 0x000000);
+                else
+                    map_element_draw(x, y, &m);
+            }
             x++;
         }
         y++;

@@ -57,6 +57,6 @@ void	player_set(char orientation, int x, int y)
 		pc()->player.angle = PI;
 	if (orientation == 'S')
 		pc()->player.angle = PI * 0.5;
-	pc()->player.x = x;
-	pc()->player.y = y;
+	pc()->player.x = x + 0.25;
+	pc()->player.y = y + 0.25;
 }

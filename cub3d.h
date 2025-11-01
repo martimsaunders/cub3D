@@ -151,6 +151,19 @@ typedef struct s_parse
 	int map_start_in_fd;
 } t_parse;
 
+typedef struct s_mmap
+{
+	double angle;
+    double world_x;
+    double world_y;
+	double frac_x;
+    double frac_y;
+    int mapx;
+    int mapy;
+	int relx;
+    int rely;
+} t_mmap;
+
 // cub_draw_map.c
 void			draw_map(void);
 void			put_pixel(int x, int y, int color);
