@@ -1,0 +1,51 @@
+#include "../cub3d.h"
+
+t_parse	*ps(void)
+{
+	static t_parse	parse;
+
+	return (&parse);
+}
+
+void	free_cpy(char **array)
+{
+	int	y;
+
+	y = 0;
+	while (array[y])
+		free(array[y++]);
+	free(array);
+}
+
+void	err_msg(char *msg, char *var)
+{
+	ft_putstr_fd("Error\n", 2);
+	if (msg)
+		ft_putstr_fd(msg, 2);
+	if (var)
+		ft_putstr_fd(var, 2);
+	write(2, "\n", 1);
+}
+
+bool	map_file_parsing(char *map_name)
+{
+	int	fd;
+	char *file_type;
+
+	file_type = ft_strrchr(map_name, '.');
+	if (!file_type || ft_strncmp(file_type, ".cub", 5))
+		return (err_msg("map file is not type .cub", NULL), false);
+	fd = open(map_name, O_RDONLY);
+	if (fd == -1)
+		return (ft_putstr_fd("Error\n", 2), perror(map_name), false);
+	if (!valid_map_info(fd, map_name))
+		return (close(fd), false);
+	close(fd);
+	if (!valid_map_characters())
+		return (false);
+	if (!player_check())
+		return (false);
+	if (!surounded_walls())
+		return (false);
+	return (true);
+}

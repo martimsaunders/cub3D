@@ -17,7 +17,12 @@ LIBFT = $(LIBFT_DIR)/libft.a
 MLX = $(MLX_DIR)/libmlx.a
 
 SRCS = cub3d.c cub_init_everything.c cub_error.c cub_hook.c cub_draw_map.c \
-cub_move_player.c cub_ray_cast.c cub_ray_cast_utils.c cub_ray_cast_cf.c
+cub_move_player.c cub_ray_cast.c cub_ray_cast_utils.c cub_ray_cast_cf.c \
+\
+parsing/file_parsing.c parsing/info_parse_utils.c parsing/info_parsing.c \
+parsing/map_parsing.c parsing/set_map.c \
+\
+game_features/mini_map.c
 
 OBJ_DIR = obj
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
@@ -59,6 +64,7 @@ $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
 $(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
+	@mkdir -p $(dir $@)                             # <-- cria subpastas conforme necessário
 	@echo "$(BOLD_BLUE)Compilando $<...$(RESET)"
 	@$(CC) $(CFLAGS) -c $< -o $@
 

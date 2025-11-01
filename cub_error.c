@@ -38,8 +38,8 @@ void	free_array(void)
 	int	y;
 
 	y = 0;
-	/* while (pc()->map[y])
-		free(pc()->map[y++]); */
+	while (pc()->map[y])
+		free(pc()->map[y++]);
 	free(pc()->map);
 }
 

@@ -62,7 +62,8 @@ int	draw_move(void)
 	ft_memset(pc()->image.addr, 0, HEIGHT * pc()->image.line_lenght);
 	move_player();
 	ray_cast();
-	draw_map();
+	// draw_map();
+	draw_mini_map();
 	mlx_put_image_to_window(pc()->mlx, pc()->win, pc()->image.image, 0, 0);
 	return (0);
 }

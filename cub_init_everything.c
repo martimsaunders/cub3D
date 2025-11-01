@@ -34,10 +34,10 @@ void	safe_address(t_asset *asset, t_image *image, int type)
 void	init_images(void)
 {
 	safe_image(NULL, NULL, &pc()->image, 1);
-	safe_image("assets/wall.xpm", &pc()->image.wall_n, NULL, 0);
-	safe_image("assets/wall_s.xpm", &pc()->image.wall_s, NULL, 0);
-	safe_image("assets/wall_e.xpm", &pc()->image.wall_e, NULL, 0);
-	safe_image("assets/wall_o.xpm", &pc()->image.wall_o, NULL, 0);
+	safe_image(pc()->image.wall_n.path, &pc()->image.wall_n, NULL, 0);
+	safe_image(pc()->image.wall_s.path, &pc()->image.wall_s, NULL, 0);
+	safe_image(pc()->image.wall_e.path, &pc()->image.wall_e, NULL, 0);
+	safe_image(pc()->image.wall_o.path, &pc()->image.wall_o, NULL, 0);
 	if (!pc()->image.image || !pc()->image.wall_n.image
 		|| !pc()->image.wall_s.image || !pc()->image.wall_e.image
 		|| !pc()->image.wall_o.image)
@@ -61,5 +61,5 @@ void	init_game(void)
 	if (!pc()->win)
 		(ft_putstr_fd("Error: couldn't initiate window.\n", 2),
 			destroy_everything(1));
-	init_player_map();
+	init_player_values();
 }
