@@ -6,7 +6,7 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:12:15 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/03 12:22:46 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/03 16:56:14 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,23 +46,23 @@ int	find_map_info(char *line)
 		return (get_hex_num(&line[i + 1], &pc()->image.ceiling, &ps()->c_ceil));
 	if (line[i] == '1')
 		return (2);
-	return (err_msg("Wrong identifier (C, F, N, S, E, W) ", &line[i]), 1);
+	return (err_msg("Wrong identifier (C, F, N, S, E, W, e, d) ", line[i]), 1);
 }
 
 bool	check_missing_infos(void)
 {
 	if (!ps()->n_tex)
-		return (err_msg("North texture missing", NULL), true);
+		return (err_msg("North texture missing", 0), true);
 	if (!ps()->e_tex)
-		return (err_msg("East texture missing", NULL), true);
+		return (err_msg("East texture missing", 0), true);
 	if (!ps()->o_tex)
-		return (err_msg("West texture missing", NULL), true);
+		return (err_msg("West texture missing", 0), true);
 	if (!ps()->s_tex)
-		return (err_msg("South texture missing", NULL), true);
+		return (err_msg("South texture missing", 0), true);
 	if (!ps()->c_floor)
-		return (err_msg("Floor color missing", NULL), true);
+		return (err_msg("Floor color missing", 0), true);
 	if (!ps()->c_ceil)
-		return (err_msg("Ceiling color missing", NULL), true);
+		return (err_msg("Ceiling color missing", 0), true);
 	return (false);
 }
 

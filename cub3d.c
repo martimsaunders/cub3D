@@ -6,7 +6,7 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 13:02:26 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/03 13:55:56 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/03 17:10:41 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,25 @@ t_game	*pc(void)
 	return (&pc);
 }
 
-void	reset_level(void)
+void	restart_level(void)
 {
-	for (int i = 0; i < pc()->enemy_count; i++)
+	int i;
+	
+	i = -1;
+	while (++i < pc()->enemy_count)
 	{
-		pc()->enemies[i].x = pc()->begin.enemiesx[i];
-		pc()->enemies[i].y = pc()->begin.enemiesy[i];
+		pc()->enemies[i].x = pc()->start.enemies[i].x;
+		pc()->enemies[i].y = pc()->start.enemies[i].y;
 	}
-	pc()->player.x = pc()->begin.playerx;
-	pc()->player.y = pc()->begin.playery;
-	pc()->player.angle = pc()->begin.p_angle;
+	pc()->player.x = pc()->start.player.x;
+	pc()->player.y = pc()->start.player.y;
+	pc()->player.angle = pc()->start.player.angle;
 }
 
 void	init_caracters_values(void)
 {
+	int i;
+	
 	pc()->player.move_speed = 0.025;
 	pc()->player.rot_speed = 0.02;
 	pc()->player.dir_x = cos(pc()->player.angle);
@@ -40,19 +45,38 @@ void	init_caracters_values(void)
 	pc()->player.plane_x = -pc()->player.dir_y * 0.66;
 	pc()->player.plane_y = pc()->player.dir_x * 0.66;
 	pc()->enemy_count = 3;
-	for (int i = 0; i < pc()->enemy_count; i++)
+	i = -1;
+	while (++i < pc()->enemy_count)
 	{
 		pc()->enemies[i].speed = 0.02;
 		pc()->enemies[i].direction = 1;
 	}
+	//init doors values
 }
 
 int	main(int argc, char **argv)
 {
+	char *line;
+	
 	if (argc != 2)
-		return (err_msg("1 argument only (./map_path)", NULL), 1);
+		return (err_msg("1 argument only (./map_path)", 0), 1);
+	while (1)
+	{
+		ft_printf("Allow bonus features? (y/n)\n");
+		line = get_next_line(0);
+		if (!line)
+			return (perror("Error\n"), 1);
+		if (!ft_strncmp(line, "y\n", 3) || !ft_strncmp(line, "n\n", 3))
+		{
+			if (!ft_strncmp(line, "y\n", 3))
+				ps()->bonus = 1;
+			free(line);
+			break ;
+		}
+		free(line);
+	}
 	if (!map_file_parsing(argv[1]))
-		return (1);
+		destroy_everything(1);
 	init_game();
 	hook_and_loop();
 	destroy_everything(1);

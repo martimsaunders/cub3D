@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:56:18 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/03 14:12:02 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/03 16:51:53 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define BLOCK 32
 # define PI 3.14159265359
 # define FOV 0.66
+# define BONUS_CHAR_LIMIT 10
 
 typedef struct s_enemy
 {
@@ -144,14 +145,11 @@ typedef struct s_image
 	t_asset		wall_s;
 }				t_image;
 
-typedef struct s_begin
+typedef struct s_start
 {
-	float		p_angle;
-	float		playerx;
-	float		playery;
-	float		enemiesx[3];
-	float		enemiesy[3];
-}				t_begin;
+	t_enemy		enemies[BONUS_CHAR_LIMIT];
+	t_player	player;
+}				t_start;
 
 typedef struct s_game
 {
@@ -159,11 +157,11 @@ typedef struct s_game
 	char		**map;
 	void		*mlx;
 	void		*win;
-	t_enemy		enemies[3];
+	t_enemy		enemies[BONUS_CHAR_LIMIT];
 	t_image		image;
 	t_player	player;
 	t_buttons	button;
-	t_begin		begin;
+	t_start		start;
 }				t_game;
 
 typedef struct s_parse
@@ -178,6 +176,7 @@ typedef struct s_parse
 	int			x;
 	int			y;
 	int			map_start_in_fd;
+	int			bonus;
 }				t_parse;
 
 typedef struct s_mmap
@@ -259,14 +258,14 @@ void			draw_sprite_columns(t_rend rend, t_tex tex,
 					float zbuffer[WIDTH]);
 
 // cub3d.c
-void			reset_level(void);
+void			restart_level(void);
 void			init_caracters_values(void);
 t_game			*pc(void);
 
 // parsing
 // file_parsing.c
 bool			map_file_parsing(char *map_name);
-void			err_msg(char *msg, char *var);
+void			err_msg(char *msg, char var);
 void			free_cpy(char **array);
 t_parse			*ps(void);
 
@@ -283,7 +282,7 @@ bool			valid_map_info(int fd, char *map_name);
 
 // map_parsing.c
 bool			valid_map_characters(void);
-bool			player_check(void);
+bool			characters_check(void);
 bool			flood_fill_map(char **map, int x, int y);
 char			**copy_matrix(char **src, int size);
 bool			surounded_walls(void);
@@ -291,7 +290,8 @@ bool			surounded_walls(void);
 // set_map.c
 bool			fill_map(int fd, char *map_name);
 bool			create_map(int fd, char *map_name);
-void			characters_set(char orientation, int x, int y);
+bool			set_characters_values(char orientation, int x, int y);
+void			set_start_values(void);
 
 // game_features
 // mini_map.c

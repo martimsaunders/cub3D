@@ -6,7 +6,7 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 17:06:19 by praders           #+#    #+#             */
-/*   Updated: 2025/11/03 13:54:36 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/03 16:38:30 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	check_enemy_colision(void)
 	{
 		distance(&pc()->enemies[i]);
 		if (pc()->enemies[i].distance < 0.5)
-			return (free_array(), reset_level());
+			return (free_array(), restart_level());
 		i++;
 	}
 }

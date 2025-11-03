@@ -6,7 +6,7 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:03:34 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/03 13:36:59 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/03 17:01:57 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,55 +17,49 @@ bool	valid_map_characters(void)
 	int		y;
 	int		x;
 	char	c;
-	char	**map;
 
-	y = 0;
-	map = pc()->map;
-	while (map[y])
+	y = -1;
+	while (pc()->map[++y])
 	{
-		x = 0;
-		while (map[y][x])
+		x = -1;
+		while (pc()->map[y][++x])
 		{
-			c = map[y][x];
+			c = pc()->map[y][x];
 			if (c != ' ' && c != '\t' && c != '1' && c != '0' && c != '\n')
 			{
-				if (c != 'N' && c != 'S' && c != 'E' && c != 'O' && c != 'e')
-					return (err_msg("Invalid map character: ", &map[y][x]),
-						false);
+				if (c != 'N' && c != 'S' && c != 'E' && c != 'O')
+				{
+					if (!(ps()->bonus && (c == 'e' || c == 'd')))
+						return (err_msg("Invalid map character: ",
+								pc()->map[y][x]), false);
+				}
 			}
-			x++;
 		}
-		y++;
 	}
 	return (true);
 }
 
-bool	player_check(void)
+bool	characters_check(void)
 {
 	int		y;
 	int		x;
 	char	c;
-	int		player_count;
 
-	player_count = 0;
-	y = 0;
-	while (pc()->map[y])
+	y = -1;
+	while (pc()->map[++y])
 	{
-		x = 0;
-		while (pc()->map[y][x])
+		x = -1;
+		while (pc()->map[y][++x])
 		{
 			c = pc()->map[y][x];
-			if (c == 'N' || c == 'S' || c == 'E' || c == 'O')
+			if (c == 'N' || c == 'S' || c == 'E' || c == 'O' || c == 'e'
+				|| c == 'd')
 			{
-				characters_set(c, x, y);
-				player_count++;
+				if (!set_characters_values(c, x, y))
+					return (false);
 			}
-			x++;
 		}
-		y++;
 	}
-	if (player_count != 1)
-		return (err_msg("Invalid number of player", NULL), false);
 	return (true);
 }
 
@@ -79,8 +73,11 @@ bool	flood_fill_map(char **map, int x, int y)
 		return (true);
 	if (map[y][x] != '0')
 	{
-		ret = 1;
-		return (false);
+		if (!(ps()->bonus && (map[y][x] == 'e' || map[y][x] == 'd')))
+		{
+			ret = 1;
+			return (false);
+		}
 	}
 	map[y][x] = '1';
 	flood_fill_map(map, x + 1, y);
@@ -123,7 +120,7 @@ bool	surounded_walls(void)
 		return (perror("Error\n"), false);
 	map_copy[(int)pc()->player.y][(int)pc()->player.x] = '0';
 	if (!flood_fill_map(map_copy, pc()->player.x, pc()->player.y))
-		return (err_msg("Map not surounded by walls", NULL), free_cpy(map_copy),
+		return (err_msg("Map not surounded by walls", 0), free_cpy(map_copy),
 			false);
 	y = -1;
 	while (map_copy[++y])
@@ -133,7 +130,7 @@ bool	surounded_walls(void)
 		{
 			if (map_copy[y][x++] == '0')
 				if (!flood_fill_map(map_copy, x - 1, y))
-					return (err_msg("Map not surounded by walls", NULL),
+					return (err_msg("Map not surounded by walls", 0),
 						free_cpy(map_copy), false);
 		}
 	}

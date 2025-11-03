@@ -6,7 +6,7 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:11:54 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/03 13:55:13 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/03 18:27:22 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,33 @@ bool	is_wall_edge(int mapx, int mapy, t_mmap *m)
 	return (false);
 }
 
+bool put_enemy_pixel(int x, int y, t_mmap *m)
+{
+	int i;
+	float size;
+
+	size = 0.25;
+	i = -1;
+	while (++i < pc()->enemy_count)
+	{
+		if (m->world_x == pc()->enemies[i].x - size || m->world_x == pc()->enemies[i].x + size)
+			return (put_pixel(m->map_radius + x, m->map_radius + y, 0x000000), true);
+		if (m->world_y == pc()->enemies[i].y - size || m->world_y == pc()->enemies[i].y + size)
+			return (put_pixel(m->map_radius + x, m->map_radius + y, 0x000000), true);
+		if (m->world_x > pc()->enemies[i].x - size && m->world_x < pc()->enemies[i].x + size)
+		{
+			if (m->world_y > pc()->enemies[i].y - size && m->world_y < pc()->enemies[i].y + size)
+				return (put_pixel(m->map_radius + x, m->map_radius + y, 0xF4DC0B), true);
+		}
+	}
+	return (false);
+}
+
 // pixel x position on the block
 // pixel y position on the block
 // pixel x relative position on the grid
 // pixel y relative position on the grid
-static void	put_floor_wall_pixel(int x, int y, t_mmap *m)
+static void	put_element_pixel(int x, int y, t_mmap *m)
 {
 	int	mapy;
 	int	mapx;
@@ -75,6 +97,8 @@ static void	put_floor_wall_pixel(int x, int y, t_mmap *m)
 			return (put_pixel(m->map_radius + x, m->map_radius + y, 0x000000));
 		return (put_pixel(m->map_radius + x, m->map_radius + y, 0x7B68EE));
 	}
+	if (put_enemy_pixel(x, y, m))
+		return ;
 	if ((mapx + mapy) % 2 == 0)
 		return (put_pixel(m->map_radius + x, m->map_radius + y, 0xFFFFFF));
 	return (put_pixel(m->map_radius + x, m->map_radius + y, 0xE6E6FA));
@@ -82,7 +106,7 @@ static void	put_floor_wall_pixel(int x, int y, t_mmap *m)
 
 // posição pixel relativo a player e rotação da camera
 // coordenadas na grid do pixel
-static void	map_element_draw(int x, int y, t_mmap *m)
+static void	put_map_pixel(int x, int y, t_mmap *m)
 {
 	m->angle = pc()->player.angle + PI / 2;
 	m->rotx = x * cos(m->angle) - y * sin(m->angle);
@@ -94,7 +118,7 @@ static void	map_element_draw(int x, int y, t_mmap *m)
 	if (m->mapy >= 0 && m->mapy < ps()->map_h && m->mapx >= 0
 		&& m->mapx < (int)ft_strlen(pc()->map[m->mapy]))
 	{
-		put_floor_wall_pixel(x, y, m);
+		put_element_pixel(x, y, m);
 	}
 	else
 		put_pixel(m->map_radius + x, m->map_radius + y, 0x000000);
@@ -118,7 +142,7 @@ void	draw_mini_map(void)
 				if (x * x + y * y > (m.map_radius - 2) * (m.map_radius - 2))
 					put_pixel(m.map_radius + x, m.map_radius + y, 0x000000);
 				else
-					map_element_draw(x, y, &m);
+					put_map_pixel(x, y, &m);
 			}
 			x++;
 		}
