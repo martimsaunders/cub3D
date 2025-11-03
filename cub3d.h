@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:56:18 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/03 13:35:19 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/03 14:12:02 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,6 +248,7 @@ void			ray_cast(void);
 void			set_ray_values_hit(t_ray *ray, int x);
 void			set_tex_values(t_ray *ray, t_tex *tex);
 void			draw_line(t_ray *ray, t_tex *tex, int x);
+void			setup_wall_texture(t_ray *ray, t_tex *tex);
 
 // cub_sprite_rendering.c
 int				set_rend_values(t_enemy *enemy, t_rend *rend);

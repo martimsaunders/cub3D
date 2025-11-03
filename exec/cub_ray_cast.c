@@ -6,7 +6,7 @@
 /*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 15:27:44 by mprazere          #+#    #+#             */
-/*   Updated: 2025/11/03 11:31:14 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/03 14:12:16 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,28 @@ void	set_ray_values_hit(t_ray *ray, int x)
 	check_wall(ray, 0);
 }
 
+void	setup_wall_texture(t_ray *ray, t_tex *tex)
+{
+	t_asset	*wall;
+
+	if (ray->side == 0)
+	{
+		if (ray->raydirx > 0)
+			wall = &pc()->image.wall_e;
+		else
+			wall = &pc()->image.wall_o;
+	}
+	else
+	{
+		if (ray->raydiry > 0)
+			wall = &pc()->image.wall_s;
+		else
+			wall = &pc()->image.wall_n;
+	}
+	tex->texx = tex->wallx * wall->width;
+	tex->step = (float)wall->height / ray->lineheight;
+}
+
 void	set_tex_values(t_ray *ray, t_tex *tex)
 {
 	int	y;
@@ -48,8 +70,7 @@ void	set_tex_values(t_ray *ray, t_tex *tex)
 	ray->drawend = ray->lineheight / 2 + HEIGHT / 2;
 	if (ray->drawend >= HEIGHT)
 		ray->drawend = HEIGHT - 1;
-	tex->texx = tex->wallx * pc()->image.wall_n.width;
-	tex->step = (float)pc()->image.wall_n.height / ray->lineheight;
+	setup_wall_texture(ray, tex);
 	tex->texpos = (ray->drawstart - y) * tex->step;
 }
 
