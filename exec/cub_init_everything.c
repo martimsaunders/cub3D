@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_init_everything.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 11:50:38 by mprazere          #+#    #+#             */
-/*   Updated: 2025/11/03 11:31:00 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/03 13:44:16 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ void	init_images(void)
 {
 	safe_image(NULL, NULL, &pc()->image, 1);
 	safe_image("assets/enemy1.xpm", &pc()->image.enemy, NULL, 0);
-	safe_image("assets/wall.xpm", &pc()->image.wall_n, NULL, 0);
-	safe_image("assets/wall_s.xpm", &pc()->image.wall_s, NULL, 0);
-	safe_image("assets/wall_e.xpm", &pc()->image.wall_e, NULL, 0);
-	safe_image("assets/wall_o.xpm", &pc()->image.wall_o, NULL, 0);
+	safe_image(pc()->image.wall_n.path, &pc()->image.wall_n, NULL, 0);
+	safe_image(pc()->image.wall_n.path, &pc()->image.wall_s, NULL, 0);
+	safe_image(pc()->image.wall_n.path, &pc()->image.wall_e, NULL, 0);
+	safe_image(pc()->image.wall_n.path, &pc()->image.wall_o, NULL, 0);
 	if (!pc()->image.image || !pc()->image.wall_n.image
 		|| !pc()->image.wall_s.image || !pc()->image.wall_e.image
 		|| !pc()->image.wall_o.image || !pc()->image.enemy.image)
@@ -63,5 +63,5 @@ void	init_game(void)
 	if (!pc()->win)
 		(ft_putstr_fd("Error: couldn't initiate window.\n", 2),
 			destroy_everything(1));
-	init_player_map();
+	init_caracters_values();
 }

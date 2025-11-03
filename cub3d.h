@@ -6,7 +6,7 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:56:18 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/03 12:56:20 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/03 13:35:19 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ typedef struct s_ray
 
 typedef struct s_rend
 {
-	int			draw_end_x;	
+	int			draw_end_x;
 	int			draw_end_y;
 	int			draw_start_x;
 	int			draw_start_y;
@@ -144,6 +144,15 @@ typedef struct s_image
 	t_asset		wall_s;
 }				t_image;
 
+typedef struct s_begin
+{
+	float		p_angle;
+	float		playerx;
+	float		playery;
+	float		enemiesx[3];
+	float		enemiesy[3];
+}				t_begin;
+
 typedef struct s_game
 {
 	int			enemy_count;
@@ -154,6 +163,7 @@ typedef struct s_game
 	t_image		image;
 	t_player	player;
 	t_buttons	button;
+	t_begin		begin;
 }				t_game;
 
 typedef struct s_parse
@@ -206,7 +216,7 @@ int				key_press(int keycode);
 int				key_release(int keycode);
 void			hook_and_loop(void);
 
-//cub_move_enemy.c
+// cub_move_enemy.c
 int				iswall(float newx, float newy, t_enemy *enemy);
 void			check_enemy_colision(void);
 void			move_enemy(t_enemy *enemy);
@@ -239,15 +249,17 @@ void			set_ray_values_hit(t_ray *ray, int x);
 void			set_tex_values(t_ray *ray, t_tex *tex);
 void			draw_line(t_ray *ray, t_tex *tex, int x);
 
-//cub_sprite_rendering.c
+// cub_sprite_rendering.c
 int				set_rend_values(t_enemy *enemy, t_rend *rend);
 void			sort_enemies(void);
 void			distance(t_enemy *enemy);
 void			sprite_rendering(float zbuffer[WIDTH]);
-void			draw_sprite_columns(t_rend rend, t_tex tex, float zbuffer[WIDTH]);
+void			draw_sprite_columns(t_rend rend, t_tex tex,
+					float zbuffer[WIDTH]);
 
 // cub3d.c
-void			init_player_values(void);
+void			reset_level(void);
+void			init_caracters_values(void);
 t_game			*pc(void);
 
 // parsing
@@ -278,7 +290,7 @@ bool			surounded_walls(void);
 // set_map.c
 bool			fill_map(int fd, char *map_name);
 bool			create_map(int fd, char *map_name);
-void			player_set(char orientation, int x, int y);
+void			characters_set(char orientation, int x, int y);
 
 // game_features
 // mini_map.c

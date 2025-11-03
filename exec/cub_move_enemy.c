@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cub_move_enemy.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 17:06:19 by praders           #+#    #+#             */
-/*   Updated: 2025/11/03 11:31:03 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/03 13:54:36 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int		iswall(float newx, float newy, t_enemy *enemy)
+int	iswall(float newx, float newy, t_enemy *enemy)
 {
 	float	check;
 	int		value;
@@ -24,8 +24,8 @@ int		iswall(float newx, float newy, t_enemy *enemy)
 		&& pc()->map[(int)(enemy->y)][(int)(newx + check)] != '1'
 		&& pc()->map[(int)(enemy->y + check)][(int)(newx + check)] != '1')
 		value++;
-	if (pc()->map[(int)(newy)][(int)(enemy->x)] != '1'
-		&& pc()->map[(int)(newy + check)][(int)(enemy->x)] != '1'
+	if (pc()->map[(int)(newy)][(int)(enemy->x)] != '1' && pc()->map[(int)(newy
+			+ check)][(int)(enemy->x)] != '1'
 		&& pc()->map[(int)(newy)][(int)(enemy->x + check)] != '1'
 		&& pc()->map[(int)(newy + check)][(int)(enemy->x + check)] != '1')
 		value++;
@@ -36,8 +36,8 @@ int		iswall(float newx, float newy, t_enemy *enemy)
 
 void	move_enemy(t_enemy *enemy)
 {
-	float next_x;
-	float next_y;
+	float	next_x;
+	float	next_y;
 
 	next_x = enemy->x;
 	next_y = enemy->y;
@@ -76,7 +76,7 @@ void	check_enemy_colision(void)
 	{
 		distance(&pc()->enemies[i]);
 		if (pc()->enemies[i].distance < 0.5)
-			return (free_array(), init_player_map());
+			return (free_array(), reset_level());
 		i++;
 	}
 }

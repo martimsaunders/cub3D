@@ -6,7 +6,7 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:03:34 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/03 12:12:30 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/03 13:36:59 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ bool	valid_map_characters(void)
 			c = map[y][x];
 			if (c != ' ' && c != '\t' && c != '1' && c != '0' && c != '\n')
 			{
-				if (c != 'N' && c != 'S' && c != 'E' && c != 'O')
+				if (c != 'N' && c != 'S' && c != 'E' && c != 'O' && c != 'e')
 					return (err_msg("Invalid map character: ", &map[y][x]),
 						false);
 			}
@@ -57,7 +57,7 @@ bool	player_check(void)
 			c = pc()->map[y][x];
 			if (c == 'N' || c == 'S' || c == 'E' || c == 'O')
 			{
-				player_set(c, x, y);
+				characters_set(c, x, y);
 				player_count++;
 			}
 			x++;

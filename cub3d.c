@@ -6,7 +6,7 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 13:02:26 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/03 13:03:04 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/03 13:55:56 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,19 @@ t_game	*pc(void)
 	return (&pc);
 }
 
-void	init_player_values(void)
+void	reset_level(void)
+{
+	for (int i = 0; i < pc()->enemy_count; i++)
+	{
+		pc()->enemies[i].x = pc()->begin.enemiesx[i];
+		pc()->enemies[i].y = pc()->begin.enemiesy[i];
+	}
+	pc()->player.x = pc()->begin.playerx;
+	pc()->player.y = pc()->begin.playery;
+	pc()->player.angle = pc()->begin.p_angle;
+}
+
+void	init_caracters_values(void)
 {
 	pc()->player.move_speed = 0.025;
 	pc()->player.rot_speed = 0.02;
@@ -27,6 +39,12 @@ void	init_player_values(void)
 	pc()->player.dir_y = sin(pc()->player.angle);
 	pc()->player.plane_x = -pc()->player.dir_y * 0.66;
 	pc()->player.plane_y = pc()->player.dir_x * 0.66;
+	pc()->enemy_count = 3;
+	for (int i = 0; i < pc()->enemy_count; i++)
+	{
+		pc()->enemies[i].speed = 0.02;
+		pc()->enemies[i].direction = 1;
+	}
 }
 
 int	main(int argc, char **argv)

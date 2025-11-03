@@ -6,7 +6,7 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:12:51 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/03 12:12:52 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/03 13:54:19 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,30 @@ bool	create_map(int fd, char *map_name)
 	return (fill_map(fd, map_name));
 }
 
-void	player_set(char orientation, int x, int y)
+void	characters_set(char character, int x, int y)
 {
-	if (orientation == 'E')
+	static int	idx;
+
+	if (character == 'e')
+	{
+		pc()->enemies[idx].x = x;
+		pc()->enemies[idx].y = y;
+		pc()->begin.enemiesx[idx] = x;
+		pc()->begin.enemiesy[idx] = y;
+		idx++;
+		return ;
+	}
+	if (character == 'E')
 		pc()->player.angle = PI * 2;
-	if (orientation == 'N')
+	if (character == 'N')
 		pc()->player.angle = PI * 1.5;
-	if (orientation == 'O')
+	if (character == 'O')
 		pc()->player.angle = PI;
-	if (orientation == 'S')
+	if (character == 'S')
 		pc()->player.angle = PI * 0.5;
 	pc()->player.x = x + 0.25;
 	pc()->player.y = y + 0.25;
+	pc()->begin.p_angle = pc()->player.angle;
+	pc()->begin.playerx = x + 0.25;
+	pc()->begin.playery = y + 0.25;
 }
