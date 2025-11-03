@@ -6,7 +6,7 @@
 /*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 15:27:44 by mprazere          #+#    #+#             */
-/*   Updated: 2025/11/03 14:12:16 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/03 17:22:16 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,16 @@ void	set_ray_values_hit(t_ray *ray, int x)
 	ray->ddistx = fabs(1 / ray->raydirx);
 	ray->ddisty = fabs(1 / ray->raydiry);
 	find_steps(ray);
-	check_wall(ray, 0);
+	check_wall(ray);
 }
 
 void	setup_wall_texture(t_ray *ray, t_tex *tex)
 {
 	t_asset	*wall;
 
-	if (ray->side == 0)
+	if (ray->hit == 2)
+		wall = &pc()->image.door;
+	else if (ray->side == 0)
 	{
 		if (ray->raydirx > 0)
 			wall = &pc()->image.wall_e;
@@ -79,7 +81,13 @@ void	draw_line(t_ray *ray, t_tex *tex, int x)
 	while (ray->drawstart <= ray->drawend)
 	{
 		tex->texy = (int)tex->texpos;
-		if (ray->side == 0)
+		if (ray->hit == 2)
+		{
+			tex->index = tex->texy * pc()->image.door.line_lenght + tex->texx
+			* (pc()->image.door.bpp / 8);
+			tex->color = *(int *)(pc()->image.door.addr + tex->index);
+		}
+		else if (ray->side == 0)
 			draw_e_o_wall(ray, tex);
 		else
 			draw_n_s_wall(ray, tex);
@@ -92,8 +100,11 @@ void	ray_cast(void)
 	int		x;
 	t_ray	ray;
 	t_tex	tex;
-	float	zbuffer[WIDTH];
+	float	*zbuffer;
 
+	zbuffer = malloc(sizeof(float) * WIDTH);
+	if (!zbuffer)
+		destroy_everything(1);
 	x = 0;
 	ft_memset(&ray, 0, sizeof(t_ray));
 	ft_memset(&tex, 0, sizeof(t_tex));
@@ -107,4 +118,5 @@ void	ray_cast(void)
 		x++;
 	}
 	sprite_rendering(zbuffer);
+	free(zbuffer);
 }

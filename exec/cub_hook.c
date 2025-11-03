@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 13:01:08 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/03 13:01:10 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/03 17:07:31 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	key_press(int keycode)
 		pc()->button.left = true;
 	if (keycode == XK_Right)
 		pc()->button.right = true;
+	if (keycode == XK_e)
+		interact_door();
 	return (0);
 }
 

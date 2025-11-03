@@ -6,7 +6,7 @@
 /*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:56:18 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/03 14:12:02 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/03 17:07:47 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,14 @@
 # define BLOCK 32
 # define PI 3.14159265359
 # define FOV 0.66
+
+typedef struct s_door
+{
+	int			x;
+	int			y;
+	int			state;
+	float		distance;
+}				t_door;
 
 typedef struct s_enemy
 {
@@ -65,6 +73,7 @@ typedef struct s_player
 
 typedef struct s_ray
 {
+	int			hit;
 	int			mapx;
 	int			mapy;
 	int			side;
@@ -137,6 +146,7 @@ typedef struct s_image
 	int			line_lenght;
 	char		*addr;
 	void		*image;
+	t_asset		door;
 	t_asset		enemy;
 	t_asset		wall_e;
 	t_asset		wall_n;
@@ -155,10 +165,12 @@ typedef struct s_begin
 
 typedef struct s_game
 {
+	int			door_count;
 	int			enemy_count;
 	char		**map;
 	void		*mlx;
 	void		*win;
+	t_door		door[3];
 	t_enemy		enemies[3];
 	t_image		image;
 	t_player	player;
@@ -195,6 +207,12 @@ typedef struct s_mmap
 	int			rely;
 	int			map_radius;
 }				t_mmap;
+
+//cub_doors.c
+int				find_door_index(int x, int y);
+void			update_doors(void);
+void			interact_door(void);
+void			distance_door(t_door *door);
 
 // cub_draw_map.c
 void			draw_map(void);
@@ -238,7 +256,7 @@ void			draw_ceiling_floor(t_ray ray, int x);
 
 // cub_ray_cast_utils.c
 void			find_steps(t_ray *ray);
-void			check_wall(t_ray *ray, int hit);
+void			check_wall(t_ray *ray);
 void			draw_e_o_wall(t_ray *ray, t_tex *tex);
 void			draw_n_s_wall(t_ray *ray, t_tex *tex);
 void			put_brightness(t_ray *ray, t_tex *tex, t_rend *rend, int x);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 13:02:26 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/03 13:55:56 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/03 17:22:05 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,15 @@ void	init_caracters_values(void)
 	pc()->player.plane_x = -pc()->player.dir_y * 0.66;
 	pc()->player.plane_y = pc()->player.dir_x * 0.66;
 	pc()->enemy_count = 3;
+	pc()->door_count = 1;
+	for (int i = 0; i < pc()->door_count; i++)
+	{
+		pc()->door[i].x = 1;
+		pc()->door[i].y = 5;
+		pc()->door[i].state = 0;
+	}
+	
+	pc()->map[5][1] = 'd';
 	for (int i = 0; i < pc()->enemy_count; i++)
 	{
 		pc()->enemies[i].speed = 0.02;
