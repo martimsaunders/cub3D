@@ -88,7 +88,7 @@ static void	map_element_draw(int x, int y, t_mmap *m)
 	m->rotx = x * cos(m->angle) - y * sin(m->angle);
 	m->roty = x * sin(m->angle) + y * cos(m->angle);
 	m->world_x = pc()->player.x + 0.25 + m->rotx / BLOCK;
-	m->world_y = pc()->player.y + 0.25 + m->rely / BLOCK;
+	m->world_y = pc()->player.y + 0.25 + m->roty / BLOCK;
 	m->mapx = (int)floor(m->world_x);
 	m->mapy = (int)floor(m->world_y);
 	if (m->mapy >= 0 && m->mapy < ps()->map_h && m->mapx >= 0
