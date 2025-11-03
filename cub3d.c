@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 12:10:34 by praders           #+#    #+#             */
-/*   Updated: 2025/10/30 10:37:27 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/03 12:35:38 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,3 @@ int	main(int argc, char **argv)
 	destroy_everything(1);
 	return (0);
 }
-/*
-features
-cam move with mouse
-compass right upper corner
-lifes counter
-change level
-menu de jogo com opçoes de jogo
-ideias
-bussola que mostra a saida
-distancia da saida
-*/

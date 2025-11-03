@@ -6,7 +6,7 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:03:34 by mateferr          #+#    #+#             */
-/*   Updated: 2025/10/30 18:18:23 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/03 12:12:30 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,8 @@ bool	surounded_walls(void)
 		return (perror("Error\n"), false);
 	map_copy[(int)pc()->player.y][(int)pc()->player.x] = '0';
 	if (!flood_fill_map(map_copy, pc()->player.x, pc()->player.y))
-		return (err_msg("Map not surounded by walls", NULL),
-			free_cpy(map_copy), false);
+		return (err_msg("Map not surounded by walls", NULL), free_cpy(map_copy),
+			false);
 	y = -1;
 	while (map_copy[++y])
 	{

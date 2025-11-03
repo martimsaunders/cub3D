@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   info_parse_utils.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/03 12:11:48 by mateferr          #+#    #+#             */
+/*   Updated: 2025/11/03 12:22:19 by mateferr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
 
 int	get_tex_path(char *line, char **dst, int *info)
@@ -60,7 +72,8 @@ int	get_hex_num(char *line, int *dst, int *info)
 			return (free_cpy(nums), 1);
 		i++;
 	}
-	*dst = ((unsigned)rgb[0] << 16) | ((unsigned)rgb[1] << 8) | (unsigned)rgb[2];
+	*dst = ((unsigned)rgb[0] << 16) | ((unsigned)rgb[1] << 8)
+		| (unsigned)rgb[2];
 	*info = 1;
 	free_cpy(nums);
 	return (0);

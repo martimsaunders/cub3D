@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_error.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 12:37:26 by mprazere          #+#    #+#             */
-/*   Updated: 2025/10/29 17:30:13 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/03 11:05:53 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@ void	destroy_everything(int exit_status)
 		mlx_destroy_image(pc()->mlx, pc()->image.wall_e.image);
 	if (pc()->image.wall_o.image)
 		mlx_destroy_image(pc()->mlx, pc()->image.wall_o.image);
+	if (pc()->image.wall_n.path)
+		free(pc()->image.wall_n.path);
+	if (pc()->image.wall_s.path)
+		free(pc()->image.wall_s.path);
+	if (pc()->image.wall_e.path)
+		free(pc()->image.wall_e.path);
+	if (pc()->image.wall_o.path)
+		free(pc()->image.wall_o.path);
 	if (pc()->win)
 		mlx_destroy_window(pc()->mlx, pc()->win);
 	if (pc()->mlx)

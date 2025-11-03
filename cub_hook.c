@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:40:37 by mprazere          #+#    #+#             */
-/*   Updated: 2025/10/30 11:30:32 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/03 12:32:53 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ int	draw_move(void)
 	ft_memset(pc()->image.addr, 0, HEIGHT * pc()->image.line_lenght);
 	move_player();
 	ray_cast();
-	// draw_map();
 	draw_mini_map();
 	mlx_put_image_to_window(pc()->mlx, pc()->win, pc()->image.image, 0, 0);
 	return (0);

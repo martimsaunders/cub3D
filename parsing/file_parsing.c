@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   file_parsing.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/03 12:11:59 by mateferr          #+#    #+#             */
+/*   Updated: 2025/11/03 12:12:00 by mateferr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
 
 t_parse	*ps(void)
@@ -29,8 +41,8 @@ void	err_msg(char *msg, char *var)
 
 bool	map_file_parsing(char *map_name)
 {
-	int	fd;
-	char *file_type;
+	int		fd;
+	char	*file_type;
 
 	file_type = ft_strrchr(map_name, '.');
 	if (!file_type || ft_strncmp(file_type, ".cub", 5))

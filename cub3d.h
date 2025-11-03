@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 11:35:23 by mprazere          #+#    #+#             */
-/*   Updated: 2025/10/30 11:38:02 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/03 12:16:10 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 # define BLOCK 32
 # define PI 3.14159265359
 # define FOV 1
-# define MAP_RADIUS 720 / 6
 
 typedef struct s_enemy
 {
@@ -100,7 +99,7 @@ typedef struct s_tex
 
 typedef struct s_asset
 {
-	char *path;
+	char		*path;
 	int			bpp;
 	int			width;
 	int			endian;
@@ -139,30 +138,33 @@ typedef struct s_game
 
 typedef struct s_parse
 {
-	int n_tex;
-	int s_tex;
-	int e_tex;
-	int o_tex;
-	int c_floor;
-	int c_ceil;
-	int map_h;
-	int x;
-	int y;
-	int map_start_in_fd;
-} t_parse;
+	int			n_tex;
+	int			s_tex;
+	int			e_tex;
+	int			o_tex;
+	int			c_floor;
+	int			c_ceil;
+	int			map_h;
+	int			x;
+	int			y;
+	int			map_start_in_fd;
+}				t_parse;
 
 typedef struct s_mmap
 {
-	double angle;
-    double world_x;
-    double world_y;
-	double frac_x;
-    double frac_y;
-    int mapx;
-    int mapy;
-	int relx;
-    int rely;
-} t_mmap;
+	double		angle;
+	double		world_x;
+	double		world_y;
+	double		frac_x;
+	double		frac_y;
+	double		rotx;
+	double		roty;
+	int			mapx;
+	int			mapy;
+	int			relx;
+	int			rely;
+	int			map_radius;
+}				t_mmap;
 
 // cub_draw_map.c
 void			draw_map(void);
@@ -216,38 +218,38 @@ void			draw_line(t_ray *ray, t_tex *tex, int x);
 void			init_player_values(void);
 t_game			*pc(void);
 
-//parsing
-//file_parsing.c
-bool	map_file_parsing(char *map_name);
-void	err_msg(char *msg, char *var);
-void	free_cpy(char **array);
-t_parse	*ps(void);
+// parsing
+// file_parsing.c
+bool			map_file_parsing(char *map_name);
+void			err_msg(char *msg, char *var);
+void			free_cpy(char **array);
+t_parse			*ps(void);
 
-//info_parse_utils.c
-int	get_hex_num(char *line, int *dst, int *info);
-bool	valid_color_nums(int i, char **nums, int rgb[3]);
-int	get_tex_path(char *line, char **dst, int *info);
+// info_parse_utils.c
+int				get_hex_num(char *line, int *dst, int *info);
+bool			valid_color_nums(int i, char **nums, int rgb[3]);
+int				get_tex_path(char *line, char **dst, int *info);
 
-//info_parsing.c
-int find_tex_info(char *line);
-int	find_map_info(char *line);
-bool	check_missing_infos(void);
-bool	valid_map_info(int fd, char *map_name);
+// info_parsing.c
+int				find_tex_info(char *line);
+int				find_map_info(char *line);
+bool			check_missing_infos(void);
+bool			valid_map_info(int fd, char *map_name);
 
-//map_parsing.c
-bool	valid_map_characters(void);
-bool	player_check(void);
-bool	flood_fill_map(char **map, int x, int y);
-char	**copy_matrix(char **src, int size);
-bool	surounded_walls(void);
+// map_parsing.c
+bool			valid_map_characters(void);
+bool			player_check(void);
+bool			flood_fill_map(char **map, int x, int y);
+char			**copy_matrix(char **src, int size);
+bool			surounded_walls(void);
 
-//set_map.c
-bool	fill_map(int fd, char *map_name);
-bool	create_map(int fd, char *map_name);
-void	player_set(char orientation, int x, int y);
+// set_map.c
+bool			fill_map(int fd, char *map_name);
+bool			create_map(int fd, char *map_name);
+void			player_set(char orientation, int x, int y);
 
-//game_features
-//mini_map.c
-void draw_mini_map();
+// game_features
+// mini_map.c
+void			draw_mini_map(void);
 
 #endif
