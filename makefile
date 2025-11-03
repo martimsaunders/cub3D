@@ -6,7 +6,7 @@
 #    By: praders <praders@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/20 12:20:09 by praders           #+#    #+#              #
-#    Updated: 2025/10/31 17:24:58 by praders          ###   ########.fr        #
+#    Updated: 2025/11/03 11:20:25 by praders          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,9 @@ MLX_DIR = ./libraries/minilibx-linux
 LIBFT = $(LIBFT_DIR)/libft.a
 MLX = $(MLX_DIR)/libmlx.a
 
-SRCS = cub3d.c cub_init_everything.c cub_error.c cub_hook.c cub_draw_map.c \
-cub_move_player.c cub_ray_cast.c cub_ray_cast_utils.c cub_ray_cast_cf.c \
-cub_sprite_rendering.c cub_move_enemy.c
+SRCS = cub3d.c exec/cub_init_everything.c exec/cub_error.c exec/cub_hook.c \
+exec/cub_draw_map.c exec/cub_move_player.c exec/cub_ray_cast.c exec/cub_ray_cast_utils.c \
+exec/cub_ray_cast_cf.c exec/cub_sprite_rendering.c exec/cub_move_enemy.c \
 
 OBJ_DIR = obj
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
