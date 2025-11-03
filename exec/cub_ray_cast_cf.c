@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cub_ray_cast_cf.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 11:10:23 by mprazere          #+#    #+#             */
-/*   Updated: 2025/10/30 11:31:58 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/03 11:31:09 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 int	put_brightness_cf(int color, float distance)
 {

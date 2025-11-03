@@ -6,11 +6,11 @@
 /*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 11:50:38 by mprazere          #+#    #+#             */
-/*   Updated: 2025/10/31 14:43:16 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/03 11:31:00 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void	safe_image(char *str, t_asset *asset, t_image *image, int type)
 {

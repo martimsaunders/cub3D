@@ -6,11 +6,11 @@
 /*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 15:05:32 by praders           #+#    #+#             */
-/*   Updated: 2025/10/31 17:03:42 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/03 11:31:16 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void	distance(t_enemy *enemy)
 {

@@ -6,11 +6,11 @@
 /*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 16:38:15 by mprazere          #+#    #+#             */
-/*   Updated: 2025/10/31 17:21:49 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/03 11:35:37 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void	draw_e_o_wall(t_ray *ray, t_tex *tex)
 {

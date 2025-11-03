@@ -6,11 +6,11 @@
 /*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 15:27:44 by mprazere          #+#    #+#             */
-/*   Updated: 2025/10/31 15:47:44 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/03 11:31:14 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void	set_ray_values_hit(t_ray *ray, int x)
 {

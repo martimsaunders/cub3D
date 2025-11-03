@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cub_move_player.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 15:07:38 by mprazere          #+#    #+#             */
-/*   Updated: 2025/10/30 11:30:03 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/03 11:31:06 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void	calculate_player_values(void)
 {

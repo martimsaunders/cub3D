@@ -6,11 +6,11 @@
 /*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 17:06:19 by praders           #+#    #+#             */
-/*   Updated: 2025/10/31 17:28:51 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/03 11:31:03 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 int		iswall(float newx, float newy, t_enemy *enemy)
 {

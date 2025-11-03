@@ -6,7 +6,7 @@
 #    By: praders <praders@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/20 12:20:09 by praders           #+#    #+#              #
-#    Updated: 2025/11/03 11:20:25 by praders          ###   ########.fr        #
+#    Updated: 2025/11/03 11:38:44 by praders          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,10 +56,14 @@ $(MLX):
 	@$(MAKE) -C $(MLX_DIR) --no-print-directory > /dev/null 2>&1
 	@echo "$(GREEN)✓ MinilibX compilada!$(RESET)"
 
-$(OBJ_DIR):
-	@mkdir -p $(OBJ_DIR)
+$(OBJ_DIR) $(OBJ_DIR)/exec:
+	@mkdir -p $@
 
 $(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
+	@echo "$(BOLD_BLUE)Compilando $<...$(RESET)"
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ_DIR)/exec/%.o: exec/%.c | $(OBJ_DIR)/exec
 	@echo "$(BOLD_BLUE)Compilando $<...$(RESET)"
 	@$(CC) $(CFLAGS) -c $< -o $@
 

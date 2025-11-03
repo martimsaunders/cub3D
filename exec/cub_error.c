@@ -6,11 +6,11 @@
 /*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 12:37:26 by mprazere          #+#    #+#             */
-/*   Updated: 2025/10/31 17:24:20 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/03 11:43:19 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void	destroy_everything(int exit_status)
 {

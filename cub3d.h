@@ -6,7 +6,7 @@
 /*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 11:35:23 by mprazere          #+#    #+#             */
-/*   Updated: 2025/10/31 17:09:42 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/03 11:26:12 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,7 +219,5 @@ void			draw_sprite_columns(t_rend rend, t_tex tex, float zbuffer[WIDTH]);
 void			find_player(void);
 void			init_player_map(void);
 t_game			*pc(void);
-
-
 
 #endif

@@ -6,11 +6,11 @@
 /*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:40:37 by mprazere          #+#    #+#             */
-/*   Updated: 2025/10/31 17:06:59 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/03 11:30:52 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void	hook_and_loop(void)
 {
