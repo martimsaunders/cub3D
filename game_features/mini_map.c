@@ -6,40 +6,18 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:11:54 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/03 18:27:22 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/04 18:34:27 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static void	draw_player(t_mmap *m)
-{
-	int	player_radius;
-	int	x;
-	int	y;
-
-	player_radius = BLOCK / 4;
-	y = -player_radius - 1;
-	while (++y <= player_radius)
-	{
-		x = -player_radius - 1;
-		while (++x <= player_radius)
-		{
-			if (y == -player_radius || y == player_radius || x == -player_radius
-				|| x == player_radius)
-				put_pixel(m->map_radius + x, m->map_radius + y, 0x000000);
-			else
-				put_pixel(m->map_radius + x, m->map_radius + y, 0xff0000);
-		}
-	}
-}
-
-bool	is_wall_edge(int mapx, int mapy, t_mmap *m)
+bool	is_edge(int mapx, int mapy, t_mmap *m)
 {
 	if (m->relx == 0 && (mapx == 0 || pc()->map[mapy][mapx - 1] != '1'))
 		return (true);
 	if (m->relx == BLOCK - 1 && (pc()->map[mapy][mapx + 1] == '\0'
-		|| pc()->map[mapy][mapx + 1] != '1'))
+			|| pc()->map[mapy][mapx + 1] != '1'))
 		return (true);
 	if (m->rely == 0 && (mapy == 0 || pc()->map[mapy - 1][mapx] != '1'))
 		return (true);
@@ -54,26 +32,12 @@ bool	is_wall_edge(int mapx, int mapy, t_mmap *m)
 	return (false);
 }
 
-bool put_enemy_pixel(int x, int y, t_mmap *m)
+static void	put_coin_pixel(int x, int y, t_mmap *m, float radius)
 {
-	int i;
-	float size;
-
-	size = 0.25;
-	i = -1;
-	while (++i < pc()->enemy_count)
-	{
-		if (m->world_x == pc()->enemies[i].x - size || m->world_x == pc()->enemies[i].x + size)
-			return (put_pixel(m->map_radius + x, m->map_radius + y, 0x000000), true);
-		if (m->world_y == pc()->enemies[i].y - size || m->world_y == pc()->enemies[i].y + size)
-			return (put_pixel(m->map_radius + x, m->map_radius + y, 0x000000), true);
-		if (m->world_x > pc()->enemies[i].x - size && m->world_x < pc()->enemies[i].x + size)
-		{
-			if (m->world_y > pc()->enemies[i].y - size && m->world_y < pc()->enemies[i].y + size)
-				return (put_pixel(m->map_radius + x, m->map_radius + y, 0xF4DC0B), true);
-		}
-	}
-	return (false);
+	m->difx = m->world_x - (m->mapx + 0.5);
+	m->dify = m->world_y - (m->mapy + 0.5);
+	if (m->difx * m->difx + m->dify * m->dify <= radius * radius)
+		put_pixel(m->map_radius + x, m->map_radius + y, 0xF4DC0B);
 }
 
 // pixel x position on the block
@@ -87,21 +51,25 @@ static void	put_element_pixel(int x, int y, t_mmap *m)
 
 	mapy = m->mapy;
 	mapx = m->mapx;
-	if (pc()->map[mapy][mapx] == '1')
+	if (pc()->map[mapy][mapx] == '1' || pc()->map[mapy][mapx] == 'd')
 	{
 		m->frac_x = m->world_x - floor(m->world_x);
 		m->frac_y = m->world_y - floor(m->world_y);
 		m->relx = (int)(m->frac_x * BLOCK);
 		m->rely = (int)(m->frac_y * BLOCK);
-		if (is_wall_edge(mapx, mapy, m))
-			return (put_pixel(m->map_radius + x, m->map_radius + y, 0x000000));
-		return (put_pixel(m->map_radius + x, m->map_radius + y, 0x7B68EE));
+		if (is_edge(mapx, mapy, m))
+			put_pixel(m->map_radius + x, m->map_radius + y, 0x000000);
+		else if (pc()->map[mapy][mapx] == '1')
+			put_pixel(m->map_radius + x, m->map_radius + y, 0x7B68EE);
+		else
+			put_pixel(m->map_radius + x, m->map_radius + y, 0x752D00);
 	}
-	if (put_enemy_pixel(x, y, m))
-		return ;
-	if ((mapx + mapy) % 2 == 0)
-		return (put_pixel(m->map_radius + x, m->map_radius + y, 0xFFFFFF));
-	return (put_pixel(m->map_radius + x, m->map_radius + y, 0xE6E6FA));
+	else if ((mapx + mapy) % 2 == 0)
+		put_pixel(m->map_radius + x, m->map_radius + y, 0xFFFFFF);
+	else
+		put_pixel(m->map_radius + x, m->map_radius + y, 0xE6E6FA);
+	if (pc()->map[mapy][mapx] == 'c')
+		put_coin_pixel(x, y, m, 0.25);
 }
 
 // posição pixel relativo a player e rotação da camera
@@ -130,16 +98,16 @@ void	draw_mini_map(void)
 	int		y;
 	t_mmap	m;
 
-	m.map_radius = HEIGHT / 6;
+	m.map_radius = HEIGHT / 6 - 2;
 	y = -m.map_radius;
 	while (y <= m.map_radius)
 	{
 		x = -m.map_radius;
 		while (x <= m.map_radius)
 		{
-			if (x * x + y * y <= m.map_radius * m.map_radius)
+			if (x * x + y * y <= (m.map_radius + 2) * (m.map_radius + 2))
 			{
-				if (x * x + y * y > (m.map_radius - 2) * (m.map_radius - 2))
+				if (x * x + y * y > m.map_radius * m.map_radius)
 					put_pixel(m.map_radius + x, m.map_radius + y, 0x000000);
 				else
 					put_map_pixel(x, y, &m);
@@ -148,5 +116,6 @@ void	draw_mini_map(void)
 		}
 		y++;
 	}
+	draw_enemies(&m);
 	draw_player(&m);
 }

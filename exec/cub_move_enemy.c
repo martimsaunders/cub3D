@@ -6,13 +6,13 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 17:06:19 by praders           #+#    #+#             */
-/*   Updated: 2025/11/03 16:38:30 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/04 15:21:42 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	iswall(float newx, float newy, t_enemy *enemy)
+int	iswall(float newx, float newy, t_sprite *enemy)
 {
 	float	check;
 	int		value;
@@ -34,7 +34,7 @@ int	iswall(float newx, float newy, t_enemy *enemy)
 	return (1);
 }
 
-void	move_enemy(t_enemy *enemy)
+void	move_enemy(t_sprite *enemy)
 {
 	float	next_x;
 	float	next_y;

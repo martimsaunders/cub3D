@@ -6,7 +6,7 @@
 #    By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/20 12:20:09 by praders           #+#    #+#              #
-#    Updated: 2025/11/03 12:58:34 by mateferr         ###   ########.fr        #
+#    Updated: 2025/11/04 19:45:02 by mateferr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,9 +21,9 @@ exec/cub_draw_map.c exec/cub_move_player.c exec/cub_ray_cast.c exec/cub_ray_cast
 exec/cub_ray_cast_cf.c exec/cub_sprite_rendering.c exec/cub_move_enemy.c \
 \
 parsing/file_parsing.c parsing/info_parse_utils.c parsing/info_parsing.c \
-parsing/map_parsing.c parsing/set_map.c \
+parsing/map_parsing.c parsing/set_map.c parsing/map_parse_utils.c\
 \
-game_features/mini_map.c
+game_features/mini_map.c game_features/mini_map_utils.c
 
 OBJ_DIR = obj
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))

@@ -6,7 +6,7 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:12:51 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/03 17:19:16 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/04 18:37:49 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,62 +59,62 @@ bool	create_map(int fd, char *map_name)
 	return (fill_map(fd, map_name));
 }
 
-bool	set_player_values(char character, int x, int y)
+void	val_err_msg(char *msg)
 {
-	static int	p_count;
-
-	if (character == 'E')
-		pc()->player.angle = PI * 2;
-	if (character == 'N')
-		pc()->player.angle = PI * 1.5;
-	if (character == 'O')
-		pc()->player.angle = PI;
-	if (character == 'S')
-		pc()->player.angle = PI * 0.5;
-	pc()->player.x = x + 0.25;
-	pc()->player.y = y + 0.25;
-	if (++p_count > 1)
-		return (err_msg("Player quantity limit exceeded: ", '1'), false);
-	return (true);
+	ft_putstr_fd(msg, 2);
+	ft_putnbr_fd(B_CHR_LIM, 2);
+	write(2, "\n", 1);
 }
 
-bool	set_characters_values(char character, int x, int y)
+bool	set_elements_values(char character, int x, int y)
 {
 	if (character == 'e')
 	{
-		if (pc()->enemy_count >= BONUS_CHAR_LIMIT)
-		{
-			ft_putstr_fd("Enemies quantity limit exceeded: ", 2);
-			ft_putnbr_fd(BONUS_CHAR_LIMIT, 2);
-			write(2, "\n", 1);
-			return (false);
-		}
+		if (pc()->enemy_count >= B_CHR_LIM)
+			return (val_err_msg("Enemies quantity limit exceeded: "), false);
 		pc()->enemies[pc()->enemy_count].x = x + 0.25;
 		pc()->enemies[pc()->enemy_count].y = y + 0.25;
 		pc()->enemy_count++;
-		return (true);
 	}
-	if (character == 'd')
+	else if (character == 'd')
 	{
-		// doors position
-		// doors limit check
-		return (true);
+		if (pc()->door_count >= B_CHR_LIM)
+			return (val_err_msg("Doors quantity limit exceeded: "), false);
+		pc()->doors[pc()->door_count].x = x + 0.25;
+		pc()->doors[pc()->door_count].y = y + 0.25;
+		pc()->door_count++;
 	}
-	return (set_player_values(character, x, y));
+	else if (character == 'c')
+	{
+		if (pc()->coin_count >= B_CHR_LIM)
+			return (val_err_msg("Coins quantity limit exceeded: "), false);
+		pc()->coins[pc()->coin_count].x = x + 0.25;
+		pc()->coins[pc()->coin_count].y = y + 0.25;
+		pc()->coin_count++;
+	}
+	return (true);
 }
 
-void	set_start_values(void)
+bool	set_characters_values(char chr, int x, int y)
 {
-	int	i;
+	static int	p_count;
 
-	pc()->start.player.x = pc()->player.x;
-	pc()->start.player.x = pc()->player.x;
-	pc()->start.player.angle = pc()->player.angle;
-	i = -1;
-	while (++i < pc()->enemy_count)
+	if (!set_elements_values(chr, x, y))
+		return (false);
+	if (chr == 'E' || chr == 'O' || chr == 'S' || chr == 'N')
 	{
-		pc()->start.enemies[i].x = pc()->enemies[i].x;
-		pc()->start.enemies[i].y = pc()->enemies[i].y;
+		if (chr == 'E')
+			pc()->player.angle = PI * 2;
+		if (chr == 'N')
+			pc()->player.angle = PI * 1.5;
+		if (chr == 'O')
+			pc()->player.angle = PI;
+		if (chr == 'S')
+			pc()->player.angle = PI * 0.5;
+		pc()->player.x = x + 0.25;
+		pc()->player.y = y + 0.25;
+		if (++p_count > 1)
+			return (err_msg("Player quantity limit exceeded: ", '1'), false);
 	}
-	// doors start values
+	return (true);
 }

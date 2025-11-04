@@ -6,7 +6,7 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:11:59 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/03 16:55:27 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/04 19:43:14 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ bool	map_file_parsing(char *map_name)
 	if (!valid_map_info(fd, map_name))
 		return (close(fd), false);
 	close(fd);
-	if (!valid_map_characters())
+	if (!valid_map_characters() || !characters_check())
 		return (false);
-	if (!characters_check())
+	if (!surounded_walls() || !coins_pos())
 		return (false);
-	if (!surounded_walls())
-		return (false);
-	set_start_values();
+	pc()->start.player.x = pc()->player.x;
+	pc()->start.player.x = pc()->player.x;
+	pc()->start.player.angle = pc()->player.angle;
 	return (true);
 }

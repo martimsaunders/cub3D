@@ -6,7 +6,7 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:03:34 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/03 17:01:57 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/04 19:40:47 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ bool	valid_map_characters(void)
 			{
 				if (c != 'N' && c != 'S' && c != 'E' && c != 'O')
 				{
-					if (!(ps()->bonus && (c == 'e' || c == 'd')))
+					if (!(ps()->bonus && (c == 'e' || c == 'd' || c == 'c')))
 						return (err_msg("Invalid map character: ",
 								pc()->map[y][x]), false);
 				}
@@ -53,9 +53,9 @@ bool	characters_check(void)
 		{
 			c = pc()->map[y][x];
 			if (c == 'N' || c == 'S' || c == 'E' || c == 'O' || c == 'e'
-				|| c == 'd')
+				|| c == 'd' || c == 'c')
 			{
-				if (!set_characters_values(c, x, y))
+				if (!set_characters_values(c, x, y) || !check_door_pos(c, x, y))
 					return (false);
 			}
 		}
@@ -73,7 +73,8 @@ bool	flood_fill_map(char **map, int x, int y)
 		return (true);
 	if (map[y][x] != '0')
 	{
-		if (!(ps()->bonus && (map[y][x] == 'e' || map[y][x] == 'd')))
+		if (!(ps()->bonus && (map[y][x] == 'e' || map[y][x] == 'd'
+					|| map[y][x] == 'c')))
 		{
 			ret = 1;
 			return (false);

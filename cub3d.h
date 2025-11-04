@@ -6,7 +6,7 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:56:18 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/03 16:51:53 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/04 19:52:09 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,19 @@
 # define BLOCK 32
 # define PI 3.14159265359
 # define FOV 0.66
-# define BONUS_CHAR_LIMIT 10
+# define B_CHR_LIM 10
 
-typedef struct s_enemy
+typedef struct s_door
 {
+	int			x;
+	int			y;
+	int			state;
+	float		distance;
+}				t_door;
+
+typedef struct s_sprite
+{
+	int			state;
 	int			direction;
 	float		x;
 	float		y;
@@ -39,7 +48,7 @@ typedef struct s_enemy
 	float		min_y;
 	float		speed;
 	float		distance;
-}				t_enemy;
+}				t_sprite;
 
 typedef struct s_buttons
 {
@@ -66,6 +75,7 @@ typedef struct s_player
 
 typedef struct s_ray
 {
+	int			hit;
 	int			mapx;
 	int			mapy;
 	int			side;
@@ -138,6 +148,8 @@ typedef struct s_image
 	int			line_lenght;
 	char		*addr;
 	void		*image;
+	t_asset		coin;
+	t_asset		door;
 	t_asset		enemy;
 	t_asset		wall_e;
 	t_asset		wall_n;
@@ -147,21 +159,25 @@ typedef struct s_image
 
 typedef struct s_start
 {
-	t_enemy		enemies[BONUS_CHAR_LIMIT];
 	t_player	player;
 }				t_start;
 
 typedef struct s_game
 {
+	int			coin_count;
+	int			door_count;
 	int			enemy_count;
+	int			coin_captured;
 	char		**map;
 	void		*mlx;
 	void		*win;
-	t_enemy		enemies[BONUS_CHAR_LIMIT];
+	t_door		door[B_CHR_LIM];
+	t_start		start;
 	t_image		image;
 	t_player	player;
+	t_sprite	coin[B_CHR_LIM];
+	t_sprite	enemies[B_CHR_LIM];
 	t_buttons	button;
-	t_start		start;
 }				t_game;
 
 typedef struct s_parse
@@ -188,12 +204,29 @@ typedef struct s_mmap
 	double		frac_y;
 	double		rotx;
 	double		roty;
+	double		difx;
+	double		dify;
+	double		pxlx;
+	double		pxly;
+	int			difex;
+	int			difey;
+	int			pxlex;
+	int			pxley;
 	int			mapx;
 	int			mapy;
 	int			relx;
 	int			rely;
 	int			map_radius;
 }				t_mmap;
+
+// cub_coins.c
+void			check_coin_colision(void);
+
+// cub_doors.c
+int				find_door_index(int x, int y);
+int				is_door_closed(int map_y, int map_x);
+void			interact_door(void);
+void			distance_door(t_door *door);
 
 // cub_draw_map.c
 void			draw_map(void);
@@ -216,9 +249,9 @@ int				key_release(int keycode);
 void			hook_and_loop(void);
 
 // cub_move_enemy.c
-int				iswall(float newx, float newy, t_enemy *enemy);
+int				iswall(float newx, float newy, t_sprite *enemy);
 void			check_enemy_colision(void);
-void			move_enemy(t_enemy *enemy);
+void			move_enemy(t_sprite *enemy);
 
 // cub_init_everything.c
 void			safe_image(char *str, t_asset *asset, t_image *image, int type);
@@ -227,6 +260,8 @@ void			init_images(void);
 void			init_game(void);
 
 // cub_move_player.c
+int				is_blocked(int map_y, int map_x);
+int				is_blocked_e(int map_y, int map_x);
 void			move_player(void);
 void			calculate_player_values(void);
 void			check_collision(float newx, float newy);
@@ -237,7 +272,7 @@ void			draw_ceiling_floor(t_ray ray, int x);
 
 // cub_ray_cast_utils.c
 void			find_steps(t_ray *ray);
-void			check_wall(t_ray *ray, int hit);
+void			check_wall(t_ray *ray);
 void			draw_e_o_wall(t_ray *ray, t_tex *tex);
 void			draw_n_s_wall(t_ray *ray, t_tex *tex);
 void			put_brightness(t_ray *ray, t_tex *tex, t_rend *rend, int x);
@@ -250,15 +285,15 @@ void			draw_line(t_ray *ray, t_tex *tex, int x);
 void			setup_wall_texture(t_ray *ray, t_tex *tex);
 
 // cub_sprite_rendering.c
-int				set_rend_values(t_enemy *enemy, t_rend *rend);
-void			sort_enemies(void);
-void			distance(t_enemy *enemy);
-void			sprite_rendering(float zbuffer[WIDTH]);
+int				set_rend_values(t_sprite *enemy, t_rend *rend);
+void			sort_sprites(t_sprite **sprite, int size);
+void			distance(t_sprite *enemy);
+void			sprite_rendering(float zbuffer[WIDTH], int size);
 void			draw_sprite_columns(t_rend rend, t_tex tex,
-					float zbuffer[WIDTH]);
+					float zbuffer[WIDTH], t_asset *sprite);
 
 // cub3d.c
-void			restart_level(void);
+void			reset_level(void);
 void			init_caracters_values(void);
 t_game			*pc(void);
 
@@ -287,14 +322,21 @@ bool			flood_fill_map(char **map, int x, int y);
 char			**copy_matrix(char **src, int size);
 bool			surounded_walls(void);
 
+// map_parsing_utils.c
+bool			coins_pos(void);
+bool			check_door_pos(char chr, int x, int y);
+
 // set_map.c
 bool			fill_map(int fd, char *map_name);
 bool			create_map(int fd, char *map_name);
 bool			set_characters_values(char orientation, int x, int y);
-void			set_start_values(void);
+bool			set_elements_values(char character, int x, int y);
+void			val_err_msg(char *msg);
 
 // game_features
 // mini_map.c
 void			draw_mini_map(void);
+void			draw_enemies(t_mmap *m);
+void			draw_player(t_mmap *m);
 
 #endif

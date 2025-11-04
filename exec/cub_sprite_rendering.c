@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cub_sprite_rendering.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 15:05:32 by praders           #+#    #+#             */
-/*   Updated: 2025/11/03 11:31:16 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/04 15:21:00 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	distance(t_enemy *enemy)
+void	distance(t_sprite *enemy)
 {
 	float	dx;
 	float	dy;
@@ -27,7 +27,7 @@ void	sort_enemies(void)
 {
 	int		i;
 	int		j;
-	t_enemy	temp;
+	t_sprite	temp;
 
 	i = -1;
 	while (++i < pc()->enemy_count - 1)
@@ -67,7 +67,7 @@ void	draw_sprite_columns(t_rend rend, t_tex tex, float zbuffer[WIDTH])
 	}
 }
 
-int	set_rend_values(t_enemy *enemy, t_rend *rend)
+int	set_rend_values(t_sprite *enemy, t_rend *rend)
 {
 	rend->spritex = enemy->x - pc()->player.x;
 	rend->spritey = enemy->y - pc()->player.y;
@@ -99,7 +99,7 @@ void	sprite_rendering(float zbuffer[WIDTH])
 	int		i;
 	t_tex	tex;
 	t_rend	rend;
-	t_enemy	*enemy;
+	t_sprite	*enemy;
 
 	i = 0;
 	sort_enemies();
