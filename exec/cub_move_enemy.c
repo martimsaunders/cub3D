@@ -3,38 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   cub_move_enemy.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 17:06:19 by praders           #+#    #+#             */
-/*   Updated: 2025/11/03 13:54:36 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/04 17:16:34 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	iswall(float newx, float newy, t_enemy *enemy)
+int	iswall(float newx, float newy, t_sprite *enemy)
 {
 	float	check;
 	int		value;
 
 	check = 0.5 - enemy->speed;
 	value = 0;
-	if (pc()->map[(int)(enemy->y)][(int)(newx)] != '1'
-		&& pc()->map[(int)(enemy->y + check)][(int)(newx)] != '1'
-		&& pc()->map[(int)(enemy->y)][(int)(newx + check)] != '1'
-		&& pc()->map[(int)(enemy->y + check)][(int)(newx + check)] != '1')
+	if (!is_blocked_e((int)(enemy->y), (int)(newx))
+		&& !is_blocked_e((int)(enemy->y + check), (int)(newx))
+		&& !is_blocked_e((int)(enemy->y), (int)(newx + check))
+		&& !is_blocked_e((int)(enemy->y + check), (int)(newx + check)))
 		value++;
-	if (pc()->map[(int)(newy)][(int)(enemy->x)] != '1' && pc()->map[(int)(newy
-			+ check)][(int)(enemy->x)] != '1'
-		&& pc()->map[(int)(newy)][(int)(enemy->x + check)] != '1'
-		&& pc()->map[(int)(newy + check)][(int)(enemy->x + check)] != '1')
+	if (!is_blocked_e((int)(newy), (int)(enemy->x))
+		&& !is_blocked_e((int)(newy + check), (int)(enemy->x))
+		&& !is_blocked_e((int)(newy), (int)(enemy->x + check))
+		&& !is_blocked_e((int)(newy + check), (int)(enemy->x + check)))
 		value++;
 	if (value == 2)
 		return (0);
 	return (1);
 }
 
-void	move_enemy(t_enemy *enemy)
+void	move_enemy(t_sprite *enemy)
 {
 	float	next_x;
 	float	next_y;
@@ -76,7 +76,7 @@ void	check_enemy_colision(void)
 	{
 		distance(&pc()->enemies[i]);
 		if (pc()->enemies[i].distance < 0.5)
-			return (free_array(), reset_level());
+			return (reset_level());
 		i++;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:56:18 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/03 17:07:47 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/04 17:21:07 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,10 @@ typedef struct s_door
 	float		distance;
 }				t_door;
 
-typedef struct s_enemy
+typedef struct s_sprite
 {
+	int			state;
+	int			is_coin;
 	int			direction;
 	float		x;
 	float		y;
@@ -46,7 +48,7 @@ typedef struct s_enemy
 	float		min_y;
 	float		speed;
 	float		distance;
-}				t_enemy;
+}				t_sprite;
 
 typedef struct s_buttons
 {
@@ -146,6 +148,7 @@ typedef struct s_image
 	int			line_lenght;
 	char		*addr;
 	void		*image;
+	t_asset		coin;
 	t_asset		door;
 	t_asset		enemy;
 	t_asset		wall_e;
@@ -165,17 +168,20 @@ typedef struct s_begin
 
 typedef struct s_game
 {
+	int			coin_count;
 	int			door_count;
 	int			enemy_count;
+	int			coin_captured;
 	char		**map;
 	void		*mlx;
 	void		*win;
-	t_door		door[3];
-	t_enemy		enemies[3];
+	t_door		door[10];
+	t_begin		begin;
 	t_image		image;
 	t_player	player;
+	t_sprite	coin[10];
+	t_sprite	enemies[10];
 	t_buttons	button;
-	t_begin		begin;
 }				t_game;
 
 typedef struct s_parse
@@ -208,9 +214,12 @@ typedef struct s_mmap
 	int			map_radius;
 }				t_mmap;
 
-//cub_doors.c
+// cub_coins.c
+void			check_coin_colision(void);
+
+// cub_doors.c
 int				find_door_index(int x, int y);
-void			update_doors(void);
+int				is_door_closed(int map_y, int map_x);
 void			interact_door(void);
 void			distance_door(t_door *door);
 
@@ -235,9 +244,9 @@ int				key_release(int keycode);
 void			hook_and_loop(void);
 
 // cub_move_enemy.c
-int				iswall(float newx, float newy, t_enemy *enemy);
+int				iswall(float newx, float newy, t_sprite *enemy);
 void			check_enemy_colision(void);
-void			move_enemy(t_enemy *enemy);
+void			move_enemy(t_sprite *enemy);
 
 // cub_init_everything.c
 void			safe_image(char *str, t_asset *asset, t_image *image, int type);
@@ -246,6 +255,8 @@ void			init_images(void);
 void			init_game(void);
 
 // cub_move_player.c
+int				is_blocked(int map_y, int map_x);
+int				is_blocked_e(int map_y, int map_x);
 void			move_player(void);
 void			calculate_player_values(void);
 void			check_collision(float newx, float newy);
@@ -269,12 +280,12 @@ void			draw_line(t_ray *ray, t_tex *tex, int x);
 void			setup_wall_texture(t_ray *ray, t_tex *tex);
 
 // cub_sprite_rendering.c
-int				set_rend_values(t_enemy *enemy, t_rend *rend);
-void			sort_enemies(void);
-void			distance(t_enemy *enemy);
-void			sprite_rendering(float zbuffer[WIDTH]);
+int				set_rend_values(t_sprite *enemy, t_rend *rend);
+void			sort_sprites(t_sprite **sprite, int size);
+void			distance(t_sprite *enemy);
+void			sprite_rendering(float zbuffer[WIDTH], int size);
 void			draw_sprite_columns(t_rend rend, t_tex tex,
-					float zbuffer[WIDTH]);
+					float zbuffer[WIDTH], t_asset *sprite);
 
 // cub3d.c
 void			reset_level(void);

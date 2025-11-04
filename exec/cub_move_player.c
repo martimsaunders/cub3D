@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_move_player.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 15:07:38 by mprazere          #+#    #+#             */
-/*   Updated: 2025/11/03 11:31:06 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/04 16:53:24 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,38 @@ void	calculate_player_values(void)
 	pc()->player.plane_y = pc()->player.dir_x * FOV;
 }
 
+int		is_blocked(int map_y, int map_x)
+{
+	if (pc()->map[map_y][map_x] == '1')
+		return (1);
+	if (pc()->map[map_y][map_x]== 'd' && is_door_closed(map_y, map_x))
+		return (1);
+	return (0);
+}
+
+int		is_blocked_e(int map_y, int map_x)
+{
+	if (pc()->map[map_y][map_x] == '1')
+		return (1);
+	if (pc()->map[map_y][map_x]== 'd')
+		return (1);
+	return (0);
+}
+
 void	check_collision(float newx, float newy)
 {
 	float	check;
 
 	check = 0.5 - pc()->player.move_speed;
-	if (pc()->map[(int)(pc()->player.y)][(int)(newx)] != '1'
-		&& pc()->map[(int)(pc()->player.y + check)][(int)(newx)] != '1'
-		&& pc()->map[(int)(pc()->player.y)][(int)(newx + check)] != '1'
-		&& pc()->map[(int)(pc()->player.y + check)][(int)(newx + check)] != '1')
+	if (!is_blocked((int)(pc()->player.y), (int)(newx))
+		&& !is_blocked((int)(pc()->player.y + check), (int)(newx))
+		&& !is_blocked((int)(pc()->player.y), (int)(newx + check))
+		&& !is_blocked((int)(pc()->player.y + check), (int)(newx + check)))
 		pc()->player.x = newx;
-	if (pc()->map[(int)(newy)][(int)(pc()->player.x)] != '1'
-		&& pc()->map[(int)(newy + check)][(int)(pc()->player.x)] != '1'
-		&& pc()->map[(int)(newy)][(int)(pc()->player.x + check)] != '1'
-		&& pc()->map[(int)(newy + check)][(int)(pc()->player.x + check)] != '1')
+	if (!is_blocked((int)(newy), (int)(pc()->player.x))
+		&& !is_blocked((int)(newy + check), (int)(pc()->player.x))
+		&& !is_blocked((int)(newy), (int)(pc()->player.x + check))
+		&& !is_blocked((int)(newy + check), (int)(pc()->player.x + check)))
 		pc()->player.y = newy;
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_init_everything.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 11:50:38 by mprazere          #+#    #+#             */
-/*   Updated: 2025/11/03 17:20:51 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/04 13:03:16 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,19 @@ void	init_images(void)
 	safe_image(NULL, NULL, &pc()->image, 1);
 	safe_image("assets/enemy1.xpm", &pc()->image.enemy, NULL, 0);
 	safe_image("assets/door.xpm", &pc()->image.door, NULL, 0);
+	safe_image("assets/coin.xpm", &pc()->image.coin, NULL, 0);
 	safe_image(pc()->image.wall_n.path, &pc()->image.wall_n, NULL, 0);
 	safe_image(pc()->image.wall_n.path, &pc()->image.wall_s, NULL, 0);
 	safe_image(pc()->image.wall_n.path, &pc()->image.wall_e, NULL, 0);
 	safe_image(pc()->image.wall_n.path, &pc()->image.wall_o, NULL, 0);
 	if (!pc()->image.image || !pc()->image.wall_n.image
 		|| !pc()->image.wall_s.image || !pc()->image.wall_e.image
-		|| !pc()->image.wall_o.image || !pc()->image.enemy.image || !pc()->image.door.image)
+		|| !pc()->image.wall_o.image || !pc()->image.enemy.image
+		|| !pc()->image.door.image || !pc()->image.coin.image)
 		return (ft_putstr_fd("Error: couldn't load images.\n", 2),
 			destroy_everything(1));
 	safe_address(NULL, &pc()->image, 1);
+	safe_address(&pc()->image.coin, NULL, 0);
 	safe_address(&pc()->image.door, NULL, 0);
 	safe_address(&pc()->image.enemy, NULL, 0);
 	safe_address(&pc()->image.wall_n, NULL, 0);
