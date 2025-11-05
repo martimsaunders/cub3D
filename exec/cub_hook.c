@@ -6,7 +6,7 @@
 /*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 13:01:08 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/05 12:39:31 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/05 18:20:40 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,12 @@ int	draw_move(void)
 	interact_door();
 	while (i < pc()->enemy_count)
 		move_enemy(&pc()->enemies[i++]);
+	pc()->coin_frame_counter++;
+	if (pc()->coin_frame_counter > 5)
+	{
+		pc()->coin_frame_counter = 0;
+		pc()->coin_frame = (pc()->coin_frame + 1) % 8;
+	}
 	check_enemy_colision();
 	check_coin_colision();
 	ray_cast();

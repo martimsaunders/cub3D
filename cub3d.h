@@ -6,7 +6,7 @@
 /*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:56:18 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/05 12:44:39 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/05 18:19:00 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,8 +149,8 @@ typedef struct s_image
 	int			line_lenght;
 	char		*addr;
 	void		*image;
-	t_asset		coin;
-	t_asset		door;
+	t_asset		coin[8];
+	t_asset		door[2];
 	t_asset		enemy;
 	t_asset		wall_e;
 	t_asset		wall_n;
@@ -166,9 +166,11 @@ typedef struct s_start
 typedef struct s_game
 {
 	int			coin_count;
+	int			coin_frame;
 	int			door_count;
 	int			enemy_count;
 	int			coin_captured;
+	int			coin_frame_counter;
 	char		**map;
 	void		*mlx;
 	void		*win;
@@ -230,15 +232,6 @@ int				is_door_closed(int map_y, int map_x);
 void			interact_door(void);
 void			distance_door(t_door *door);
 
-// cub_draw_map.c
-void			draw_map(void);
-void			put_pixel(int x, int y, int color);
-void			draw_square(int x, int y, int size, int color);
-void			draw_player_square(int pixel_x, int pixel_y, int size,
-					int color);
-void			draw_checkered_square(int x, int y, int size, int color1,
-					int color2);
-
 // cub_error.c
 int				end_window(void);
 void			free_array(void);
@@ -267,6 +260,9 @@ int				is_blocked_e(int map_y, int map_x);
 void			move_player(void);
 void			calculate_player_values(void);
 void			check_collision(float newx, float newy);
+
+// cub_draw_map.c
+void			put_pixel(int x, int y, int color);
 
 // cub_ray_cast_cf.c
 int				put_brightness_cf(int color, float distance);

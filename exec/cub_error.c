@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_error.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:59:43 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/04 13:01:40 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/05 18:24:37 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,26 @@ void	destroy_everything(int exit_status)
 {
 	if (pc()->image.image)
 		mlx_destroy_image(pc()->mlx, pc()->image.image);
-	if (pc()->image.coin.image)
-		mlx_destroy_image(pc()->mlx, pc()->image.coin.image);
-	if (pc()->image.door.image)
-		mlx_destroy_image(pc()->mlx, pc()->image.door.image);
+	if (pc()->image.coin[0].image)
+		mlx_destroy_image(pc()->mlx, pc()->image.coin[0].image);
+	if (pc()->image.coin[1].image)
+		mlx_destroy_image(pc()->mlx, pc()->image.coin[1].image);
+	if (pc()->image.coin[2].image)
+		mlx_destroy_image(pc()->mlx, pc()->image.coin[2].image);
+	if (pc()->image.coin[3].image)
+		mlx_destroy_image(pc()->mlx, pc()->image.coin[3].image);
+	if (pc()->image.coin[4].image)
+		mlx_destroy_image(pc()->mlx, pc()->image.coin[4].image);
+	if (pc()->image.coin[5].image)
+		mlx_destroy_image(pc()->mlx, pc()->image.coin[5].image);
+	if (pc()->image.coin[6].image)
+		mlx_destroy_image(pc()->mlx, pc()->image.coin[6].image);
+	if (pc()->image.coin[7].image)
+		mlx_destroy_image(pc()->mlx, pc()->image.coin[7].image);
+	if (pc()->image.door[0].image)
+		mlx_destroy_image(pc()->mlx, pc()->image.door[0].image);
+	if (pc()->image.door[1].image)
+		mlx_destroy_image(pc()->mlx, pc()->image.door[1].image);
 	if (pc()->image.enemy.image)
 		mlx_destroy_image(pc()->mlx, pc()->image.enemy.image);
 	if (pc()->image.wall_n.image)

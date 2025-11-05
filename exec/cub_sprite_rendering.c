@@ -6,7 +6,7 @@
 /*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 15:05:32 by praders           #+#    #+#             */
-/*   Updated: 2025/11/05 12:40:22 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/05 18:21:36 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ void	sprite_rendering(float *zbuffer, int size)
 		if (set_rend_values(temp, &rend) && !temp->state)
 		{
 			if (temp->is_coin)
-				draw_sprite_columns(rend, tex, zbuffer, &pc()->image.coin);
+				draw_sprite_columns(rend, tex, zbuffer, &pc()->image.coin[pc()->coin_frame]);
 			else
 				draw_sprite_columns(rend, tex, zbuffer, &pc()->image.enemy);
 		}
