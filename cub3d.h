@@ -171,11 +171,11 @@ typedef struct s_game
 	char		**map;
 	void		*mlx;
 	void		*win;
-	t_door		door[B_CHR_LIM];
+	t_door		doors[B_CHR_LIM];
 	t_start		start;
 	t_image		image;
 	t_player	player;
-	t_sprite	coin[B_CHR_LIM];
+	t_sprite	coins[B_CHR_LIM];
 	t_sprite	enemies[B_CHR_LIM];
 	t_buttons	button;
 }				t_game;
@@ -219,15 +219,6 @@ typedef struct s_mmap
 	int			map_radius;
 }				t_mmap;
 
-// cub_coins.c
-void			check_coin_colision(void);
-
-// cub_doors.c
-int				find_door_index(int x, int y);
-int				is_door_closed(int map_y, int map_x);
-void			interact_door(void);
-void			distance_door(t_door *door);
-
 // cub_draw_map.c
 void			draw_map(void);
 void			put_pixel(int x, int y, int color);
@@ -248,7 +239,7 @@ int				key_press(int keycode);
 int				key_release(int keycode);
 void			hook_and_loop(void);
 
-// cub_move_enemy.c
+//cub_move_enemy.c
 int				iswall(float newx, float newy, t_sprite *enemy);
 void			check_enemy_colision(void);
 void			move_enemy(t_sprite *enemy);
@@ -260,8 +251,6 @@ void			init_images(void);
 void			init_game(void);
 
 // cub_move_player.c
-int				is_blocked(int map_y, int map_x);
-int				is_blocked_e(int map_y, int map_x);
 void			move_player(void);
 void			calculate_player_values(void);
 void			check_collision(float newx, float newy);
@@ -272,7 +261,7 @@ void			draw_ceiling_floor(t_ray ray, int x);
 
 // cub_ray_cast_utils.c
 void			find_steps(t_ray *ray);
-void			check_wall(t_ray *ray);
+void			check_wall(t_ray *ray, int hit);
 void			draw_e_o_wall(t_ray *ray, t_tex *tex);
 void			draw_n_s_wall(t_ray *ray, t_tex *tex);
 void			put_brightness(t_ray *ray, t_tex *tex, t_rend *rend, int x);
@@ -282,19 +271,17 @@ void			ray_cast(void);
 void			set_ray_values_hit(t_ray *ray, int x);
 void			set_tex_values(t_ray *ray, t_tex *tex);
 void			draw_line(t_ray *ray, t_tex *tex, int x);
-void			setup_wall_texture(t_ray *ray, t_tex *tex);
 
-// cub_sprite_rendering.c
+//cub_sprite_rendering.c
 int				set_rend_values(t_sprite *enemy, t_rend *rend);
-void			sort_sprites(t_sprite **sprite, int size);
+void			sort_enemies(void);
 void			distance(t_sprite *enemy);
-void			sprite_rendering(float zbuffer[WIDTH], int size);
-void			draw_sprite_columns(t_rend rend, t_tex tex,
-					float zbuffer[WIDTH], t_asset *sprite);
+void			sprite_rendering(float zbuffer[WIDTH]);
+void			draw_sprite_columns(t_rend rend, t_tex tex, float zbuffer[WIDTH]);
 
 // cub3d.c
-void			reset_level(void);
-void			init_caracters_values(void);
+void	init_caracters_values(void);
+void	restart_level(void);
 t_game			*pc(void);
 
 // parsing
