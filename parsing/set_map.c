@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:12:51 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/04 18:37:49 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/05 12:01:51 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,16 +80,17 @@ bool	set_elements_values(char character, int x, int y)
 	{
 		if (pc()->door_count >= B_CHR_LIM)
 			return (val_err_msg("Doors quantity limit exceeded: "), false);
-		pc()->doors[pc()->door_count].x = x + 0.25;
-		pc()->doors[pc()->door_count].y = y + 0.25;
+		pc()->door[pc()->door_count].x = x + 0.25;
+		pc()->door[pc()->door_count].y = y + 0.25;
 		pc()->door_count++;
 	}
 	else if (character == 'c')
 	{
 		if (pc()->coin_count >= B_CHR_LIM)
 			return (val_err_msg("Coins quantity limit exceeded: "), false);
-		pc()->coins[pc()->coin_count].x = x + 0.25;
-		pc()->coins[pc()->coin_count].y = y + 0.25;
+		pc()->coin[pc()->coin_count].x = x + 0.25;
+		pc()->coin[pc()->coin_count].y = y + 0.25;
+		pc()->coin[pc()->coin_count].is_coin = 1;
 		pc()->coin_count++;
 	}
 	return (true);

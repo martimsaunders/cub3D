@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_error.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:59:43 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/03 13:00:45 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/04 13:01:40 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@ void	destroy_everything(int exit_status)
 {
 	if (pc()->image.image)
 		mlx_destroy_image(pc()->mlx, pc()->image.image);
+	if (pc()->image.coin.image)
+		mlx_destroy_image(pc()->mlx, pc()->image.coin.image);
+	if (pc()->image.door.image)
+		mlx_destroy_image(pc()->mlx, pc()->image.door.image);
 	if (pc()->image.enemy.image)
 		mlx_destroy_image(pc()->mlx, pc()->image.enemy.image);
 	if (pc()->image.wall_n.image)

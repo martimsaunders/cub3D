@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 13:02:26 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/04 19:52:20 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/05 11:54:27 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void	init_caracters_values(void)
 	while (++i < pc()->enemy_count)
 	{
 		pc()->enemies[i].speed = 0.02;
-		pc()->enemies[i].direction = 1;
+		pc()->enemies[i].direction = 0;
+		pc()->enemies[i].is_coin = 0;
 	}
 }
 

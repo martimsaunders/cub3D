@@ -6,7 +6,7 @@
 /*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 16:38:15 by mprazere          #+#    #+#             */
-/*   Updated: 2025/11/03 11:35:37 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/03 17:19:34 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,11 @@ void	put_brightness(t_ray *ray, t_tex *tex, t_rend *rend, int x)
 	tex->texpos += tex->step;
 }
 
-void	check_wall(t_ray *ray, int hit)
+void	check_wall(t_ray *ray)
 {
-	while (hit == 0)
+	int door_index;
+	ray->hit = 0;
+	while (ray->hit == 0)
 	{
 		if (ray->sdistx < ray->sdisty)
 		{
@@ -86,7 +88,16 @@ void	check_wall(t_ray *ray, int hit)
 			ray->side = 1;
 		}
 		if (pc()->map[ray->mapy][ray->mapx] == '1')
-			hit = 1;
+			ray->hit = 1;
+		else if (pc()->map[ray->mapy][ray->mapx] == 'd')
+		{
+			door_index = find_door_index(ray->mapx, ray->mapy);
+			if (pc()->door[door_index].state == 0)
+			{
+				ray->hit = 2;
+				break;
+			}
+		}
 	}
 	if (ray->side == 0)
 		ray->perpwalldist = (ray->mapx - ray->pctrx + (1 - ray->stepx) / 2)

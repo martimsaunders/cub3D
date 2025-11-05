@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 13:01:08 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/03 13:01:10 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/04 15:50:13 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,11 @@ int	draw_move(void)
 	i = -1;
 	ft_memset(pc()->image.addr, 0, HEIGHT * pc()->image.line_lenght);
 	move_player();
+	interact_door();
 	while (i < pc()->enemy_count)
 		move_enemy(&pc()->enemies[i++]);
 	check_enemy_colision();
+	check_coin_colision();
 	ray_cast();
 	draw_mini_map();
 	mlx_put_image_to_window(pc()->mlx, pc()->win, pc()->image.image, 0, 0);
