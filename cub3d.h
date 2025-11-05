@@ -72,6 +72,8 @@ typedef struct s_player
 	float		move_speed;
 	float		rot_speed;
 	float		angle;
+	int mousex;
+	int mousey;
 }				t_player;
 
 typedef struct s_ray
@@ -169,6 +171,7 @@ typedef struct s_game
 	int			door_count;
 	int			enemy_count;
 	int			coin_captured;
+	int mouse_in_win;
 	char		**map;
 	void		*mlx;
 	void		*win;
@@ -339,5 +342,9 @@ void			val_err_msg(char *msg);
 void			draw_mini_map(void);
 void			draw_enemies(t_map *m);
 void			draw_player(t_map *m);
+
+// mouse_ctrl.c
+int mouse_cam_move(int x, int y);
+int mouse_out();
 
 #endif
