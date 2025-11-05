@@ -6,7 +6,7 @@
 /*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 11:50:38 by mprazere          #+#    #+#             */
-/*   Updated: 2025/11/05 18:17:16 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/05 22:01:28 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	safe_address(t_asset *asset, t_image *image, int type)
 void	init_images(void)
 {
 	safe_image(NULL, NULL, &pc()->image, 1);
-	safe_image("assets/enemy1.xpm", &pc()->image.enemy, NULL, 0);
+	safe_image("assets/enemy2.xpm", &pc()->image.enemy, NULL, 0);
 	safe_image("assets/door.xpm", &pc()->image.door[0], NULL, 0);
 	safe_image("assets/door_unlock.xpm", &pc()->image.door[1], NULL, 0);
 	safe_image("assets/coin1.xpm", &pc()->image.coin[0], NULL, 0);
