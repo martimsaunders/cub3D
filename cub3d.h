@@ -6,7 +6,7 @@
 /*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:56:18 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/05 11:57:25 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/05 12:44:39 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,6 +221,7 @@ typedef struct s_map
 }				t_map;
 
 // cub_coins.c
+int				find_coin_state(int x, int y);
 void			check_coin_colision(void);
 
 // cub_doors.c

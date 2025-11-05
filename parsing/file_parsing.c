@@ -6,7 +6,7 @@
 /*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:11:59 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/05 11:58:49 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/05 12:36:36 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ bool	map_file_parsing(char *map_name)
 	if (!surounded_walls() || !coins_pos())
 		return (false);
 	pc()->start.player.x = pc()->player.x;
-	pc()->start.player.x = pc()->player.x;
+	pc()->start.player.y = pc()->player.y;
 	pc()->start.player.angle = pc()->player.angle;
 	return (true);
 }

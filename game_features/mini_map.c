@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:11:54 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/04 18:34:27 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/05 13:00:22 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static void	put_element_pixel(int x, int y, t_map *m)
 		put_pixel(m->map_radius + x, m->map_radius + y, 0xFFFFFF);
 	else
 		put_pixel(m->map_radius + x, m->map_radius + y, 0xE6E6FA);
-	if (pc()->map[mapy][mapx] == 'c')
+	if (pc()->map[mapy][mapx] == 'c' && !find_coin_state(mapx, mapy))
 		put_coin_pixel(x, y, m, BLOCK / 4);
 }
 

@@ -6,7 +6,7 @@
 /*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 13:02:26 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/05 11:54:27 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/05 12:40:20 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,18 @@ t_game	*pc(void)
 
 void	restart_level(void)
 {
+	int i;
+
 	pc()->player.x = pc()->start.player.x;
 	pc()->player.y = pc()->start.player.y;
 	pc()->player.angle = pc()->start.player.angle;
+	pc()->coin_captured = 0;
+	i = -1;
+	while (++i < pc()->door_count)
+		pc()->door[i].state = 0;
+	i = -1;
+	while (++i < pc()->coin_count)
+		pc()->coin[i].state = 0;
 }
 
 void	init_caracters_values(void)
@@ -36,7 +45,6 @@ void	init_caracters_values(void)
 	pc()->player.dir_y = sin(pc()->player.angle);
 	pc()->player.plane_x = -pc()->player.dir_y * 0.66;
 	pc()->player.plane_y = pc()->player.dir_x * 0.66;
-	pc()->enemy_count = 3;
 	i = -1;
 	while (++i < pc()->enemy_count)
 	{
