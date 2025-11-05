@@ -58,7 +58,7 @@ bool	map_file_parsing(char *map_name)
 	if (!surounded_walls() || !coins_pos())
 		return (false);
 	pc()->start.player.x = pc()->player.x;
-	pc()->start.player.x = pc()->player.x;
+	pc()->start.player.y = pc()->player.y;
 	pc()->start.player.angle = pc()->player.angle;
 	return (true);
 }
