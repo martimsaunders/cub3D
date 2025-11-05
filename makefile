@@ -24,7 +24,8 @@ exec/cub_doors.c exec/cub_coins.c \
 parsing/file_parsing.c parsing/info_parse_utils.c parsing/info_parsing.c \
 parsing/map_parsing.c parsing/set_map.c parsing/map_parse_utils.c\
 \
-game_features/mini_map.c game_features/mini_map_utils.c game_features/mouse_ctrl.c
+game_features/mini_map.c game_features/mini_map_utils.c game_features/mouse_ctrl.c \
+game_features/mouse_clicks.c
 
 OBJ_DIR = obj
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))

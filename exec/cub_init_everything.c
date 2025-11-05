@@ -31,19 +31,20 @@ void	safe_address(t_asset *asset, t_image *image, int type)
 				&image->line_lenght, &image->endian);
 }
 
+void init_menu_images()
+{
+	//init image pointers para cada pagina e pintar 
+	// criar novo safe_image para t_menu
+	return ;
+}
+
 void	init_images(void)
 {
 	safe_image(NULL, NULL, &pc()->image, 1);
 	safe_image("assets/enemy1.xpm", &pc()->image.enemy, NULL, 0);
 	safe_image("assets/door.xpm", &pc()->image.door, NULL, 0);
 	safe_image("assets/coin.xpm", &pc()->image.coin, NULL, 0);
-	safe_image(pc()->image.wall_n.path, &pc()->image.wall_n, NULL, 0);
-	safe_image(pc()->image.wall_n.path, &pc()->image.wall_s, NULL, 0);
-	safe_image(pc()->image.wall_n.path, &pc()->image.wall_e, NULL, 0);
-	safe_image(pc()->image.wall_n.path, &pc()->image.wall_o, NULL, 0);
-	if (!pc()->image.image || !pc()->image.wall_n.image
-		|| !pc()->image.wall_s.image || !pc()->image.wall_e.image
-		|| !pc()->image.wall_o.image || !pc()->image.enemy.image
+	if (!pc()->image.image || !pc()->image.enemy.image
 		|| !pc()->image.door.image || !pc()->image.coin.image)
 		return (ft_putstr_fd("Error: couldn't load images.\n", 2),
 			destroy_everything(1));
@@ -51,10 +52,7 @@ void	init_images(void)
 	safe_address(&pc()->image.coin, NULL, 0);
 	safe_address(&pc()->image.door, NULL, 0);
 	safe_address(&pc()->image.enemy, NULL, 0);
-	safe_address(&pc()->image.wall_n, NULL, 0);
-	safe_address(&pc()->image.wall_s, NULL, 0);
-	safe_address(&pc()->image.wall_e, NULL, 0);
-	safe_address(&pc()->image.wall_o, NULL, 0);
+	init_menu_images();
 }
 
 void	init_game(void)
@@ -63,10 +61,9 @@ void	init_game(void)
 	if (!pc()->mlx)
 		(ft_putstr_fd("Error: couldn't initiate mlx.\n", 2),
 			destroy_everything(1));
-	init_images();
 	pc()->win = mlx_new_window(pc()->mlx, WIDTH, HEIGHT, "cub3d");
 	if (!pc()->win)
 		(ft_putstr_fd("Error: couldn't initiate window.\n", 2),
 			destroy_everything(1));
-	init_caracters_values();
+	init_images();
 }

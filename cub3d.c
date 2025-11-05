@@ -35,7 +35,7 @@ void	restart_level(void)
 		pc()->coin[i].state = 0;
 }
 
-void	init_caracters_values(void)
+void	init_eval_characters_values(void)
 {
 	int	i;
 
@@ -54,12 +54,28 @@ void	init_caracters_values(void)
 	}
 }
 
-int	main(int argc, char **argv)
+void init_eval_images()
+{
+	safe_image(pc()->image.wall_n.path, &pc()->image.wall_n, NULL, 0);
+	safe_image(pc()->image.wall_s.path, &pc()->image.wall_s, NULL, 0);
+	safe_image(pc()->image.wall_e.path, &pc()->image.wall_e, NULL, 0);
+	safe_image(pc()->image.wall_o.path, &pc()->image.wall_o, NULL, 0);
+	if (!pc()->image.wall_n.image || !pc()->image.wall_s.image
+	|| !pc()->image.wall_e.image || !pc()->image.wall_o.image)
+		return (ft_putstr_fd("Error: couldn't load eval images.\n", 2),
+			destroy_everything(1));
+	safe_address(&pc()->image.wall_n, NULL, 0);
+	safe_address(&pc()->image.wall_s, NULL, 0);
+	safe_address(&pc()->image.wall_e, NULL, 0);
+	safe_address(&pc()->image.wall_o, NULL, 0);
+}
+
+bool avl_mode_init(int argc, char **argv)
 {
 	// char *line;
 	
 	if (argc != 2)
-		return (err_msg("1 argument only (./map_path)", 0), 1);
+		return (err_msg("1 argument only (./map_path)", 0), false);
 	// while (1)
 	// {
 	// 	ft_printf("Allow bonus features? (y/n)\n");
@@ -77,9 +93,24 @@ int	main(int argc, char **argv)
 	// }
 	ps()->bonus = 1;
 	if (!map_file_parsing(argv[1]))
-		destroy_everything(1);
+		return (false);
+	init_eval_characters_values();
+	init_eval_images();
+	return (true);
+}
+
+int	main(int argc, char **argv)
+{
+	pc()->mode = EVAL;
 	init_game();
+	if (!avl_mode_init(argc, argv)) // chamar a partir do menu ao clicar
+		return (1);
 	hook_and_loop();
 	destroy_everything(1);
 	return (0);
 }
+
+/*
+ao entrar no jogo dar init aos elementos (a partir do menu)
+ao sair do jogo dar free aos elementos do jogo (a partir do pausa ou esc)
+*/

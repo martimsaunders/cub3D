@@ -30,6 +30,16 @@
 # define FOV 0.66
 # define B_CHR_LIM 10
 
+typedef enum e_mode
+{
+	MENU,
+	CTRLS,
+	LVLS,
+	PAUSE,
+	GAME,
+	EVAL
+}						t_mode;
+
 typedef struct s_door
 {
 	int			x;
@@ -142,6 +152,17 @@ typedef struct s_asset
 	void		*image;
 }				t_asset;
 
+typedef struct s_menu
+{
+	int			bpp;
+	int			floor;
+	int			endian;
+	int			ceiling;
+	int			line_lenght;
+	char		*addr;
+	void		*image;
+}				t_menu;
+
 typedef struct s_image
 {
 	int			bpp;
@@ -158,6 +179,9 @@ typedef struct s_image
 	t_asset		wall_n;
 	t_asset		wall_o;
 	t_asset		wall_s;
+	t_menu main_menu[2];
+	t_menu ctrls_menu[5];
+	t_menu game_menu[3];
 }				t_image;
 
 typedef struct s_start
@@ -182,6 +206,8 @@ typedef struct s_game
 	t_sprite	coin[B_CHR_LIM];
 	t_sprite	enemies[B_CHR_LIM];
 	t_buttons	button;
+	t_mode mode;
+	//colocar menus em game?
 }				t_game;
 
 typedef struct s_parse
@@ -248,7 +274,7 @@ void			free_array(void);
 void			destroy_everything(int exit_status);
 
 // cub_hook.c
-int				draw_move(void);
+int				draw_screen(void);
 int				key_press(int keycode);
 int				key_release(int keycode);
 void			hook_and_loop(void);
@@ -297,7 +323,7 @@ void			draw_sprite_columns(t_rend rend, t_tex tex,
 					float *zbuffer, t_asset *sprite);
 
 // cub3d.c
-void	init_caracters_values(void);
+void	init_eval_characters_values(void);
 void	restart_level(void);
 t_game			*pc(void);
 
@@ -344,7 +370,30 @@ void			draw_enemies(t_map *m);
 void			draw_player(t_map *m);
 
 // mouse_ctrl.c
-int mouse_cam_move(int x, int y);
+int mouse_move(int x, int y);
 int mouse_out();
+int	mouse_click(int button, int x, int y);
+void mouse_cam_move(int x);
+
+//mouse_clicks.c
+void pause_menu_click(int x, int y);
+void lvls_menu_click(int x, int y);
+void ctrls_menu_click(int x, int y);
+void main_menu_click(int x, int y);
+
+// to organize
+void init_menu_images();
+
+void	draw_pause_menu();
+void	draw_lvls_menu();
+void	draw_ctrls_menu();
+void	draw_main_menu();
+void	draw_game_screen();
+void	draw_eval_screen();
+
+void mouse_move_pause_menu(int x, int y);
+void mouse_move_lvls_menu(int x, int y);
+void mouse_move_ctrls_menu(int x, int y);
+void mouse_move_main_menu(int x, int y);
 
 #endif
