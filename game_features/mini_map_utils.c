@@ -12,7 +12,7 @@
 
 #include "../cub3d.h"
 
-void	draw_player(t_mmap *m)
+void	draw_player(t_map *m)
 {
 	int	player_radius;
 	int	x;
@@ -34,7 +34,7 @@ void	draw_player(t_mmap *m)
 	}
 }
 
-static void	enemy_put_pixel(t_mmap *m, int e_radius)
+static void	enemy_put_pixel(t_map *m, int e_radius)
 {
 	int	x;
 	int	y;
@@ -47,39 +47,39 @@ static void	enemy_put_pixel(t_mmap *m, int e_radius)
 		{
 			if (x * x + y * y > e_radius * e_radius)
 				continue ;
-			m->pxlex = m->mapx + x;
-			m->pxley = m->mapy + y;
-			m->difex = m->pxlex - m->map_radius;
-			m->difey = m->pxley - m->map_radius;
-			if (m->difex * m->difex + m->difey * m->difey > m->map_radius
+			m->mappx = m->mapx + x;
+			m->mappy = m->mapy + y;
+			m->mapdx = m->mappx - m->map_radius;
+			m->mapdy = m->mappy - m->map_radius;
+			if (m->mapdx * m->mapdx + m->mapdy * m->mapdy > m->map_radius
 				* m->map_radius)
 				continue ;
 			if (x * x + y * y > (e_radius - 2) * (e_radius - 2))
-				put_pixel(m->pxlex, m->pxley, 0x000000);
+				put_pixel(m->mappx, m->mappy, 0x000000);
 			else
-				put_pixel(m->pxlex, m->pxley, 0x0003D1);
+				put_pixel(m->mappx, m->mappy, 0x0003D1);
 		}
 	}
 }
 
-void	draw_enemies(t_mmap *m)
+void	draw_enemies(t_map *m)
 {
 	int	i;
 
 	i = -1;
 	while (++i < pc()->enemy_count)
 	{
-		m->difx = pc()->enemies[i].x - pc()->player.x;
-		m->dify = pc()->enemies[i].y - pc()->player.y;
-		m->rotx = m->difx * cos(-m->angle) - m->dify * sin(-m->angle);
-		m->roty = m->difx * sin(-m->angle) + m->dify * cos(-m->angle);
+		m->disx = pc()->enemies[i].x - pc()->player.x;
+		m->disy = pc()->enemies[i].y - pc()->player.y;
+		m->rotx = m->disx * cos(-m->angle) - m->disy * sin(-m->angle);
+		m->roty = m->disx * sin(-m->angle) + m->disy * cos(-m->angle);
 		m->pxlx = m->rotx * BLOCK;
 		m->pxly = m->roty * BLOCK;
 		m->mapx = (int)(m->map_radius + m->pxlx);
 		m->mapy = (int)(m->map_radius + m->pxly);
-		m->difex = m->mapx - m->map_radius;
-		m->difey = m->mapy - m->map_radius;
-		if (m->difex * m->difex + m->difey * m->difey > m->map_radius
+		m->mapdx = m->mapx - m->map_radius;
+		m->mapdy = m->mapy - m->map_radius;
+		if (m->mapdx * m->mapdx + m->mapdy * m->mapdy > m->map_radius
 			* m->map_radius)
 			continue ;
 		enemy_put_pixel(m, BLOCK / 4);

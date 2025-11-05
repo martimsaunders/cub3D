@@ -195,7 +195,7 @@ typedef struct s_parse
 	int			bonus;
 }				t_parse;
 
-typedef struct s_mmap
+typedef struct s_map
 {
 	double		angle;
 	double		world_x;
@@ -204,20 +204,20 @@ typedef struct s_mmap
 	double		frac_y;
 	double		rotx;
 	double		roty;
-	double		difx;
-	double		dify;
+	double		disx;
+	double		disy;
 	double		pxlx;
 	double		pxly;
-	int			difex;
-	int			difey;
-	int			pxlex;
-	int			pxley;
+	int			mapdx;
+	int			mapdy;
+	int			mappx;
+	int			mappy;
 	int			mapx;
 	int			mapy;
 	int			relx;
 	int			rely;
 	int			map_radius;
-}				t_mmap;
+}				t_map;
 
 // cub_draw_map.c
 void			draw_map(void);
@@ -323,7 +323,7 @@ void			val_err_msg(char *msg);
 // game_features
 // mini_map.c
 void			draw_mini_map(void);
-void			draw_enemies(t_mmap *m);
-void			draw_player(t_mmap *m);
+void			draw_enemies(t_map *m);
+void			draw_player(t_map *m);
 
 #endif

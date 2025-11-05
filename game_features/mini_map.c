@@ -12,7 +12,7 @@
 
 #include "../cub3d.h"
 
-bool	is_edge(int mapx, int mapy, t_mmap *m)
+bool	is_edge(int mapx, int mapy, t_map *m)
 {
 	if (m->relx == 0 && (mapx == 0 || pc()->map[mapy][mapx - 1] != '1'))
 		return (true);
@@ -32,19 +32,27 @@ bool	is_edge(int mapx, int mapy, t_mmap *m)
 	return (false);
 }
 
-static void	put_coin_pixel(int x, int y, t_mmap *m, float radius)
+static void	put_coin_pixel(int x, int y, t_map *m, double radius)
 {
-	m->difx = m->world_x - (m->mapx + 0.5);
-	m->dify = m->world_y - (m->mapy + 0.5);
-	if (m->difx * m->difx + m->dify * m->dify <= radius * radius)
+	double val;
+	double rr;
+	double irr;
+
+	rr = radius * radius;
+	irr = (radius - 2) * (radius - 2);
+	m->disx = m->world_x - (m->mapx + 0.5);
+	m->disy = m->world_y - (m->mapy + 0.5);
+	m->pxlx = m->disx * BLOCK;
+	m->pxly = m->disy * BLOCK;
+	val = m->pxlx * m->pxlx + m->pxly * m->pxly;
+	if (val < irr)
 		put_pixel(m->map_radius + x, m->map_radius + y, 0xF4DC0B);
+	else if (val <= rr)
+		put_pixel(m->map_radius + x, m->map_radius + y, 0x000000);
 }
 
-// pixel x position on the block
-// pixel y position on the block
-// pixel x relative position on the grid
-// pixel y relative position on the grid
-static void	put_element_pixel(int x, int y, t_mmap *m)
+// convertion of the map pixel into block position 
+static void	put_element_pixel(int x, int y, t_map *m)
 {
 	int	mapy;
 	int	mapx;
@@ -69,12 +77,12 @@ static void	put_element_pixel(int x, int y, t_mmap *m)
 	else
 		put_pixel(m->map_radius + x, m->map_radius + y, 0xE6E6FA);
 	if (pc()->map[mapy][mapx] == 'c')
-		put_coin_pixel(x, y, m, 0.25);
+		put_coin_pixel(x, y, m, BLOCK / 4);
 }
 
-// posição pixel relativo a player e rotação da camera
-// coordenadas na grid do pixel
-static void	put_map_pixel(int x, int y, t_mmap *m)
+// convertion of the window pixel in map coordinates
+// starting from players position and rotated
+static void	put_map_pixel(int x, int y, t_map *m)
 {
 	m->angle = pc()->player.angle + PI / 2;
 	m->rotx = x * cos(m->angle) - y * sin(m->angle);
@@ -96,7 +104,7 @@ void	draw_mini_map(void)
 {
 	int		x;
 	int		y;
-	t_mmap	m;
+	t_map	m;
 
 	m.map_radius = HEIGHT / 6 - 2;
 	y = -m.map_radius;
