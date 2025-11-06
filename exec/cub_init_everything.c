@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_init_everything.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 11:50:38 by mprazere          #+#    #+#             */
-/*   Updated: 2025/11/04 13:03:16 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/05 22:01:28 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,42 @@ void	safe_address(t_asset *asset, t_image *image, int type)
 void	init_images(void)
 {
 	safe_image(NULL, NULL, &pc()->image, 1);
-	safe_image("assets/enemy1.xpm", &pc()->image.enemy, NULL, 0);
-	safe_image("assets/door.xpm", &pc()->image.door, NULL, 0);
-	safe_image("assets/coin.xpm", &pc()->image.coin, NULL, 0);
+	safe_image("assets/enemy2.xpm", &pc()->image.enemy, NULL, 0);
+	safe_image("assets/door.xpm", &pc()->image.door[0], NULL, 0);
+	safe_image("assets/door_unlock.xpm", &pc()->image.door[1], NULL, 0);
+	safe_image("assets/coin1.xpm", &pc()->image.coin[0], NULL, 0);
+	safe_image("assets/coin2.xpm", &pc()->image.coin[1], NULL, 0);
+	safe_image("assets/coin3.xpm", &pc()->image.coin[2], NULL, 0);
+	safe_image("assets/coin4.xpm", &pc()->image.coin[3], NULL, 0);
+	safe_image("assets/coin5.xpm", &pc()->image.coin[4], NULL, 0);
+	safe_image("assets/coin6.xpm", &pc()->image.coin[5], NULL, 0);
+	safe_image("assets/coin7.xpm", &pc()->image.coin[6], NULL, 0);
+	safe_image("assets/coin8.xpm", &pc()->image.coin[7], NULL, 0);
 	safe_image(pc()->image.wall_n.path, &pc()->image.wall_n, NULL, 0);
-	safe_image(pc()->image.wall_n.path, &pc()->image.wall_s, NULL, 0);
-	safe_image(pc()->image.wall_n.path, &pc()->image.wall_e, NULL, 0);
-	safe_image(pc()->image.wall_n.path, &pc()->image.wall_o, NULL, 0);
+	safe_image(pc()->image.wall_s.path, &pc()->image.wall_s, NULL, 0);
+	safe_image(pc()->image.wall_e.path, &pc()->image.wall_e, NULL, 0);
+	safe_image(pc()->image.wall_o.path, &pc()->image.wall_o, NULL, 0);
 	if (!pc()->image.image || !pc()->image.wall_n.image
 		|| !pc()->image.wall_s.image || !pc()->image.wall_e.image
 		|| !pc()->image.wall_o.image || !pc()->image.enemy.image
-		|| !pc()->image.door.image || !pc()->image.coin.image)
+		|| !pc()->image.door[0].image || !pc()->image.door[1].image
+		|| !pc()->image.coin[0].image || !pc()->image.coin[1].image
+		|| !pc()->image.coin[2].image || !pc()->image.coin[3].image
+		|| !pc()->image.coin[4].image || !pc()->image.coin[5].image
+		|| !pc()->image.coin[6].image || !pc()->image.coin[7].image)
 		return (ft_putstr_fd("Error: couldn't load images.\n", 2),
 			destroy_everything(1));
 	safe_address(NULL, &pc()->image, 1);
-	safe_address(&pc()->image.coin, NULL, 0);
-	safe_address(&pc()->image.door, NULL, 0);
+	safe_address(&pc()->image.coin[0], NULL, 0);
+	safe_address(&pc()->image.coin[1], NULL, 0);
+	safe_address(&pc()->image.coin[2], NULL, 0);
+	safe_address(&pc()->image.coin[3], NULL, 0);
+	safe_address(&pc()->image.coin[4], NULL, 0);
+	safe_address(&pc()->image.coin[5], NULL, 0);
+	safe_address(&pc()->image.coin[6], NULL, 0);
+	safe_address(&pc()->image.coin[7], NULL, 0);
+	safe_address(&pc()->image.door[0], NULL, 0);
+	safe_address(&pc()->image.door[1], NULL, 0);
 	safe_address(&pc()->image.enemy, NULL, 0);
 	safe_address(&pc()->image.wall_n, NULL, 0);
 	safe_address(&pc()->image.wall_s, NULL, 0);

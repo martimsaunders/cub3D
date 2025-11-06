@@ -6,7 +6,7 @@
 #    By: praders <praders@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/20 12:20:09 by praders           #+#    #+#              #
-#    Updated: 2025/11/05 11:52:12 by praders          ###   ########.fr        #
+#    Updated: 2025/11/05 13:06:27 by praders          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 MLX = $(MLX_DIR)/libmlx.a
 
 SRCS = cub3d.c exec/cub_init_everything.c exec/cub_error.c exec/cub_hook.c \
-exec/cub_draw_map.c exec/cub_move_player.c exec/cub_ray_cast.c exec/cub_ray_cast_utils.c \
+exec/cub_pixel.c exec/cub_move_player.c exec/cub_ray_cast.c exec/cub_ray_cast_utils.c \
 exec/cub_ray_cast_cf.c exec/cub_sprite_rendering.c exec/cub_move_enemy.c \
 exec/cub_doors.c exec/cub_coins.c \
 \

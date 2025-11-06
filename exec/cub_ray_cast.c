@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_ray_cast.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 15:27:44 by mprazere          #+#    #+#             */
-/*   Updated: 2025/11/04 16:11:21 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/05 18:19:02 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,10 @@ void	setup_wall_texture(t_ray *ray, t_tex *tex)
 {
 	t_asset	*wall;
 
-	if (ray->hit == 2)
-		wall = &pc()->image.door;
+	if (ray->hit == 2 && pc()->coin_captured == pc()->coin_count)
+		wall = &pc()->image.door[1];
+	else if (ray->hit == 2)
+		wall = &pc()->image.door[0];
 	else if (ray->side == 0)
 	{
 		if (ray->raydirx > 0)
@@ -81,12 +83,18 @@ void	draw_line(t_ray *ray, t_tex *tex, int x)
 	while (ray->drawstart <= ray->drawend)
 	{
 		tex->texy = (int)tex->texpos;
-		if (ray->hit == 2)
+		if (ray->hit == 2 && pc()->coin_captured == pc()->coin_count)
 		{
-			tex->index = tex->texy * pc()->image.door.line_lenght + tex->texx
-			* (pc()->image.door.bpp / 8);
-			tex->color = *(int *)(pc()->image.door.addr + tex->index);
+			tex->index = tex->texy * pc()->image.door[1].line_lenght + tex->texx
+			* (pc()->image.door[1].bpp / 8);
+			tex->color = *(int *)(pc()->image.door[1].addr + tex->index);
 		}
+		else if (ray->hit == 2)
+		{
+			tex->index = tex->texy * pc()->image.door[0].line_lenght + tex->texx
+			* (pc()->image.door[0].bpp / 8);
+			tex->color = *(int *)(pc()->image.door[0].addr + tex->index);
+		}	
 		else if (ray->side == 0)
 			draw_e_o_wall(ray, tex);
 		else
