@@ -6,7 +6,7 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:27:32 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/06 15:28:02 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/06 16:33:10 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,7 @@ typedef struct s_start
 
 typedef struct s_game
 {
+	int			argc;
 	int			coin_count;
 	int			coin_frame;
 	int			door_count;
@@ -203,6 +204,7 @@ typedef struct s_game
 	int			coin_captured;
 	int			coin_frame_counter;
 	char		**map;
+	char		**argv;
 	void		*mlx;
 	void		*win;
 	t_door		door[B_CHR_LIM];
@@ -323,6 +325,7 @@ void			draw_sprite_columns(t_rend rend, t_tex tex, float *zbuffer,
 					t_asset *sprite);
 
 // cub3d.c
+bool			avl_mode_init(int argc, char **argv);
 void			init_eval_characters_values(void);
 void			restart_level(void);
 t_game			*pc(void);

@@ -6,7 +6,7 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:29:01 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/06 15:29:04 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/06 16:34:55 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void	init_images(void)
 	safe_image("assets/coin7.xpm", &pc()->image.coin[6], NULL, 0);
 	safe_image("assets/coin8.xpm", &pc()->image.coin[7], NULL, 0);
 	init_menu_images();
-	init_eval_images();
 }
 
 void	init_game(void)

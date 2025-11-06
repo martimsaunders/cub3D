@@ -6,7 +6,7 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 13:02:26 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/06 15:40:26 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/06 16:35:13 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,14 @@ bool	avl_mode_init(int argc, char **argv)
 	if (!map_file_parsing(argv[1]))
 		return (false);
 	init_eval_characters_values();
+	init_eval_images();
 	return (true);
 }
 
 int	main(int argc, char **argv)
 {
+	pc()->argc = argc;
+	pc()->argv = argv;
 	pc()->mode = MENU;
 	init_game();
 	hook_and_loop();

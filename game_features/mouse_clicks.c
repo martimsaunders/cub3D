@@ -5,7 +5,11 @@ void	main_menu_click(int x, int y)
 	if ((x >= 81 && x <= 283) && (y >= 450 && y <= 611))
 		pc()->mode = GAME_MENU;
 	else if ((x >= 382 && x <= 595) && (y >= 450 && y <= 611))
+    {
+        if (!avl_mode_init(pc()->argc, pc()->argv))
+            destroy_everything(1);
 		pc()->mode = EVAL;
+    }
 	else if ((x >= 686 && x <= 904) && (y >= 450 && y <= 611))
 		pc()->mode = LVLS;
 	else if ((x >= 1003 && x <= 1208) && (y >= 450 && y <= 611))
