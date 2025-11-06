@@ -6,7 +6,7 @@
 /*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 12:54:52 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/06 13:07:54 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/06 14:06:42 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef enum e_mode
 	MENU,
 	CTRLS,
 	LVLS,
-	PAUSE,
+	GAME_MENU,
 	GAME,
 	EVAL
 }				t_mode;
@@ -183,7 +183,7 @@ typedef struct s_image
 	t_asset		wall_o;
 	t_asset		wall_s;
 	t_asset		menu[5];
-	t_asset		player[3];
+	t_asset		game_m[3];
 	t_asset		keys[2];
 }				t_image;
 
@@ -376,14 +376,14 @@ void			mouse_cam_move(int x);
 int				mouse_in(void);
 
 // mouse_clicks.c
-void			pause_menu_click(int x, int y);
+void			game_menu_click(int x, int y);
 void			lvls_menu_click(int x, int y);
 void			ctrls_menu_click(int x, int y);
 void			main_menu_click(int x, int y);
 
 // to organize
 
-void			draw_pause_menu(void);
+void			draw_game_menu(void);
 void			draw_lvls_menu(void);
 void			draw_ctrls_menu(void);
 void			draw_main_menu(void);

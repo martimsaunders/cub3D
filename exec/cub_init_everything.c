@@ -6,7 +6,7 @@
 /*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 11:50:38 by mprazere          #+#    #+#             */
-/*   Updated: 2025/11/06 13:35:17 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/06 14:07:55 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@ void init_menu_images(void)
 	safe_image("assets/mm_train.xpm", &pc()->image.menu[2], NULL, 0);
 	safe_image("assets/mm_keys.xpm", &pc()->image.menu[3], NULL, 0);
 	safe_image("assets/mm_eval.xpm", &pc()->image.menu[4], NULL, 0);
+	safe_image("assets/play.xpm", &pc()->image.game_m[0], NULL, 0);
+	safe_image("assets/play_back.xpm", &pc()->image.game_m[1], NULL, 0);
+	safe_image("assets/play_play.xpm", &pc()->image.game_m[2], NULL, 0);
 }
 
 void	init_images(void)

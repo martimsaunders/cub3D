@@ -10,8 +10,8 @@ int	mouse_click(int button, int x, int y)
 		ctrls_menu_click(x, y);
 	else if (pc()->mode == LVLS)
 		lvls_menu_click(x, y);
-	else if (pc()->mode == PAUSE)
-		pause_menu_click(x, y);
+	else if (pc()->mode == GAME_MENU)
+		game_menu_click(x, y);
 	return (0);
 }
 

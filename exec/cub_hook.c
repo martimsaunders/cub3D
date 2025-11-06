@@ -6,7 +6,7 @@
 /*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 12:57:30 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/06 13:36:53 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/06 15:07:30 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	key_press(int keycode)
 	if (pc()->mode == EVAL || pc()->mode == GAME)
 	{
 		if (keycode == XK_Escape)
-			pc()->mode = PAUSE;
+			pc()->mode = MENU;
 		if (keycode == XK_w)
 			pc()->button.w = true;
 		if (keycode == XK_a)
@@ -44,7 +44,7 @@ int	key_press(int keycode)
 		if (keycode == XK_Right)
 			pc()->button.right = true;
 	}
-	else if (pc()->mode == PAUSE)
+	else if (pc()->mode == MENU)
 	{
 		if (keycode == XK_Escape)
 			(ft_putstr_fd("You exited the game\n", 1), destroy_everything(0));
@@ -99,21 +99,32 @@ int	draw_screen(void)
 {
 	if (pc()->mode == EVAL)
 		draw_eval_screen();
-	if (pc()->mode == GAME)
+	else if (pc()->mode == GAME)
 		draw_game_screen();
-	if (pc()->mode == MENU)
+	else if (pc()->mode == MENU)
 		draw_main_menu();
 	else if (pc()->mode == CTRLS)
 		draw_ctrls_menu();
 	else if (pc()->mode == LVLS)
 		draw_lvls_menu();
-	else if (pc()->mode == PAUSE)
-		draw_pause_menu();
+	else if (pc()->mode == GAME_MENU)
+		draw_game_menu();
 	return (0);
 }
 
-void	draw_pause_menu(void)
+void	draw_game_menu(void)
 {
+	int x;
+	int y;
+
+	x = pc()->player.mousex;
+	y = pc()->player.mousey;
+	if ((x >= 420 && x <= 651) && (y >= 518 && y <= 644))
+		mlx_put_image_to_window(pc()->mlx, pc()->win, pc()->image.game_m[1].image, 0, 0);
+	else if ((x >= 703 && x <= 872) && (y >= 518 && y <= 644))
+		mlx_put_image_to_window(pc()->mlx, pc()->win, pc()->image.game_m[2].image, 0, 0);
+	else
+		mlx_put_image_to_window(pc()->mlx, pc()->win, pc()->image.game_m[0].image, 0, 0);
 	return ;
 }
 void	draw_lvls_menu(void)
@@ -126,6 +137,21 @@ void	draw_ctrls_menu(void)
 }
 void	draw_main_menu(void)
 {
+	int x;
+	int y;
+
+	x = pc()->player.mousex;
+	y = pc()->player.mousey;
+	if ((x >= 81 && x <= 283) && (y >= 450 && y <= 611))
+		mlx_put_image_to_window(pc()->mlx, pc()->win, pc()->image.menu[1].image, 0, 0);
+	else if ((x >= 382 && x <= 595) && (y >= 450 && y <= 611))
+		mlx_put_image_to_window(pc()->mlx, pc()->win, pc()->image.menu[4].image, 0, 0);
+	else if ((x >= 686 && x <= 904) && (y >= 450 && y <= 611))
+		mlx_put_image_to_window(pc()->mlx, pc()->win, pc()->image.menu[2].image, 0, 0);
+	else if ((x >= 1003 && x <= 1208) && (y >= 450 && y <= 611))
+		mlx_put_image_to_window(pc()->mlx, pc()->win, pc()->image.menu[3].image, 0, 0);
+	else
+		mlx_put_image_to_window(pc()->mlx, pc()->win, pc()->image.menu[0].image, 0, 0);
 	return ;
 }
 void	draw_game_screen(void)
