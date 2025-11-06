@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 12:54:52 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/06 13:07:54 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/06 15:26:19 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include <sys/time.h>
 # include <unistd.h>
 
-# define MOUSE_HIDE 0
+# define MOUSE_HIDE 1
 # define WIDTH 1280
 # define HEIGHT 720
 # define BLOCK 32
@@ -38,7 +38,7 @@ typedef enum e_mode
 	MENU,
 	CTRLS,
 	LVLS,
-	PAUSE,
+	GAME_MENU,
 	GAME,
 	EVAL
 }				t_mode;
@@ -183,6 +183,7 @@ typedef struct s_image
 	t_asset		wall_o;
 	t_asset		wall_s;
 	t_asset		menu[5];
+	t_asset		m_ctrls[2];
 	t_asset		player[3];
 	t_asset		keys[2];
 }				t_image;

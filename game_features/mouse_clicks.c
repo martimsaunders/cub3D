@@ -6,7 +6,8 @@ void	main_menu_click(int x, int y)
 }
 void	ctrls_menu_click(int x, int y)
 {
-	printf("ctrls menu\nx- %i, y- %i\n", x, y);
+	if (x >= 527 && x <= 752 && y >= 520 && y <= 639)
+        pc()->mode = MENU;
 }
 void	lvls_menu_click(int x, int y)
 {

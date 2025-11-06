@@ -10,7 +10,7 @@ int	mouse_click(int button, int x, int y)
 		ctrls_menu_click(x, y);
 	else if (pc()->mode == LVLS)
 		lvls_menu_click(x, y);
-	else if (pc()->mode == PAUSE)
+	else if (pc()->mode == GAME_MENU)
 		pause_menu_click(x, y);
 	return (0);
 }
@@ -22,10 +22,6 @@ int	mouse_out(void)
 
 int	mouse_in(void)
 {
-	if (MOUSE_HIDE != 0)
-		mlx_mouse_hide(pc()->mlx, pc()->win);
-	mlx_mouse_move(pc()->mlx, pc()->win, WIDTH / 2, HEIGHT / 2);
-	pc()->mouse_in_win = 1;
 	return (0);
 }
 
@@ -36,7 +32,13 @@ void	mouse_cam_move(int x)
 
 	sens = 0.001;
 	if (!pc()->mouse_in_win)
-		mouse_in();
+	{
+		if (MOUSE_HIDE != 0)
+			mlx_mouse_hide(pc()->mlx, pc()->win);
+		mlx_mouse_move(pc()->mlx, pc()->win, WIDTH / 2, HEIGHT / 2);
+		pc()->mouse_in_win = 1;
+		return ;
+	}
 	dx = x - WIDTH / 2;
 	mlx_mouse_move(pc()->mlx, pc()->win, WIDTH / 2, HEIGHT / 2);
 	if (dx == 0)
