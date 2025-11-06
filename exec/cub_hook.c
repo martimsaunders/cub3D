@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:29:11 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/06 15:32:05 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/06 16:49:07 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	hook_and_loop(void)
 	mlx_hook(pc()->win, 3, 1L << 1, key_release, NULL);
 	mlx_hook(pc()->win, 4, 1L << 2, mouse_click, NULL);
 	mlx_hook(pc()->win, 6, 1L << 6, mouse_move, NULL);
-	mlx_hook(pc()->win, 7, 1L << 4, mouse_in, NULL);
-	mlx_hook(pc()->win, 8, 1L << 5, mouse_out, NULL);
+	/* mlx_hook(pc()->win, 7, 1L << 4, mouse_in, NULL);
+	mlx_hook(pc()->win, 8, 1L << 5, mouse_out, NULL); */
 	mlx_hook(pc()->win, 17, 0, end_window, NULL);
 	mlx_loop_hook(pc()->mlx, draw_screen, NULL);
 	mlx_loop(pc()->mlx);
