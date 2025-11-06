@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_init_everything.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 11:50:38 by mprazere          #+#    #+#             */
-/*   Updated: 2025/11/06 12:42:28 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/06 12:57:20 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,13 @@ void	safe_image(char *str, t_asset *asset, t_image *image, int type)
 	}
 }
 
+void init_menu_images()
+{
+	//init image pointers para cada pagina e pintar 
+	// criar novo safe_image para t_menu
+	return ;
+}
+
 void	init_images(void)
 {
 	safe_image(NULL, NULL, &pc()->image, 1);
@@ -58,6 +65,7 @@ void	init_images(void)
 	safe_image(pc()->image.wall_s.path, &pc()->image.wall_s, NULL, 0);
 	safe_image(pc()->image.wall_e.path, &pc()->image.wall_e, NULL, 0);
 	safe_image(pc()->image.wall_o.path, &pc()->image.wall_o, NULL, 0);
+	init_eval_images();
 }
 
 void	init_game(void)
@@ -66,10 +74,9 @@ void	init_game(void)
 	if (!pc()->mlx)
 		(ft_putstr_fd("Error: couldn't initiate mlx.\n", 2),
 			destroy_everything(1));
-	init_images();
 	pc()->win = mlx_new_window(pc()->mlx, WIDTH, HEIGHT, "cub3d");
 	if (!pc()->win)
 		(ft_putstr_fd("Error: couldn't initiate window.\n", 2),
 			destroy_everything(1));
-	init_caracters_values();
+	init_images();
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/03 12:11:54 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/05 13:03:34 by praders          ###   ########.fr       */
+/*   Created: 2025/11/06 12:55:51 by mateferr          #+#    #+#             */
+/*   Updated: 2025/11/06 12:55:53 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ bool	is_edge(int mapx, int mapy, t_map *m)
 
 static void	put_coin_pixel(int x, int y, t_map *m, double radius)
 {
-	double val;
-	double rr;
-	double irr;
+	double	val;
+	double	rr;
+	double	irr;
 
 	rr = radius * radius;
 	irr = (radius - 2) * (radius - 2);
@@ -51,7 +51,7 @@ static void	put_coin_pixel(int x, int y, t_map *m, double radius)
 		put_pixel(m->map_radius + x, m->map_radius + y, 0x000000);
 }
 
-// convertion of the map pixel into block position 
+// convertion of the map pixel into block position
 static void	put_element_pixel(int x, int y, t_map *m)
 {
 	int	mapy;

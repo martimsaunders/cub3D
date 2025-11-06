@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: praders <praders@student.42.fr>            +#+  +:+       +#+         #
+#    By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/10/20 12:20:09 by praders           #+#    #+#              #
-#    Updated: 2025/11/05 13:06:27 by praders          ###   ########.fr        #
+#    Created: 2025/11/06 12:54:43 by mateferr          #+#    #+#              #
+#    Updated: 2025/11/06 12:54:46 by mateferr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ exec/cub_doors.c exec/cub_coins.c \
 parsing/file_parsing.c parsing/info_parse_utils.c parsing/info_parsing.c \
 parsing/map_parsing.c parsing/set_map.c parsing/map_parse_utils.c\
 \
-game_features/mini_map.c game_features/mini_map_utils.c game_features/mouse_ctrl.c
+game_features/mini_map.c game_features/mini_map_utils.c game_features/mouse_ctrl.c \
+game_features/mouse_clicks.c
 
 OBJ_DIR = obj
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
