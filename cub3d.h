@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 12:54:52 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/06 12:55:33 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/06 13:07:54 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,7 +201,6 @@ typedef struct s_game
 	int			mouse_in_win;
 	int			coin_captured;
 	int			coin_frame_counter;
-	int			mouse_in_win;
 	char		**map;
 	void		*mlx;
 	void		*win;
@@ -281,6 +280,8 @@ void			check_enemy_colision(void);
 void			move_enemy(t_sprite *enemy);
 
 // cub_init_everything.c
+void			init_eval_images(void);
+void			init_menu_images(void);
 void			safe_image(char *str, t_asset *asset, t_image *image, int type);
 void			init_images(void);
 void			init_game(void);
@@ -381,7 +382,6 @@ void			ctrls_menu_click(int x, int y);
 void			main_menu_click(int x, int y);
 
 // to organize
-void			init_menu_images(void);
 
 void			draw_pause_menu(void);
 void			draw_lvls_menu(void);

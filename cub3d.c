@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 13:02:26 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/06 12:57:13 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/06 13:11:39 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,22 +54,6 @@ void	init_eval_characters_values(void)
 	}
 }
 
-void	init_eval_images(void)
-{
-	safe_image(pc()->image.wall_n.path, &pc()->image.wall_n, NULL, 0);
-	safe_image(pc()->image.wall_s.path, &pc()->image.wall_s, NULL, 0);
-	safe_image(pc()->image.wall_e.path, &pc()->image.wall_e, NULL, 0);
-	safe_image(pc()->image.wall_o.path, &pc()->image.wall_o, NULL, 0);
-	if (!pc()->image.wall_n.image || !pc()->image.wall_s.image
-		|| !pc()->image.wall_e.image || !pc()->image.wall_o.image)
-		return (ft_putstr_fd("Error: couldn't load eval images.\n", 2),
-			destroy_everything(1));
-	safe_address(&pc()->image.wall_n, NULL, 0);
-	safe_address(&pc()->image.wall_s, NULL, 0);
-	safe_address(&pc()->image.wall_e, NULL, 0);
-	safe_address(&pc()->image.wall_o, NULL, 0);
-}
-
 bool	avl_mode_init(int argc, char **argv)
 {
 	// char *line;
@@ -99,10 +83,10 @@ bool	avl_mode_init(int argc, char **argv)
 
 int	main(int argc, char **argv)
 {
-	pc()->mode = EVAL;
-	init_game();
+	pc()->mode = MENU;
 	if (!avl_mode_init(argc, argv)) // chamar a partir do menu ao clicar
 		return (1);
+	init_game();
 	hook_and_loop();
 	destroy_everything(1);
 	return (0);

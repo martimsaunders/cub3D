@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_init_everything.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 11:50:38 by mprazere          #+#    #+#             */
-/*   Updated: 2025/11/06 12:57:20 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/06 13:10:47 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,21 @@ void	safe_image(char *str, t_asset *asset, t_image *image, int type)
 	}
 }
 
-void init_menu_images()
+void	init_eval_images(void)
 {
-	//init image pointers para cada pagina e pintar 
-	// criar novo safe_image para t_menu
-	return ;
+	safe_image(pc()->image.wall_n.path, &pc()->image.wall_n, NULL, 0);
+	safe_image(pc()->image.wall_s.path, &pc()->image.wall_s, NULL, 0);
+	safe_image(pc()->image.wall_e.path, &pc()->image.wall_e, NULL, 0);
+	safe_image(pc()->image.wall_o.path, &pc()->image.wall_o, NULL, 0);
+}
+
+void init_menu_images(void)
+{
+	safe_image("assets/mm.xpm", &pc()->image.menu[0], NULL, 0);
+	safe_image("assets/mm_play.xpm", &pc()->image.menu[1], NULL, 0);
+	safe_image("assets/mm_train.xpm", &pc()->image.menu[2], NULL, 0);
+	safe_image("assets/mm_keys.xpm", &pc()->image.menu[3], NULL, 0);
+	safe_image("assets/mm_eval.xpm", &pc()->image.menu[4], NULL, 0);
 }
 
 void	init_images(void)
@@ -56,15 +66,7 @@ void	init_images(void)
 	safe_image("assets/coin6.xpm", &pc()->image.coin[5], NULL, 0);
 	safe_image("assets/coin7.xpm", &pc()->image.coin[6], NULL, 0);
 	safe_image("assets/coin8.xpm", &pc()->image.coin[7], NULL, 0);
-	safe_image("assets/mm.xpm", &pc()->image.menu[0], NULL, 0);
-	safe_image("assets/mm_play.xpm", &pc()->image.menu[1], NULL, 0);
-	safe_image("assets/mm_train.xpm", &pc()->image.menu[2], NULL, 0);
-	safe_image("assets/mm_keys.xpm", &pc()->image.menu[3], NULL, 0);
-	safe_image("assets/mm_eval.xpm", &pc()->image.menu[4], NULL, 0);
-	safe_image(pc()->image.wall_n.path, &pc()->image.wall_n, NULL, 0);
-	safe_image(pc()->image.wall_s.path, &pc()->image.wall_s, NULL, 0);
-	safe_image(pc()->image.wall_e.path, &pc()->image.wall_e, NULL, 0);
-	safe_image(pc()->image.wall_o.path, &pc()->image.wall_o, NULL, 0);
+	init_menu_images();
 	init_eval_images();
 }
 
