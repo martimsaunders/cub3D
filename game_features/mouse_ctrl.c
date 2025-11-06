@@ -56,14 +56,19 @@ int	mouse_move(int x, int y)
 {
 	if (pc()->mode == GAME || pc()->mode == EVAL)
 		mouse_cam_move(x);
-	else if (pc()->mode == MENU)
+	/* else if (pc()->mode == MENU)
 		mouse_move_main_menu(x, y);
 	else if (pc()->mode == CTRLS)
 		mouse_move_ctrls_menu(x, y);
 	else if (pc()->mode == LVLS)
 		mouse_move_lvls_menu(x, y);
 	else if (pc()->mode == PAUSE)
-		mouse_move_pause_menu(x, y);
+		mouse_move_pause_menu(x, y); */
+	else
+	{
+		pc()->player.mousex = x;
+		pc()->player.mousey = y;
+	}
 	return (0);
 }
 
@@ -89,5 +94,6 @@ void	mouse_move_main_menu(int x, int y)
 {
 	(void)x;
 	(void)y;
+
 	return ;
 }

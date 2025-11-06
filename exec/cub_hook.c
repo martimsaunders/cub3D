@@ -6,7 +6,7 @@
 /*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 12:57:30 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/06 13:17:45 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/06 13:36:53 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,6 @@ void	draw_ctrls_menu(void)
 }
 void	draw_main_menu(void)
 {
-	mlx_put_image_to_window(pc()->mlx, pc()->win, pc()->image.menu[0].image, 0, 0);
 	return ;
 }
 void	draw_game_screen(void)
