@@ -63,9 +63,9 @@ bool	characters_set_value(void)
 	return (true);
 }
 
-bool	flood_fill_map(char **map, int x, int y) // print flood fill
+bool	flood_fill_map(char **map, int x, int y)
 {
-	if (ps()->ff_ret)
+	if (ps()->ff_ret || x < 0 || y < 0 || y >= ps()->map_h)
 		return (false);
 	if (map[y][x] == '1')
 		return (true);

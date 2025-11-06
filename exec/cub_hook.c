@@ -74,7 +74,7 @@ void	draw_eval_screen(void)
 {
 	int	i;
 
-	i = -1;
+	i = 0;
 	ft_memset(pc()->image.addr, 0, HEIGHT * pc()->image.line_lenght);
 	move_player();
 	interact_door();

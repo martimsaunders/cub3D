@@ -127,6 +127,8 @@ int	main(int argc, char **argv)
 }
 
 /*
-minimap elementos nao 0 sao chao
-pintar check points 'g'
+draw_hud - lvl no centro ou eval numero de mortes na esquerda
+carregar imagem da barra com texto fixo
+carregar imagem de cada digito 
+juntar as partes a cada frame
 */
