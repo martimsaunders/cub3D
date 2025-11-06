@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_init_everything.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/29 11:50:38 by mprazere          #+#    #+#             */
-/*   Updated: 2025/11/06 14:07:55 by mprazere         ###   ########.fr       */
+/*   Created: 2025/11/06 15:29:01 by mateferr          #+#    #+#             */
+/*   Updated: 2025/11/06 15:29:04 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void init_menu_images(void)
 	safe_image("assets/play.xpm", &pc()->image.game_m[0], NULL, 0);
 	safe_image("assets/play_back.xpm", &pc()->image.game_m[1], NULL, 0);
 	safe_image("assets/play_play.xpm", &pc()->image.game_m[2], NULL, 0);
+	safe_image("assets/ctrls_menu.xpm", &pc()->image.m_ctrls[0], NULL, 0);
+	safe_image("assets/ctrlsm_back.xpm", &pc()->image.m_ctrls[1], NULL, 0);
 }
 
 void	init_images(void)

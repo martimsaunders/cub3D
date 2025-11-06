@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mouse_ctrl.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/06 15:28:19 by mateferr          #+#    #+#             */
+/*   Updated: 2025/11/06 15:28:32 by mateferr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
 
 int	mouse_click(int button, int x, int y)
@@ -22,10 +34,6 @@ int	mouse_out(void)
 
 int	mouse_in(void)
 {
-	if (MOUSE_HIDE != 0)
-		mlx_mouse_hide(pc()->mlx, pc()->win);
-	mlx_mouse_move(pc()->mlx, pc()->win, WIDTH / 2, HEIGHT / 2);
-	pc()->mouse_in_win = 1;
 	return (0);
 }
 
@@ -36,7 +44,13 @@ void	mouse_cam_move(int x)
 
 	sens = 0.001;
 	if (!pc()->mouse_in_win)
-		mouse_in();
+	{
+		if (MOUSE_HIDE != 0)
+			mlx_mouse_hide(pc()->mlx, pc()->win);
+		mlx_mouse_move(pc()->mlx, pc()->win, WIDTH / 2, HEIGHT / 2);
+		pc()->mouse_in_win = 1;
+		return ;
+	}
 	dx = x - WIDTH / 2;
 	mlx_mouse_move(pc()->mlx, pc()->win, WIDTH / 2, HEIGHT / 2);
 	if (dx == 0)
