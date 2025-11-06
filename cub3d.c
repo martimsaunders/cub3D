@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 13:02:26 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/05 12:40:20 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/06 12:53:11 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_game	*pc(void)
 
 void	restart_level(void)
 {
-	int i;
+	int	i;
 
 	pc()->player.x = pc()->start.player.x;
 	pc()->player.y = pc()->start.player.y;
@@ -54,14 +54,14 @@ void	init_eval_characters_values(void)
 	}
 }
 
-void init_eval_images()
+void	init_eval_images(void)
 {
 	safe_image(pc()->image.wall_n.path, &pc()->image.wall_n, NULL, 0);
 	safe_image(pc()->image.wall_s.path, &pc()->image.wall_s, NULL, 0);
 	safe_image(pc()->image.wall_e.path, &pc()->image.wall_e, NULL, 0);
 	safe_image(pc()->image.wall_o.path, &pc()->image.wall_o, NULL, 0);
 	if (!pc()->image.wall_n.image || !pc()->image.wall_s.image
-	|| !pc()->image.wall_e.image || !pc()->image.wall_o.image)
+		|| !pc()->image.wall_e.image || !pc()->image.wall_o.image)
 		return (ft_putstr_fd("Error: couldn't load eval images.\n", 2),
 			destroy_everything(1));
 	safe_address(&pc()->image.wall_n, NULL, 0);
@@ -70,10 +70,9 @@ void init_eval_images()
 	safe_address(&pc()->image.wall_o, NULL, 0);
 }
 
-bool avl_mode_init(int argc, char **argv)
+bool	avl_mode_init(int argc, char **argv)
 {
 	// char *line;
-	
 	if (argc != 2)
 		return (err_msg("1 argument only (./map_path)", 0), false);
 	// while (1)

@@ -2,6 +2,8 @@
 	"files.associations": {
 		"mlx.h": "c",
 		"initializer_list": "c",
-		"cub3d.h": "c"
+		"cub3d.h": "c",
+		"unistd.h": "c",
+		"time.h": "c"
 	}
 }

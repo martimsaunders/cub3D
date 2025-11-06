@@ -15,37 +15,29 @@ int	mouse_click(int button, int x, int y)
 	return (0);
 }
 
-int mouse_out() // verificar necessidade de proteção para clicks fora da tela
+int	mouse_out(void)
 {
-    // if (pc()->mode == GAME || pc()->mode == EVAL)
-    //     pc()->mouse_in_win = 0;
-    return (0);
+	return (0);
 }
 
-int mouse_in()
+int	mouse_in(void)
 {
-    mlx_mouse_hide(pc()->mlx, pc()->win);
+	if (MOUSE_HIDE != 0)
+		mlx_mouse_hide(pc()->mlx, pc()->win);
 	mlx_mouse_move(pc()->mlx, pc()->win, WIDTH / 2, HEIGHT / 2);
 	pc()->mouse_in_win = 1;
-    return (0);
+	return (0);
 }
 
-void mouse_cam_move(int x) // se fps nao da mudar sensibilidade para dar giro #&= de uma ponta a outra
+void	mouse_cam_move(int x)
 {
-    int dx;
-    float sens;
+	int		dx;
+	float	sens;
 
-    sens = 0.001;
-    if (!pc()->mouse_in_win)
-	{
-		mlx_mouse_hide(pc()->mlx, pc()->win);
-		mlx_mouse_move(pc()->mlx, pc()->win, WIDTH / 2, HEIGHT / 2);
-		pc()->mouse_in_win = 1;
-		// pc()->player.mousex = x;
-	}
-    dx = x - WIDTH / 2;
-    // dx = x - pc()->player.mousex;
-	// pc()->player.mousex = x;
+	sens = 0.001;
+	if (!pc()->mouse_in_win)
+		mouse_in();
+	dx = x - WIDTH / 2;
 	mlx_mouse_move(pc()->mlx, pc()->win, WIDTH / 2, HEIGHT / 2);
 	if (dx == 0)
 		return ;
@@ -60,11 +52,11 @@ void mouse_cam_move(int x) // se fps nao da mudar sensibilidade para dar giro #&
 	pc()->player.plane_y = pc()->player.dir_x * FOV;
 }
 
-int mouse_move(int x, int y)
+int	mouse_move(int x, int y)
 {
-    if (pc()->mode == GAME || pc()->mode == EVAL)
-        mouse_cam_move(x);
-    else if (pc()->mode == MENU)
+	if (pc()->mode == GAME || pc()->mode == EVAL)
+		mouse_cam_move(x);
+	else if (pc()->mode == MENU)
 		mouse_move_main_menu(x, y);
 	else if (pc()->mode == CTRLS)
 		mouse_move_ctrls_menu(x, y);
@@ -72,28 +64,28 @@ int mouse_move(int x, int y)
 		mouse_move_lvls_menu(x, y);
 	else if (pc()->mode == PAUSE)
 		mouse_move_pause_menu(x, y);
-    return (0);
+	return (0);
 }
 
-void mouse_move_pause_menu(int x, int y)
+void	mouse_move_pause_menu(int x, int y)
 {
 	(void)x;
 	(void)y;
 	return ;
 }
-void mouse_move_lvls_menu(int x, int y)
+void	mouse_move_lvls_menu(int x, int y)
 {
 	(void)x;
 	(void)y;
 	return ;
 }
-void mouse_move_ctrls_menu(int x, int y)
+void	mouse_move_ctrls_menu(int x, int y)
 {
 	(void)x;
 	(void)y;
 	return ;
 }
-void mouse_move_main_menu(int x, int y)
+void	mouse_move_main_menu(int x, int y)
 {
 	(void)x;
 	(void)y;

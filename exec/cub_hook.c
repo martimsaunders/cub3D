@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 13:01:08 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/05 12:39:31 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/06 12:52:45 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ int	key_release(int keycode)
 	return (0);
 }
 
-void draw_eval_screen()
+void	draw_eval_screen(void)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	ft_memset(pc()->image.addr, 0, HEIGHT * pc()->image.line_lenght);
@@ -106,23 +106,23 @@ int	draw_screen(void)
 	return (0);
 }
 
-void	draw_pause_menu()
+void	draw_pause_menu(void)
 {
 	return ;
 }
-void	draw_lvls_menu()
+void	draw_lvls_menu(void)
 {
 	return ;
 }
-void	draw_ctrls_menu()
+void	draw_ctrls_menu(void)
 {
 	return ;
 }
-void	draw_main_menu()
+void	draw_main_menu(void)
 {
 	return ;
 }
-void	draw_game_screen()
+void	draw_game_screen(void)
 {
 	return ;
 }

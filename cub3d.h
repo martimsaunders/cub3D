@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:56:18 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/05 12:44:39 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/06 12:52:16 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 # include "libraries/libft/libft.h"
 # include "libraries/minilibx-linux/mlx.h"
 # include <X11/X.h>
+# include <X11/Xlib.h>
+# include <X11/extensions/Xfixes.h>
 # include <X11/keysym.h>
 # include <math.h>
 # include <stdbool.h>
@@ -23,6 +25,7 @@
 # include <sys/time.h>
 # include <unistd.h>
 
+# define MOUSE_HIDE 0
 # define WIDTH 1280
 # define HEIGHT 720
 # define BLOCK 32
@@ -38,7 +41,7 @@ typedef enum e_mode
 	PAUSE,
 	GAME,
 	EVAL
-}						t_mode;
+}				t_mode;
 
 typedef struct s_door
 {
@@ -82,8 +85,8 @@ typedef struct s_player
 	float		move_speed;
 	float		rot_speed;
 	float		angle;
-	int mousex;
-	int mousey;
+	int			mousex;
+	int			mousey;
 }				t_player;
 
 typedef struct s_ray
@@ -179,9 +182,9 @@ typedef struct s_image
 	t_asset		wall_n;
 	t_asset		wall_o;
 	t_asset		wall_s;
-	t_menu main_menu[2];
-	t_menu ctrls_menu[5];
-	t_menu game_menu[3];
+	t_menu		main_menu[2];
+	t_menu		ctrls_menu[5];
+	t_menu		game_menu[3];
 }				t_image;
 
 typedef struct s_start
@@ -195,7 +198,7 @@ typedef struct s_game
 	int			door_count;
 	int			enemy_count;
 	int			coin_captured;
-	int mouse_in_win;
+	int			mouse_in_win;
 	char		**map;
 	void		*mlx;
 	void		*win;
@@ -206,8 +209,8 @@ typedef struct s_game
 	t_sprite	coin[B_CHR_LIM];
 	t_sprite	enemies[B_CHR_LIM];
 	t_buttons	button;
-	t_mode mode;
-	//colocar menus em game?
+	t_mode		mode;
+	// colocar menus em game?
 }				t_game;
 
 typedef struct s_parse
@@ -319,12 +322,12 @@ int				set_rend_values(t_sprite *enemy, t_rend *rend);
 void			sort_sprites(t_sprite **sprite, int size);
 void			distance(t_sprite *enemy);
 void			sprite_rendering(float *zbuffer, int size);
-void			draw_sprite_columns(t_rend rend, t_tex tex,
-					float *zbuffer, t_asset *sprite);
+void			draw_sprite_columns(t_rend rend, t_tex tex, float *zbuffer,
+					t_asset *sprite);
 
 // cub3d.c
-void	init_eval_characters_values(void);
-void	restart_level(void);
+void			init_eval_characters_values(void);
+void			restart_level(void);
 t_game			*pc(void);
 
 // parsing
@@ -370,31 +373,31 @@ void			draw_enemies(t_map *m);
 void			draw_player(t_map *m);
 
 // mouse_ctrl.c
-int mouse_move(int x, int y);
-int mouse_out();
-int	mouse_click(int button, int x, int y);
-void mouse_cam_move(int x);
-int mouse_in();
+int				mouse_move(int x, int y);
+int				mouse_out(void);
+int				mouse_click(int button, int x, int y);
+void			mouse_cam_move(int x);
+int				mouse_in(void);
 
-//mouse_clicks.c
-void pause_menu_click(int x, int y);
-void lvls_menu_click(int x, int y);
-void ctrls_menu_click(int x, int y);
-void main_menu_click(int x, int y);
+// mouse_clicks.c
+void			pause_menu_click(int x, int y);
+void			lvls_menu_click(int x, int y);
+void			ctrls_menu_click(int x, int y);
+void			main_menu_click(int x, int y);
 
 // to organize
-void init_menu_images();
+void			init_menu_images(void);
 
-void	draw_pause_menu();
-void	draw_lvls_menu();
-void	draw_ctrls_menu();
-void	draw_main_menu();
-void	draw_game_screen();
-void	draw_eval_screen();
+void			draw_pause_menu(void);
+void			draw_lvls_menu(void);
+void			draw_ctrls_menu(void);
+void			draw_main_menu(void);
+void			draw_game_screen(void);
+void			draw_eval_screen(void);
 
-void mouse_move_pause_menu(int x, int y);
-void mouse_move_lvls_menu(int x, int y);
-void mouse_move_ctrls_menu(int x, int y);
-void mouse_move_main_menu(int x, int y);
+void			mouse_move_pause_menu(int x, int y);
+void			mouse_move_lvls_menu(int x, int y);
+void			mouse_move_ctrls_menu(int x, int y);
+void			mouse_move_main_menu(int x, int y);
 
 #endif
