@@ -6,7 +6,7 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:27:32 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/06 16:33:10 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/06 18:29:35 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@
 # define BLOCK 32
 # define PI 3.14159265359
 # define FOV 0.66
-# define B_CHR_LIM 10
 
 typedef enum e_mode
 {
@@ -207,12 +206,12 @@ typedef struct s_game
 	char		**argv;
 	void		*mlx;
 	void		*win;
-	t_door		door[B_CHR_LIM];
+	t_door		*door;
 	t_start		start;
 	t_image		image;
 	t_player	player;
-	t_sprite	coin[B_CHR_LIM];
-	t_sprite	enemies[B_CHR_LIM];
+	t_sprite	*coin;
+	t_sprite	*enemies;
 	t_buttons	button;
 	t_mode		mode;
 }				t_game;
@@ -230,6 +229,9 @@ typedef struct s_parse
 	int			y;
 	int			map_start_in_fd;
 	int			bonus;
+	int			p_count;
+	int			ff_ret;
+	int			ff_coin;
 }				t_parse;
 
 typedef struct s_map
@@ -350,7 +352,7 @@ bool			valid_map_info(int fd, char *map_name);
 
 // map_parsing.c
 bool			valid_map_characters(void);
-bool			characters_check(void);
+bool			characters_set_value(void);
 bool			flood_fill_map(char **map, int x, int y);
 char			**copy_matrix(char **src, int size);
 bool			surounded_walls(void);
@@ -362,9 +364,8 @@ bool			check_door_pos(char chr, int x, int y);
 // set_map.c
 bool			fill_map(int fd, char *map_name);
 bool			create_map(int fd, char *map_name);
-bool			set_characters_values(char orientation, int x, int y);
+bool			characters_count(char orientation);
 bool			set_elements_values(char character, int x, int y);
-void			val_err_msg(char *msg);
 
 // game_features
 // mini_map.c
