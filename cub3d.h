@@ -6,7 +6,7 @@
 /*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:56:18 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/06 12:24:06 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/06 12:42:23 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,10 @@ typedef struct s_image
 	t_asset		wall_n;
 	t_asset		wall_o;
 	t_asset		wall_s;
+	t_asset		menu[5];
+	t_asset		player[3];
+	t_asset		keys[2];
+	
 }				t_image;
 
 typedef struct s_start
@@ -253,7 +257,6 @@ void			move_enemy(t_sprite *enemy);
 
 // cub_init_everything.c
 void			safe_image(char *str, t_asset *asset, t_image *image, int type);
-void			safe_address(t_asset *asset, t_image *image, int type);
 void			init_images(void);
 void			init_game(void);
 

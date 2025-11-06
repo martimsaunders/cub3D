@@ -3,39 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   cub_error.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:59:43 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/05 18:24:37 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/06 12:50:43 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
+void	destroy_asset(t_asset *asset, int size)
+{
+	int i;
+
+	i = 0;
+	while (i < size)
+	{
+		if (asset[i].image)
+			mlx_destroy_image(pc()->mlx, asset[i].image);
+		i++;
+	}
+}
+
 void	destroy_everything(int exit_status)
 {
 	if (pc()->image.image)
 		mlx_destroy_image(pc()->mlx, pc()->image.image);
-	if (pc()->image.coin[0].image)
-		mlx_destroy_image(pc()->mlx, pc()->image.coin[0].image);
-	if (pc()->image.coin[1].image)
-		mlx_destroy_image(pc()->mlx, pc()->image.coin[1].image);
-	if (pc()->image.coin[2].image)
-		mlx_destroy_image(pc()->mlx, pc()->image.coin[2].image);
-	if (pc()->image.coin[3].image)
-		mlx_destroy_image(pc()->mlx, pc()->image.coin[3].image);
-	if (pc()->image.coin[4].image)
-		mlx_destroy_image(pc()->mlx, pc()->image.coin[4].image);
-	if (pc()->image.coin[5].image)
-		mlx_destroy_image(pc()->mlx, pc()->image.coin[5].image);
-	if (pc()->image.coin[6].image)
-		mlx_destroy_image(pc()->mlx, pc()->image.coin[6].image);
-	if (pc()->image.coin[7].image)
-		mlx_destroy_image(pc()->mlx, pc()->image.coin[7].image);
-	if (pc()->image.door[0].image)
-		mlx_destroy_image(pc()->mlx, pc()->image.door[0].image);
-	if (pc()->image.door[1].image)
-		mlx_destroy_image(pc()->mlx, pc()->image.door[1].image);
+	destroy_asset(pc()->image.coin, 8);
+	destroy_asset(pc()->image.door, 2);
+	destroy_asset(pc()->image.menu, 5);
 	if (pc()->image.enemy.image)
 		mlx_destroy_image(pc()->mlx, pc()->image.enemy.image);
 	if (pc()->image.wall_n.image)
