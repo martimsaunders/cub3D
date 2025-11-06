@@ -374,6 +374,7 @@ int mouse_move(int x, int y);
 int mouse_out();
 int	mouse_click(int button, int x, int y);
 void mouse_cam_move(int x);
+int mouse_in();
 
 //mouse_clicks.c
 void pause_menu_click(int x, int y);

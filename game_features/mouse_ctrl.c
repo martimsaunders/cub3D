@@ -17,25 +17,38 @@ int	mouse_click(int button, int x, int y)
 
 int mouse_out() // verificar necessidade de proteção para clicks fora da tela
 {
-    if (pc()->mode == GAME || pc()->mode == EVAL)
-        pc()->mouse_in_win = 0;
+    // if (pc()->mode == GAME || pc()->mode == EVAL)
+    //     pc()->mouse_in_win = 0;
     return (0);
 }
 
-void mouse_cam_move(int x) //implementar fps mecanic
+int mouse_in()
+{
+    mlx_mouse_hide(pc()->mlx, pc()->win);
+	mlx_mouse_move(pc()->mlx, pc()->win, WIDTH / 2, HEIGHT / 2);
+	pc()->mouse_in_win = 1;
+    return (0);
+}
+
+void mouse_cam_move(int x) // se fps nao da mudar sensibilidade para dar giro #&= de uma ponta a outra
 {
     int dx;
     float sens;
 
     sens = 0.001;
     if (!pc()->mouse_in_win)
-    {
-        pc()->player.mousex = x;
-        pc()->mouse_in_win = 1;
-        return ;
-    }
-    dx = x - pc()->player.mousex;
-    pc()->player.mousex = x;
+	{
+		mlx_mouse_hide(pc()->mlx, pc()->win);
+		mlx_mouse_move(pc()->mlx, pc()->win, WIDTH / 2, HEIGHT / 2);
+		pc()->mouse_in_win = 1;
+		// pc()->player.mousex = x;
+	}
+    dx = x - WIDTH / 2;
+    // dx = x - pc()->player.mousex;
+	// pc()->player.mousex = x;
+	mlx_mouse_move(pc()->mlx, pc()->win, WIDTH / 2, HEIGHT / 2);
+	if (dx == 0)
+		return ;
 	pc()->player.angle += dx * sens;
 	if (pc()->player.angle > 2 * PI)
 		pc()->player.angle = 0;
