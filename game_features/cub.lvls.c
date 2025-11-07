@@ -6,7 +6,7 @@
 /*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 11:58:10 by mprazere          #+#    #+#             */
-/*   Updated: 2025/11/07 15:47:13 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/07 16:25:51 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,34 @@ void	fill_values()
 	}
 }
 
+void	set_lvl_2()
+{
+	int i;
+
+	i = -1;
+	while (++i < pc()->enemy_count)
+	{
+		if (i % 2 == 0)
+			pc()->enemies[i].direction = 2;
+		else
+			pc()->enemies[i].direction = 3;
+		pc()->enemies[i].speed = 0.125;
+	}
+	pc()->image.ceiling = 0xCA1568;
+	pc()->image.floor = 0x796446;
+	pc()->player.x = 3.25;
+	pc()->player.y = 4.25;
+	pc()->player.move_speed = 0.1;
+	pc()->player.rot_speed = 0.02;
+	pc()->player.angle = PI * 0.5;
+	pc()->player.dir_x = cos(pc()->player.angle);
+	pc()->player.dir_y = sin(pc()->player.angle);
+	pc()->player.plane_x = -pc()->player.dir_y * 0.66;
+	pc()->player.plane_y = pc()->player.dir_x * 0.66;
+	pc()->start.player.x = pc()->player.x;
+	pc()->start.player.y = pc()->player.y;
+}
+
 void	set_lvl_1()
 {
 	int i;
@@ -58,16 +86,16 @@ void	set_lvl_1()
 	while (++i < pc()->enemy_count)
 	{
 		if (i % 2 == 0)
-			pc()->enemies[i].direction = 0;
+			pc()->enemies[i].direction = 3;
 		else
-			pc()->enemies[i].direction = 1;
+			pc()->enemies[i].direction = 4;
 		pc()->enemies[i].speed = 0.1;
 	}
 	pc()->image.ceiling = 0xCA1568;
 	pc()->image.floor = 0x796446;
 	pc()->player.x = 3.25;
 	pc()->player.y = 4.25;
-	pc()->player.move_speed = 0.05;
+	pc()->player.move_speed = 0.1;
 	pc()->player.rot_speed = 0.02;
 	pc()->player.angle = PI * 0.5;
 	pc()->player.dir_x = cos(pc()->player.angle);
@@ -108,7 +136,10 @@ void	lvl_mode_init()
 	free(lvl_name);
 	init_lvl_images();
 	fill_values();
-	set_lvl_1();
+	if (pc()->current_level == 1)
+		set_lvl_1();
+	if (pc()->current_level == 2)
+		set_lvl_2();
 }
 
 	

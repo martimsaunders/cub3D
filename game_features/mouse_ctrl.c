@@ -6,7 +6,7 @@
 /*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:28:19 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/07 15:52:14 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/07 16:13:40 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	mouse_cam_move(int x)
 	int		dx;
 	float	sens;
 
-	sens = 0.001;
+	sens = 0.0005;
 	if (!pc()->mouse_in_win)
 	{
 		if (MOUSE_HIDE != 0)

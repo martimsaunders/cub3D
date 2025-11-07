@@ -29,7 +29,11 @@ void	lvls_menu_click(int x, int y)
 		pc()->mode = LVLS_GAME;
 	}
 	else if ((x >= 307 && x <= 511) && (y >= 69 && y <= 275))
-		;
+	{
+		pc()->current_level = 2;
+		lvl_mode_init();
+		pc()->mode = LVLS_GAME;
+	}
 	else if ((x >= 539 && x <= 742) && (y >= 69 && y <= 275))
 		;
 	else if ((x >= 770 && x <= 973) && (y >= 69 && y <= 275))
