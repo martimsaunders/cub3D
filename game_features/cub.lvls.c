@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.lvls.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/07 11:58:10 by mprazere          #+#    #+#             */
-/*   Updated: 2025/11/07 16:25:51 by mprazere         ###   ########.fr       */
+/*   Created: 2025/11/07 16:54:22 by mateferr          #+#    #+#             */
+/*   Updated: 2025/11/07 16:54:24 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,12 @@ void	set_lvl_1()
 	pc()->player.plane_y = pc()->player.dir_x * 0.66;
 	pc()->start.player.x = pc()->player.x;
 	pc()->start.player.y = pc()->player.y;
+	pc()->player.move_speed = 0.025;
+	pc()->player.rot_speed = 0.02;
+	pc()->player.dir_x = cos(pc()->player.angle);
+	pc()->player.dir_y = sin(pc()->player.angle);
+	pc()->player.plane_x = -pc()->player.dir_y * 0.66;
+	pc()->player.plane_y = pc()->player.dir_x * 0.66;
 }
 
 void	lvl_mode_init()
