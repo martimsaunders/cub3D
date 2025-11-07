@@ -6,7 +6,7 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 13:02:26 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/06 18:38:06 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/07 11:45:17 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ void free_game_values()
 	pc()->coin_captured = 0;
 	free(pc()->door);
 	pc()->door_count = 0;
-	if (pc()->image.enemy.image)
-		mlx_destroy_image(pc()->mlx, pc()->image.enemy.image);
 	if (pc()->image.wall_n.image)
 		mlx_destroy_image(pc()->mlx, pc()->image.wall_n.image);
 	if (pc()->image.wall_s.image)

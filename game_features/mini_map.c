@@ -6,7 +6,7 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 12:55:51 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/06 12:55:53 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/07 11:54:27 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,22 @@ static void	put_coin_pixel(int x, int y, t_map *m, double radius)
 		put_pixel(m->map_radius + x, m->map_radius + y, 0x000000);
 }
 
+int	is_not_map(int x, int y)
+{
+	char	m;
+
+	m = pc()->map[y][x];
+	if (m != 'N' && m != 'E' && m != 'S' && m != 'O' && m != 'c' && m != 'e'
+		&& m != 'd' && m != 'g' && m != '2' && m != '0' && m != '1')
+		return (1);
+	return (0);
+}
+
 // convertion of the map pixel into block position
 static void	put_element_pixel(int x, int y, t_map *m)
 {
-	if (pc()->map[m->mapy][m->mapx] == '1' || pc()->map[m->mapy][m->mapx] == 'd' || pc()->map[m->mapy][m->mapx] == '2')
+	if (pc()->map[m->mapy][m->mapx] == '1' || pc()->map[m->mapy][m->mapx] == 'd'
+		|| pc()->map[m->mapy][m->mapx] == '2')
 	{
 		m->frac_x = m->world_x - floor(m->world_x);
 		m->frac_y = m->world_y - floor(m->world_y);
@@ -62,18 +74,20 @@ static void	put_element_pixel(int x, int y, t_map *m)
 		m->rely = (int)(m->frac_y * BLOCK);
 		if (is_edge(m->mapx, m->mapy, m))
 			put_pixel(m->map_radius + x, m->map_radius + y, 0x000000);
-		else if (pc()->map[m->mapy][m->mapx] == '1' || pc()->map[m->mapy][m->mapx] == '2')
+		else if (pc()->map[m->mapy][m->mapx] == '1'
+			|| pc()->map[m->mapy][m->mapx] == '2')
 			put_pixel(m->map_radius + x, m->map_radius + y, 0x7B68EE);
 		else
 			put_pixel(m->map_radius + x, m->map_radius + y, 0x752D00);
 	}
-	else if (pc()->map[m->mapy][m->mapx] == '0' && (m->mapx + m->mapy) % 2 == 0)
-		put_pixel(m->map_radius + x, m->map_radius + y, 0xFFFFFF);
-	else if (pc()->map[m->mapy][m->mapx] == '0')
-		put_pixel(m->map_radius + x, m->map_radius + y, 0xE6E6FA);
 	else if (pc()->map[m->mapy][m->mapx] == 'g')
 		put_pixel(m->map_radius + x, m->map_radius + y, 0xBEFDB6);
-	if (pc()->map[m->mapy][m->mapx] == 'c' && !find_coin_state(m->mapx, m->mapy))
+	else if ((m->mapx + m->mapy) % 2 == 0)
+		put_pixel(m->map_radius + x, m->map_radius + y, 0xFFFFFF);
+	else
+		put_pixel(m->map_radius + x, m->map_radius + y, 0xE6E6FA);
+	if (pc()->map[m->mapy][m->mapx] == 'c' && !find_coin_state(m->mapx,
+			m->mapy))
 		put_coin_pixel(x, y, m, BLOCK / 4);
 }
 
@@ -92,6 +106,8 @@ static void	put_map_pixel(int x, int y, t_map *m)
 		&& m->mapx < (int)ft_strlen(pc()->map[m->mapy]))
 	{
 		put_element_pixel(x, y, m);
+		if (is_not_map(m->mapx, m->mapy))
+			put_pixel(m->map_radius + x, m->map_radius + y, 0x000000);
 	}
 	else
 		put_pixel(m->map_radius + x, m->map_radius + y, 0x000000);

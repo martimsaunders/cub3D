@@ -6,7 +6,7 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:27:32 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/06 18:29:35 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/07 11:56:06 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -329,6 +329,7 @@ void			draw_sprite_columns(t_rend rend, t_tex tex, float *zbuffer,
 // cub3d.c
 bool			avl_mode_init(int argc, char **argv);
 void			init_eval_characters_values(void);
+void			free_game_values(void);
 void			restart_level(void);
 t_game			*pc(void);
 
