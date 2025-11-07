@@ -6,7 +6,7 @@
 /*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:29:11 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/07 11:44:24 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/07 14:38:51 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,29 +30,29 @@ int	key_press(int keycode)
 	if (pc()->mode == MENU && keycode == XK_Escape)
 		return (ft_putstr_fd("You exited the game\n", 1), destroy_everything(0),
 			0);
-	if ((pc()->mode == GAME || pc()->mode == EVAL) && keycode == XK_Escape)
+	if ((pc()->mode == GAME || pc()->mode == EVAL || pc()->mode == LVLS_GAME) && keycode == XK_Escape)
 	{
 		mlx_mouse_show(pc()->mlx, pc()->win);
 		pc()->mode = MENU;
 	}
-	if ((pc()->mode == GAME || pc()->mode == EVAL) && keycode == XK_w)
+	if ((pc()->mode == GAME || pc()->mode == EVAL || pc()->mode == LVLS_GAME) && keycode == XK_w)
 		pc()->button.w = true;
-	if ((pc()->mode == GAME || pc()->mode == EVAL) && keycode == XK_a)
+	if ((pc()->mode == GAME || pc()->mode == EVAL || pc()->mode == LVLS_GAME) && keycode == XK_a)
 		pc()->button.a = true;
-	if ((pc()->mode == GAME || pc()->mode == EVAL) && keycode == XK_s)
+	if ((pc()->mode == GAME || pc()->mode == EVAL || pc()->mode == LVLS_GAME) && keycode == XK_s)
 		pc()->button.s = true;
-	if ((pc()->mode == GAME || pc()->mode == EVAL) && keycode == XK_d)
+	if ((pc()->mode == GAME || pc()->mode == EVAL || pc()->mode == LVLS_GAME) && keycode == XK_d)
 		pc()->button.d = true;
-	if ((pc()->mode == GAME || pc()->mode == EVAL) && keycode == XK_Left)
+	if ((pc()->mode == GAME || pc()->mode == EVAL || pc()->mode == LVLS_GAME) && keycode == XK_Left)
 		pc()->button.left = true;
-	if ((pc()->mode == GAME || pc()->mode == EVAL) && keycode == XK_Right)
+	if ((pc()->mode == GAME || pc()->mode == EVAL || pc()->mode == LVLS_GAME) && keycode == XK_Right)
 		pc()->button.right = true;
 	return (0);
 }
 
 int	key_release(int keycode)
 {
-	if (pc()->mode == EVAL || pc()->mode == GAME)
+	if (pc()->mode == EVAL || pc()->mode == GAME || pc()->mode == LVLS_GAME)
 	{
 		if (keycode == XK_w)
 			pc()->button.w = false;
@@ -135,7 +135,7 @@ void	draw_lvls_game(void)
 {
 	int	i;
 
-	i = -1;
+	i = 0;
 	ft_memset(pc()->image.addr, 0, HEIGHT * pc()->image.line_lenght);
 	move_player();
 	interact_door();

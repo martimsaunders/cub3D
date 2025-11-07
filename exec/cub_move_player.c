@@ -6,7 +6,7 @@
 /*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 15:07:38 by mprazere          #+#    #+#             */
-/*   Updated: 2025/11/04 16:53:24 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/07 14:35:43 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	calculate_player_values(void)
 
 int		is_blocked(int map_y, int map_x)
 {
-	if (pc()->map[map_y][map_x] == '1')
+	if (pc()->map[map_y][map_x] == '1' || pc()->map[map_y][map_x] == '2')
 		return (1);
 	if (pc()->map[map_y][map_x]== 'd' && is_door_closed(map_y, map_x))
 		return (1);
@@ -39,7 +39,7 @@ int		is_blocked(int map_y, int map_x)
 
 int		is_blocked_e(int map_y, int map_x)
 {
-	if (pc()->map[map_y][map_x] == '1')
+	if (pc()->map[map_y][map_x] == '1' || pc()->map[map_y][map_x] == '2')
 		return (1);
 	if (pc()->map[map_y][map_x]== 'd')
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 13:00:33 by mprazere          #+#    #+#             */
-/*   Updated: 2025/11/07 13:00:35 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/07 14:55:15 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,38 +54,39 @@ void	init_eval_characters_values(void)
 	}
 }
 
-void safe_free(void *ptr)
+void safe_free(void **ptr)
 {
-	if (ptr)
-		free(ptr);
-	ptr = NULL;
+	if (ptr && *ptr)
+	{
+		free(*ptr);
+		*ptr = NULL;
+	}
 }
 
 void safe_destroy_img(void * img)
 {
 	if (img)
 		mlx_destroy_image(pc()->mlx, img);
-	img = NULL;
 }
 
 void free_game_values()
 {
 	free_array();
-	safe_free(pc()->enemies);
+	safe_free((void **)&pc()->enemies);
 	pc()->enemy_count = 0;
-	safe_free(pc()->coin);
+	safe_free((void **)&pc()->coin);
 	pc()->coin_count = 0;
 	pc()->coin_captured = 0;
-	safe_free(pc()->door);
+	safe_free((void **)&pc()->door);
 	pc()->door_count = 0;
 	safe_destroy_img(pc()->image.wall_s.image);
 	safe_destroy_img(pc()->image.wall_n.image);
 	safe_destroy_img(pc()->image.wall_e.image);
 	safe_destroy_img(pc()->image.wall_o.image);
-	safe_free(pc()->image.wall_n.path);
-	safe_free(pc()->image.wall_s.path);
-	safe_free(pc()->image.wall_e.path);
-	safe_free(pc()->image.wall_o.path);
+	safe_free((void **)&pc()->image.wall_n.path);
+	safe_free((void **)&pc()->image.wall_s.path);
+	safe_free((void **)&pc()->image.wall_e.path);
+	safe_free((void **)&pc()->image.wall_o.path);
 }
 
 void reset_ps()

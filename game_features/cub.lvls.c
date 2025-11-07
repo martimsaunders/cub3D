@@ -6,7 +6,7 @@
 /*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 11:58:10 by mprazere          #+#    #+#             */
-/*   Updated: 2025/11/07 12:51:52 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/07 14:34:17 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,17 @@ void	fill_values()
 		while (pc()->map[y][++x])
 		{
 			c = pc()->map[y][x];
-			if (c != 0 && c != 1)
+			characters_count(c);
+		}
+	}
+	y = -1;
+	while (pc()->map[++y])
+	{
+		x = -1;
+		while (pc()->map[y][++x])
+		{
+			c = pc()->map[y][x];
+			if (c != '0' && c != '1')
 				if (!set_elements_values(c, x, y))
 					destroy_everything(1);
 		}
@@ -53,6 +63,9 @@ void	set_lvl_1()
 			pc()->enemies[i].direction = 1;
 		pc()->enemies[i].speed = 0.05;
 	}
+	pc()->player.x = 3.25;
+	pc()->player.y = 4.25;
+	pc()->player.angle = PI * 0.5;
 	pc()->start.player.x = pc()->player.x;
 	pc()->start.player.y = pc()->player.y;
 }
@@ -79,9 +92,10 @@ void	lvl_mode_init()
 	if (fd == -1)
 		return (free(lvl_name), destroy_everything(1));
 	ft_memset(ps(), 0, sizeof(t_parse));
+	ps()->map_start_in_fd = 1;
 	free_game_values();
 	if (!create_map(fd, lvl_name))
-		destroy_everything(1);
+		return (close(fd), destroy_everything(1));
 	close (fd);
 	init_lvl_images();
 	fill_values();
