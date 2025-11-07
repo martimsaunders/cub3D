@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/07 12:26:26 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/07 12:38:47 by mateferr         ###   ########.fr       */
+/*   Created: 2025/11/07 13:00:47 by mprazere          #+#    #+#             */
+/*   Updated: 2025/11/07 13:00:49 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef enum e_mode
 	MENU,
 	CTRLS,
 	LVLS,
+	LVLS_GAME,
 	GAME_MENU,
 	GAME,
 	EVAL
@@ -181,9 +182,10 @@ typedef struct s_image
 	t_asset		wall_o;
 	t_asset		wall_s;
 	t_asset		menu[5];
-	t_asset		game_m[3];
-	t_asset		m_ctrls[2];
 	t_asset		keys[2];
+	t_asset		game_m[3];
+	t_asset		train[12];
+	t_asset		m_ctrls[2];
 }				t_image;
 
 typedef struct s_start
@@ -200,6 +202,7 @@ typedef struct s_game
 	int			enemy_count;
 	int			mouse_in_win;
 	int			coin_captured;
+	int			current_level;
 	int			coin_frame_counter;
 	char		**map;
 	char		**argv;
@@ -330,6 +333,7 @@ bool			avl_mode_init(int argc, char **argv);
 void			init_eval_characters_values(void);
 void			free_game_values(void);
 void			restart_level(void);
+void			free_game_values(void);
 t_game			*pc(void);
 
 // parsing
@@ -394,10 +398,16 @@ void			draw_ctrls_menu(void);
 void			draw_main_menu(void);
 void			draw_game_screen(void);
 void			draw_eval_screen(void);
+void			draw_lvls_game(void);
 
 void			mouse_move_pause_menu(int x, int y);
 void			mouse_move_lvls_menu(int x, int y);
 void			mouse_move_ctrls_menu(int x, int y);
 void			mouse_move_main_menu(int x, int y);
+
+void			init_lvl_images(void);
+void			fill_values(void);
+void			set_lvl_1(void);
+void			lvl_mode_init(void);
 
 #endif

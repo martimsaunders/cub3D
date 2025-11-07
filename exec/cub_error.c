@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_error.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/03 12:59:43 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/07 12:51:53 by mateferr         ###   ########.fr       */
+/*   Created: 2025/11/07 13:00:56 by mprazere          #+#    #+#             */
+/*   Updated: 2025/11/07 13:00:58 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	destroy_everything(int exit_status)
 	destroy_asset(pc()->image.door, 2);
 	destroy_asset(pc()->image.menu, 5);
 	destroy_asset(pc()->image.m_ctrls, 2);
-	//add lvls menu e game_menu
+	destroy_asset(pc()->image.train, 12);
 	if (pc()->image.enemy.image)
 		mlx_destroy_image(pc()->mlx, pc()->image.enemy.image);
 	free_game_values();

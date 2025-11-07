@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_ray_cast_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 16:38:15 by mprazere          #+#    #+#             */
-/*   Updated: 2025/11/05 12:37:56 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/07 12:44:56 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	check_wall(t_ray *ray)
 			ray->mapy += ray->stepy;
 			ray->side = 1;
 		}
-		if (pc()->map[ray->mapy][ray->mapx] == '1')
+		if (pc()->map[ray->mapy][ray->mapx] == '1' || pc()->map[ray->mapy][ray->mapx] == '2')
 			ray->hit = 1;
 		else if (pc()->map[ray->mapy][ray->mapx] == 'd')
 		{

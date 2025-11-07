@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_init_everything.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:29:01 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/06 16:34:55 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/07 12:10:48 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,18 @@ void init_menu_images(void)
 	safe_image("assets/play_play.xpm", &pc()->image.game_m[2], NULL, 0);
 	safe_image("assets/ctrls_menu.xpm", &pc()->image.m_ctrls[0], NULL, 0);
 	safe_image("assets/ctrlsm_back.xpm", &pc()->image.m_ctrls[1], NULL, 0);
+	safe_image("assets/train_1.xpm", &pc()->image.train[0], NULL, 0);
+	safe_image("assets/train_2.xpm", &pc()->image.train[1], NULL, 0);
+	safe_image("assets/train_3.xpm", &pc()->image.train[2], NULL, 0);
+	safe_image("assets/train_4.xpm", &pc()->image.train[3], NULL, 0);
+	safe_image("assets/train_5.xpm", &pc()->image.train[4], NULL, 0);
+	safe_image("assets/train_6.xpm", &pc()->image.train[5], NULL, 0);
+	safe_image("assets/train_7.xpm", &pc()->image.train[6], NULL, 0);
+	safe_image("assets/train_8.xpm", &pc()->image.train[7], NULL, 0);
+	safe_image("assets/train_9.xpm", &pc()->image.train[8], NULL, 0);
+	safe_image("assets/train_10.xpm", &pc()->image.train[9], NULL, 0);
+	safe_image("assets/train.xpm", &pc()->image.train[10], NULL, 0);
+	safe_image("assets/train_back.xpm", &pc()->image.train[11], NULL, 0);
 }
 
 void	init_images(void)

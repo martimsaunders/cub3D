@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+         #
+#    By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/06 12:54:43 by mateferr          #+#    #+#              #
-#    Updated: 2025/11/06 12:54:46 by mateferr         ###   ########.fr        #
+#    Updated: 2025/11/07 12:47:04 by mprazere         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ parsing/file_parsing.c parsing/info_parse_utils.c parsing/info_parsing.c \
 parsing/map_parsing.c parsing/set_map.c parsing/map_parse_utils.c\
 \
 game_features/mini_map.c game_features/mini_map_utils.c game_features/mouse_ctrl.c \
-game_features/mouse_clicks.c
+game_features/mouse_clicks.c game_features/cub.lvls.c
 
 OBJ_DIR = obj
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
