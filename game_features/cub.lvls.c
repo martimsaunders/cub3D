@@ -6,7 +6,7 @@
 /*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 11:58:10 by mprazere          #+#    #+#             */
-/*   Updated: 2025/11/07 14:34:17 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/07 15:47:13 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,19 @@ void	set_lvl_1()
 			pc()->enemies[i].direction = 0;
 		else
 			pc()->enemies[i].direction = 1;
-		pc()->enemies[i].speed = 0.05;
+		pc()->enemies[i].speed = 0.1;
 	}
+	pc()->image.ceiling = 0xCA1568;
+	pc()->image.floor = 0x796446;
 	pc()->player.x = 3.25;
 	pc()->player.y = 4.25;
+	pc()->player.move_speed = 0.05;
+	pc()->player.rot_speed = 0.02;
 	pc()->player.angle = PI * 0.5;
+	pc()->player.dir_x = cos(pc()->player.angle);
+	pc()->player.dir_y = sin(pc()->player.angle);
+	pc()->player.plane_x = -pc()->player.dir_y * 0.66;
+	pc()->player.plane_y = pc()->player.dir_x * 0.66;
 	pc()->start.player.x = pc()->player.x;
 	pc()->start.player.y = pc()->player.y;
 }
@@ -95,8 +103,9 @@ void	lvl_mode_init()
 	ps()->map_start_in_fd = 1;
 	free_game_values();
 	if (!create_map(fd, lvl_name))
-		return (close(fd), destroy_everything(1));
+		return (close(fd), free(lvl_name), destroy_everything(1));
 	close (fd);
+	free(lvl_name);
 	init_lvl_images();
 	fill_values();
 	set_lvl_1();

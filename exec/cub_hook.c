@@ -6,7 +6,7 @@
 /*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:29:11 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/07 14:38:51 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/07 15:53:12 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,21 +52,18 @@ int	key_press(int keycode)
 
 int	key_release(int keycode)
 {
-	if (pc()->mode == EVAL || pc()->mode == GAME || pc()->mode == LVLS_GAME)
-	{
-		if (keycode == XK_w)
-			pc()->button.w = false;
-		if (keycode == XK_a)
-			pc()->button.a = false;
-		if (keycode == XK_s)
-			pc()->button.s = false;
-		if (keycode == XK_d)
-			pc()->button.d = false;
-		if (keycode == XK_Left)
-			pc()->button.left = false;
-		if (keycode == XK_Right)
-			pc()->button.right = false;
-	}
+	if (keycode == XK_w)
+		pc()->button.w = false;
+	if (keycode == XK_a)
+		pc()->button.a = false;
+	if (keycode == XK_s)
+		pc()->button.s = false;
+	if (keycode == XK_d)
+		pc()->button.d = false;
+	if (keycode == XK_Left)
+		pc()->button.left = false;
+	if (keycode == XK_Right)
+		pc()->button.right = false;
 	return (0);
 }
 

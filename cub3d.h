@@ -6,7 +6,7 @@
 /*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 13:00:47 by mprazere          #+#    #+#             */
-/*   Updated: 2025/11/07 13:00:49 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/07 15:48:27 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,6 @@ typedef struct s_image
 	t_asset		wall_o;
 	t_asset		wall_s;
 	t_asset		menu[5];
-	t_asset		keys[2];
 	t_asset		game_m[3];
 	t_asset		train[12];
 	t_asset		m_ctrls[2];

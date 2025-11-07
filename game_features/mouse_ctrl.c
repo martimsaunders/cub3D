@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_ctrl.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:28:19 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/06 15:28:32 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/07 15:52:14 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	mouse_cam_move(int x)
 
 int	mouse_move(int x, int y)
 {
-	if (pc()->mode == GAME || pc()->mode == EVAL)
+	if (pc()->mode == GAME || pc()->mode == EVAL || pc()->mode == LVLS_GAME)
 		mouse_cam_move(x);
 	/* else if (pc()->mode == MENU)
 		mouse_move_main_menu(x, y);

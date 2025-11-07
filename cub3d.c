@@ -6,7 +6,7 @@
 /*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 13:00:33 by mprazere          #+#    #+#             */
-/*   Updated: 2025/11/07 14:55:15 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/07 15:40:32 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,24 +87,6 @@ void free_game_values()
 	safe_free((void **)&pc()->image.wall_s.path);
 	safe_free((void **)&pc()->image.wall_e.path);
 	safe_free((void **)&pc()->image.wall_o.path);
-}
-
-void reset_ps()
-{
-	ps()->bonus = 0;
-	ps()->c_ceil = 0;
-	ps()->c_floor = 0;
-	ps()->e_tex = 0;
-	ps()->ff_coin = 0;
-	ps()->ff_ret = 0;
-	ps()->map_h = 0;
-	ps()->map_start_in_fd = 0;
-	ps()->n_tex = 0;
-	ps()->o_tex = 0;
-	ps()->p_count = 0;
-	ps()->s_tex = 0;
-	ps()->x = 0;
-	ps()->y = 0;
 }
 
 bool	avl_mode_init(int argc, char **argv)
