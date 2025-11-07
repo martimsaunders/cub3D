@@ -23,7 +23,32 @@ void	ctrls_menu_click(int x, int y)
 }
 void	lvls_menu_click(int x, int y)
 {
-	printf("lvls menu\nx- %i, y- %i\n", x, y);
+	if ((x >= 74 && x <= 280) && (y >= 69 && y <= 275))
+	{
+		pc()->current_level = 1;
+		lvl_mode_init();
+		pc()->mode = LVLS_GAME;
+	}
+	else if ((x >= 307 && x <= 511) && (y >= 69 && y <= 275))
+		;
+	else if ((x >= 539 && x <= 742) && (y >= 69 && y <= 275))
+		;
+	else if ((x >= 770 && x <= 973) && (y >= 69 && y <= 275))
+		;
+	else if ((x >= 1001 && x <= 1204) && (y >= 69 && y <= 275))
+		;
+	else if ((x >= 74 && x <= 280) && (y >= 320 && y <= 525))
+		;
+	else if ((x >= 307 && x <= 511) && (y >= 320 && y <= 525))
+		;
+	else if ((x >= 539 && x <= 742) && (y >= 320 && y <= 525))
+		;
+	else if ((x >= 770 && x <= 973) && (y >= 320 && y <= 525))
+		;
+	else if ((x >= 1001 && x <= 1204) && (y >= 320 && y <= 525))
+		;
+	else if ((x >= 525 && x <= 755) && (y >= 549 && y <= 672))
+		pc()->mode = MENU;
 }
 void	game_menu_click(int x, int y)
 {

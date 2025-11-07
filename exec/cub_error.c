@@ -6,7 +6,7 @@
 /*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:59:43 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/06 12:50:43 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/07 11:15:29 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	destroy_everything(int exit_status)
 	destroy_asset(pc()->image.coin, 8);
 	destroy_asset(pc()->image.door, 2);
 	destroy_asset(pc()->image.menu, 5);
+	destroy_asset(pc()->image.train, 12);
 	if (pc()->image.enemy.image)
 		mlx_destroy_image(pc()->mlx, pc()->image.enemy.image);
 	if (pc()->image.wall_n.image)
