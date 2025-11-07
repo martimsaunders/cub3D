@@ -6,7 +6,7 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 13:02:26 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/07 11:45:17 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/07 12:56:14 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,33 +54,56 @@ void	init_eval_characters_values(void)
 	}
 }
 
+void safe_free(void *ptr)
+{
+	if (ptr)
+		free(ptr);
+	ptr = NULL;
+}
+
+void safe_destroy_img(void * img)
+{
+	if (img)
+		mlx_destroy_image(pc()->mlx, img);
+	img = NULL;
+}
+
 void free_game_values()
 {
-	if (pc()->map)
-		free_array();
-	free(pc()->enemies);
+	free_array();
+	safe_free(pc()->enemies);
 	pc()->enemy_count = 0;
-	free(pc()->coin);
+	safe_free(pc()->coin);
 	pc()->coin_count = 0;
 	pc()->coin_captured = 0;
-	free(pc()->door);
+	safe_free(pc()->door);
 	pc()->door_count = 0;
-	if (pc()->image.wall_n.image)
-		mlx_destroy_image(pc()->mlx, pc()->image.wall_n.image);
-	if (pc()->image.wall_s.image)
-		mlx_destroy_image(pc()->mlx, pc()->image.wall_s.image);
-	if (pc()->image.wall_e.image)
-		mlx_destroy_image(pc()->mlx, pc()->image.wall_e.image);
-	if (pc()->image.wall_o.image)
-		mlx_destroy_image(pc()->mlx, pc()->image.wall_o.image);
-	if (pc()->image.wall_n.path)
-		free(pc()->image.wall_n.path);
-	if (pc()->image.wall_s.path)
-		free(pc()->image.wall_s.path);
-	if (pc()->image.wall_e.path)
-		free(pc()->image.wall_e.path);
-	if (pc()->image.wall_o.path)
-		free(pc()->image.wall_o.path);
+	safe_destroy_img(pc()->image.wall_s.image);
+	safe_destroy_img(pc()->image.wall_n.image);
+	safe_destroy_img(pc()->image.wall_e.image);
+	safe_destroy_img(pc()->image.wall_o.image);
+	safe_free(pc()->image.wall_n.path);
+	safe_free(pc()->image.wall_s.path);
+	safe_free(pc()->image.wall_e.path);
+	safe_free(pc()->image.wall_o.path);
+}
+
+void reset_ps()
+{
+	ps()->bonus = 0;
+	ps()->c_ceil = 0;
+	ps()->c_floor = 0;
+	ps()->e_tex = 0;
+	ps()->ff_coin = 0;
+	ps()->ff_ret = 0;
+	ps()->map_h = 0;
+	ps()->map_start_in_fd = 0;
+	ps()->n_tex = 0;
+	ps()->o_tex = 0;
+	ps()->p_count = 0;
+	ps()->s_tex = 0;
+	ps()->x = 0;
+	ps()->y = 0;
 }
 
 bool	avl_mode_init(int argc, char **argv)

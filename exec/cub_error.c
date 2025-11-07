@@ -6,7 +6,7 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:59:43 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/07 12:15:22 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/07 12:51:53 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,12 @@ void	free_array(void)
 	int	y;
 
 	y = 0;
+	if (!pc()->map)
+		return ;
 	while (pc()->map[y])
 		free(pc()->map[y++]);
 	free(pc()->map);
+	pc()->map = NULL;
 }
 
 int	end_window(void)
