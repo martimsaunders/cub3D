@@ -6,7 +6,7 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 14:03:34 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/06 18:37:40 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/07 12:06:58 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,13 @@ bool	characters_set_value(void)
 	return (true);
 }
 
-bool	flood_fill_map(char **map, int x, int y) // print flood fill
+bool	flood_fill_map(char **map, int x, int y)
 {
-	if (ps()->ff_ret)
+	if (ps()->ff_ret || x < 0 || y < 0 || y >= ps()->map_h)
+	{
+		ps()->ff_ret = 1;
 		return (false);
+	}
 	if (map[y][x] == '1')
 		return (true);
 	if (map[y][x] != '0')

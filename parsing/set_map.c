@@ -92,25 +92,42 @@ bool	set_door_value(int x, int y)
 	return (true);
 }
 
-bool	set_elements_values(char character, int x, int y)
+bool	set_enemy_value(int x, int y)
 {
 	static int	e_idx;
 
-	if (character == 'e')
+	if (!pc()->enemies)
 	{
-		if (!pc()->enemies)
-		{
-			pc()->enemies = ft_calloc(pc()->enemy_count, sizeof(t_sprite));
-			e_idx = 0;
-		}
-		if (!pc()->enemies)
-			return (perror("Error\n"), false);
-		pc()->enemies[e_idx].x = x + 0.25;
-		pc()->enemies[e_idx++].y = y + 0.25;
+		pc()->enemies = ft_calloc(pc()->enemy_count, sizeof(t_sprite));
+		e_idx = 0;
 	}
-	else if (character == 'd' && !set_door_value(x, y))
+	if (!pc()->enemies)
+		return (perror("Error\n"), false);
+	pc()->enemies[e_idx].x = x + 0.25;
+	pc()->enemies[e_idx++].y = y + 0.25;
+	return (true);
+}
+
+bool	set_elements_values(char c, int x, int y)
+{
+	if (c == 'N' || c == 'S' || c == 'E' || c == 'O')
+	{
+		if (c == 'E')
+			pc()->player.angle = PI * 2;
+		if (c == 'N')
+			pc()->player.angle = PI * 1.5;
+		if (c == 'O')
+			pc()->player.angle = PI;
+		if (c == 'S')
+			pc()->player.angle = PI * 0.5;
+		pc()->player.x = x + 0.25;
+		pc()->player.y = y + 0.25;
+	}
+	else if (c == 'e' && !set_enemy_value(x, y))
 		return (false);
-	else if (character == 'c' && !set_coin_value(x, y))
+	else if (c == 'd' && !set_door_value(x, y))
+		return (false);
+	else if (c == 'c' && !set_coin_value(x, y))
 		return (false);
 	return (true);
 }

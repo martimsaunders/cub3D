@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/07 11:07:29 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/07 11:07:31 by mateferr         ###   ########.fr       */
+/*   Created: 2025/11/07 12:26:26 by mateferr          #+#    #+#             */
+/*   Updated: 2025/11/07 12:26:28 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "libraries/minilibx-linux/mlx.h"
 # include <X11/X.h>
 # include <X11/Xlib.h>
-//# include <X11/extensions/Xfixes.h>
 # include <X11/keysym.h>
 # include <math.h>
 # include <stdbool.h>
@@ -329,6 +328,7 @@ void			draw_sprite_columns(t_rend rend, t_tex tex, float *zbuffer,
 // cub3d.c
 bool			avl_mode_init(int argc, char **argv);
 void			init_eval_characters_values(void);
+void			free_game_values(void);
 void			restart_level(void);
 t_game			*pc(void);
 

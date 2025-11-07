@@ -7,8 +7,7 @@ void	main_menu_click(int x, int y)
 	else if ((x >= 382 && x <= 595) && (y >= 450 && y <= 611))
     {
         if (!avl_mode_init(pc()->argc, pc()->argv))
-            exit(1);
-            // destroy_everything(1);
+            destroy_everything(1);
 		pc()->mode = EVAL;
     }
 	else if ((x >= 686 && x <= 904) && (y >= 450 && y <= 611))
