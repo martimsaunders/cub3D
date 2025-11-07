@@ -6,27 +6,48 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 12:55:51 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/07 11:54:27 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/07 16:34:41 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
+int is_wall(int x, int y)
+{
+	if (pc()->map[y][x] == '1' || pc()->map[y][x] == '2')
+		return (1);
+	return (0);
+}
+
+int is_safe(int x, int y)
+{
+	if (pc()->map[y][x] == 'g' || pc()->map[y][x] == 'n' || pc()->map[y][x] == 'p')
+		return (1);
+	return (0);
+}
+
+int is_coin(int x, int y)
+{
+	if (pc()->map[y][x] == 'c' && !find_coin_state(x, y))
+		return (1);
+	return (0);
+}
+
 bool	is_edge(int mapx, int mapy, t_map *m)
 {
-	if (m->relx == 0 && (mapx == 0 || pc()->map[mapy][mapx - 1] != '1'))
+	if (m->relx == 0 && (mapx == 0 || !is_wall(mapx - 1, mapy)))
 		return (true);
 	if (m->relx == BLOCK - 1 && (pc()->map[mapy][mapx + 1] == '\0'
-			|| pc()->map[mapy][mapx + 1] != '1'))
+			|| !is_wall(mapx + 1, mapy)))
 		return (true);
-	if (m->rely == 0 && (mapy == 0 || pc()->map[mapy - 1][mapx] != '1'))
+	if (m->rely == 0 && (mapy == 0 || !is_wall(mapx, mapy - 1)))
 		return (true);
 	if (m->rely == BLOCK - 1)
 	{
 		if (pc()->map[mapy + 1] == NULL)
 			return (true);
 		if (mapx < (int)ft_strlen(pc()->map[mapy + 1]))
-			if (pc()->map[mapy + 1][mapx] != '1')
+			if (!is_wall(mapx, mapy + 1))
 				return (true);
 	}
 	return (false);
@@ -57,7 +78,7 @@ int	is_not_map(int x, int y)
 
 	m = pc()->map[y][x];
 	if (m != 'N' && m != 'E' && m != 'S' && m != 'O' && m != 'c' && m != 'e'
-		&& m != 'd' && m != 'g' && m != '2' && m != '0' && m != '1')
+		&& m != 'd' && m != 'g' && m != '2' && m != '0' && m != '1' && m != 'n' && m != 'p')
 		return (1);
 	return (0);
 }
@@ -65,8 +86,7 @@ int	is_not_map(int x, int y)
 // convertion of the map pixel into block position
 static void	put_element_pixel(int x, int y, t_map *m)
 {
-	if (pc()->map[m->mapy][m->mapx] == '1' || pc()->map[m->mapy][m->mapx] == 'd'
-		|| pc()->map[m->mapy][m->mapx] == '2')
+	if (is_blocked_e(m->mapy, m->mapx))
 	{
 		m->frac_x = m->world_x - floor(m->world_x);
 		m->frac_y = m->world_y - floor(m->world_y);
@@ -74,20 +94,18 @@ static void	put_element_pixel(int x, int y, t_map *m)
 		m->rely = (int)(m->frac_y * BLOCK);
 		if (is_edge(m->mapx, m->mapy, m))
 			put_pixel(m->map_radius + x, m->map_radius + y, 0x000000);
-		else if (pc()->map[m->mapy][m->mapx] == '1'
-			|| pc()->map[m->mapy][m->mapx] == '2')
+		else if (is_wall(m->mapx, m->mapy))
 			put_pixel(m->map_radius + x, m->map_radius + y, 0x7B68EE);
 		else
 			put_pixel(m->map_radius + x, m->map_radius + y, 0x752D00);
 	}
-	else if (pc()->map[m->mapy][m->mapx] == 'g')
+	else if (is_safe(m->mapx, m->mapy))
 		put_pixel(m->map_radius + x, m->map_radius + y, 0xBEFDB6);
 	else if ((m->mapx + m->mapy) % 2 == 0)
 		put_pixel(m->map_radius + x, m->map_radius + y, 0xFFFFFF);
 	else
 		put_pixel(m->map_radius + x, m->map_radius + y, 0xE6E6FA);
-	if (pc()->map[m->mapy][m->mapx] == 'c' && !find_coin_state(m->mapx,
-			m->mapy))
+	if (is_coin(m->mapx, m->mapy))
 		put_coin_pixel(x, y, m, BLOCK / 4);
 }
 
