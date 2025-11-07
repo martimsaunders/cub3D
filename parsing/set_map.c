@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:12:51 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/05 12:57:30 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/06 18:15:17 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,63 +59,72 @@ bool	create_map(int fd, char *map_name)
 	return (fill_map(fd, map_name));
 }
 
-void	val_err_msg(char *msg)
+bool	set_coin_value(int x, int y)
 {
-	ft_putstr_fd(msg, 2);
-	ft_putnbr_fd(B_CHR_LIM, 2);
-	write(2, "\n", 1);
+	static int	c_idx;
+
+	if (!pc()->coin)
+	{
+		pc()->coin = ft_calloc(pc()->coin_count, sizeof(t_sprite));
+		c_idx = 0;
+	}
+	if (!pc()->coin)
+		return (perror("Error\n"), false);
+	pc()->coin[c_idx].x = x + 0.25;
+	pc()->coin[c_idx].y = y + 0.25;
+	pc()->coin[c_idx++].is_coin = 1;
+	return (true);
+}
+
+bool	set_door_value(int x, int y)
+{
+	static int	d_idx;
+
+	if (!pc()->door)
+	{
+		pc()->door = ft_calloc(pc()->door_count, sizeof(t_sprite));
+		d_idx = 0;
+	}
+	if (!pc()->door)
+		return (perror("Error\n"), false);
+	pc()->door[d_idx].x = x + 0.25;
+	pc()->door[d_idx++].y = y + 0.25;
+	return (true);
 }
 
 bool	set_elements_values(char character, int x, int y)
 {
+	static int	e_idx;
+
 	if (character == 'e')
 	{
-		if (pc()->enemy_count >= B_CHR_LIM)
-			return (val_err_msg("Enemies quantity limit exceeded: "), false);
-		pc()->enemies[pc()->enemy_count].x = x + 0.25;
-		pc()->enemies[pc()->enemy_count].y = y + 0.25;
-		pc()->enemy_count++;
+		if (!pc()->enemies)
+		{
+			pc()->enemies = ft_calloc(pc()->enemy_count, sizeof(t_sprite));
+			e_idx = 0;
+		}
+		if (!pc()->enemies)
+			return (perror("Error\n"), false);
+		pc()->enemies[e_idx].x = x + 0.25;
+		pc()->enemies[e_idx++].y = y + 0.25;
 	}
-	else if (character == 'd')
-	{
-		if (pc()->door_count >= B_CHR_LIM)
-			return (val_err_msg("Doors quantity limit exceeded: "), false);
-		pc()->door[pc()->door_count].x = x + 0.25;
-		pc()->door[pc()->door_count].y = y + 0.25;
-		pc()->door_count++;
-	}
-	else if (character == 'c')
-	{
-		if (pc()->coin_count >= B_CHR_LIM)
-			return (val_err_msg("Coins quantity limit exceeded: "), false);
-		pc()->coin[pc()->coin_count].x = x + 0.25;
-		pc()->coin[pc()->coin_count].y = y + 0.25;
-		pc()->coin[pc()->coin_count].is_coin = 1;
-		pc()->coin_count++;
-	}
+	else if (character == 'd' && !set_door_value(x, y))
+		return (false);
+	else if (character == 'c' && !set_coin_value(x, y))
+		return (false);
 	return (true);
 }
 
-bool	set_characters_values(char chr, int x, int y)
+bool	characters_count(char chr)
 {
-	static int	p_count;
-
-	if (!set_elements_values(chr, x, y))
-		return (false);
-	if (chr == 'E' || chr == 'O' || chr == 'S' || chr == 'N')
-	{
-		if (chr == 'E')
-			pc()->player.angle = PI * 2;
-		if (chr == 'N')
-			pc()->player.angle = PI * 1.5;
-		if (chr == 'O')
-			pc()->player.angle = PI;
-		if (chr == 'S')
-			pc()->player.angle = PI * 0.5;
-		pc()->player.x = x + 0.25;
-		pc()->player.y = y + 0.25;
-		if (++p_count > 1)
+	if (chr == 'e')
+		pc()->enemy_count++;
+	else if (chr == 'd')
+		pc()->door_count++;
+	else if (chr == 'c')
+		pc()->coin_count++;
+	else if (chr == 'E' || chr == 'O' || chr == 'S' || chr == 'N')
+		if (++ps()->p_count > 1)
 			return (err_msg("Player quantity limit exceeded: ", '1'), false);
-	}
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 19:31:57 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/04 19:46:56 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/06 18:30:14 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,16 @@ bool	check_door_pos(char chr, int x, int y)
 
 static bool	flood_fill_coin(char **map, int x, int y)
 {
-	static int	coin;
-
 	if (map[y][x] == '1' || map[y][x] == 'd')
 		return (true);
 	if (map[y][x] == 'c')
-		coin++;
+		ps()->ff_coin++;
 	map[y][x] = '1';
 	flood_fill_coin(map, x + 1, y);
 	flood_fill_coin(map, x - 1, y);
 	flood_fill_coin(map, x, y + 1);
 	flood_fill_coin(map, x, y - 1);
-	if (coin == pc()->coin_count)
+	if (ps()->ff_coin == pc()->coin_count)
 		return (true);
 	return (false);
 }

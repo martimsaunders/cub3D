@@ -6,7 +6,7 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 13:02:26 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/06 16:35:13 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/06 18:38:06 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,41 @@ void	init_eval_characters_values(void)
 	}
 }
 
+void free_game_values()
+{
+	if (pc()->map)
+		free_array();
+	free(pc()->enemies);
+	pc()->enemy_count = 0;
+	free(pc()->coin);
+	pc()->coin_count = 0;
+	pc()->coin_captured = 0;
+	free(pc()->door);
+	pc()->door_count = 0;
+	if (pc()->image.enemy.image)
+		mlx_destroy_image(pc()->mlx, pc()->image.enemy.image);
+	if (pc()->image.wall_n.image)
+		mlx_destroy_image(pc()->mlx, pc()->image.wall_n.image);
+	if (pc()->image.wall_s.image)
+		mlx_destroy_image(pc()->mlx, pc()->image.wall_s.image);
+	if (pc()->image.wall_e.image)
+		mlx_destroy_image(pc()->mlx, pc()->image.wall_e.image);
+	if (pc()->image.wall_o.image)
+		mlx_destroy_image(pc()->mlx, pc()->image.wall_o.image);
+	if (pc()->image.wall_n.path)
+		free(pc()->image.wall_n.path);
+	if (pc()->image.wall_s.path)
+		free(pc()->image.wall_s.path);
+	if (pc()->image.wall_e.path)
+		free(pc()->image.wall_e.path);
+	if (pc()->image.wall_o.path)
+		free(pc()->image.wall_o.path);
+}
+
 bool	avl_mode_init(int argc, char **argv)
 {
+	free_game_values();
+	ft_memset(ps(), 0, sizeof(t_parse));
 	// char *line;
 	if (argc != 2)
 		return (err_msg("1 argument only (./map_path)", 0), false);
@@ -94,6 +127,6 @@ int	main(int argc, char **argv)
 }
 
 /*
-ao entrar no jogo dar init aos elementos (a partir do menu)
-ao sair do jogo dar free aos elementos do jogo (a partir do pausa ou esc)
+minimap elementos nao 0 sao chao
+pintar check points 'g'
 */
