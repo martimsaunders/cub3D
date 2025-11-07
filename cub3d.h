@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:27:32 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/06 16:33:10 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/06 22:03:42 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "libraries/minilibx-linux/mlx.h"
 # include <X11/X.h>
 # include <X11/Xlib.h>
-# include <X11/extensions/Xfixes.h>
+//# include <X11/extensions/Xfixes.h>
 # include <X11/keysym.h>
 # include <math.h>
 # include <stdbool.h>
