@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 13:00:33 by mprazere          #+#    #+#             */
-/*   Updated: 2025/11/07 15:40:32 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/07 17:20:07 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,10 +129,3 @@ int	main(int argc, char **argv)
 	destroy_everything(1);
 	return (0);
 }
-
-/*
-draw_hud - lvl no centro ou eval numero de mortes na esquerda
-carregar imagem da barra com texto fixo
-carregar imagem de cada digito 
-juntar as partes a cada frame
-*/
