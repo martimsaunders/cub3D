@@ -86,7 +86,7 @@ void	draw_eval_screen(void)
 	check_enemy_colision();
 	check_coin_colision();
 	ray_cast();
-	draw_mini_map();
+	draw_minimap();
 	mlx_put_image_to_window(pc()->mlx, pc()->win, pc()->image.image, 0, 0);
 }
 
@@ -147,7 +147,7 @@ void	draw_lvls_game(void)
 	check_enemy_colision();
 	check_coin_colision();
 	ray_cast();
-	draw_mini_map();
+	draw_minimap();
 	mlx_put_image_to_window(pc()->mlx, pc()->win, pc()->image.image, 0, 0);
 }
 

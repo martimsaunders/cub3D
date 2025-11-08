@@ -235,29 +235,25 @@ typedef struct s_parse
 	int			ff_coin;
 }				t_parse;
 
-typedef struct s_map
+typedef struct s_minimap
 {
-	double		angle;
-	double		world_x;
-	double		world_y;
-	double		frac_x;
-	double		frac_y;
-	double		rotx;
-	double		roty;
-	double		disx;
-	double		disy;
-	double		pxlx;
-	double		pxly;
-	int			mapdx;
-	int			mapdy;
-	int			mappx;
-	int			mappy;
-	int			mapx;
-	int			mapy;
-	int			relx;
-	int			rely;
-	int			map_radius;
-}				t_map;
+    int mapx;
+    int mapy;
+    int map_h;
+    int radius;
+    int char_size;
+    int coin_count;
+    int enemy_count;
+    char **map;
+    double rotx;
+    double roty;
+    double angle;
+    double worldx;
+    double worldy;
+    t_player player;
+    t_sprite *coins;
+    t_sprite *enemies;
+} t_minimap;
 
 // cub_coins.c
 int				find_coin_state(int x, int y);
@@ -371,23 +367,41 @@ bool			characters_count(char orientation);
 bool			set_elements_values(char character, int x, int y);
 
 // game_features
-// mini_map.c
-void			draw_mini_map(void);
-void			draw_enemies(t_map *m);
-void			draw_player(t_map *m);
 
-// mouse_ctrl.c
+// minimap
+//minimap_draws.c
+void minimap_draw_outside(t_minimap *mm, int x, int y);
+void minimap_draw_floor(t_minimap *mm, int x, int y);
+void minimap_draw_block(t_minimap *mm, int x, int y);
+//minimap_icons.c
+void minimap_draw_all_icons(t_minimap *mm);
+void minimap_draw_icon(t_minimap *mm, int color);
+void minimap_icon_coords(t_minimap *mm, t_sprite icon);
+void	minimap_draw_player(t_minimap *mm);
+//minimap_utils.c
+bool	minimap_is_map(t_minimap *mm);
+bool minimap_is_safe(t_minimap *mm);
+bool minimap_is_wall(t_minimap *mm, int x, int y);
+bool minimap_is_inside_map(t_minimap *mm);
+bool	minimap_is_edge(int mapx, int mapy, t_minimap *mm);
+//minimap.c
+void minimap_put_pixel(t_minimap *mm, int x, int y, int color);
+void minimap_init(t_minimap *mm);
+bool minimap_is_inside_circle(int x, int y, int radius);
+void minimap_world_coords(t_minimap *mm, int x, int y);
+void draw_minimap(void);
+
+//mouse
+// mouse_move.c
 int				mouse_move(int x, int y);
-int				mouse_out(void);
-int				mouse_click(int button, int x, int y);
 void			mouse_cam_move(int x);
-int				mouse_in(void);
-
 // mouse_clicks.c
+int				mouse_click(int button, int x, int y);
 void			game_menu_click(int x, int y);
-void			lvls_menu_click(int x, int y);
 void			ctrls_menu_click(int x, int y);
 void			main_menu_click(int x, int y);
+//mouse_click_lvls.c
+void			lvls_menu_click(int x, int y);
 
 // to organize
 
@@ -398,11 +412,6 @@ void			draw_main_menu(void);
 void			draw_game_screen(void);
 void			draw_eval_screen(void);
 void			draw_lvls_game(void);
-
-void			mouse_move_pause_menu(int x, int y);
-void			mouse_move_lvls_menu(int x, int y);
-void			mouse_move_ctrls_menu(int x, int y);
-void			mouse_move_main_menu(int x, int y);
 
 void			init_lvl_images(void);
 void			fill_values(void);

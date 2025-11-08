@@ -10,51 +10,35 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../../cub3d.h"
 
-int	mouse_click(int button, int x, int y)
+int	mouse_move(int x, int y)
 {
-	if (button != 1)
-		return (0);
-	if (pc()->mode == MENU)
-		main_menu_click(x, y);
-	else if (pc()->mode == CTRLS)
-		ctrls_menu_click(x, y);
-	else if (pc()->mode == LVLS)
-		lvls_menu_click(x, y);
-	else if (pc()->mode == GAME_MENU)
-		game_menu_click(x, y);
+	if (pc()->mode == GAME || pc()->mode == EVAL || pc()->mode == LVLS_GAME)
+		mouse_cam_move(x);
+	else
+	{
+		pc()->player.mousex = x;
+		pc()->player.mousey = y;
+	}
 	return (0);
 }
 
-int	mouse_out(void)
+static bool mouse_cam_init()
 {
-	return (0);
-}
-
-int	mouse_in(void)
-{
-	return (0);
-}
-
-void	mouse_cam_move(int x)
-{
-	int		dx;
-	float	sens;
-
-	sens = 0.0005;
 	if (!pc()->mouse_in_win)
 	{
 		if (MOUSE_HIDE != 0)
 			mlx_mouse_hide(pc()->mlx, pc()->win);
 		mlx_mouse_move(pc()->mlx, pc()->win, WIDTH / 2, HEIGHT / 2);
 		pc()->mouse_in_win = 1;
-		return ;
+		return (true);
 	}
-	dx = x - WIDTH / 2;
-	mlx_mouse_move(pc()->mlx, pc()->win, WIDTH / 2, HEIGHT / 2);
-	if (dx == 0)
-		return ;
+	return (false);
+}
+
+static void mouse_cam_values_set(int dx, float sens)
+{
 	pc()->player.angle += dx * sens;
 	if (pc()->player.angle > 2 * PI)
 		pc()->player.angle = 0;
@@ -66,48 +50,18 @@ void	mouse_cam_move(int x)
 	pc()->player.plane_y = pc()->player.dir_x * FOV;
 }
 
-int	mouse_move(int x, int y)
+void	mouse_cam_move(int x)
 {
-	if (pc()->mode == GAME || pc()->mode == EVAL || pc()->mode == LVLS_GAME)
-		mouse_cam_move(x);
-	/* else if (pc()->mode == MENU)
-		mouse_move_main_menu(x, y);
-	else if (pc()->mode == CTRLS)
-		mouse_move_ctrls_menu(x, y);
-	else if (pc()->mode == LVLS)
-		mouse_move_lvls_menu(x, y);
-	else if (pc()->mode == PAUSE)
-		mouse_move_pause_menu(x, y); */
-	else
-	{
-		pc()->player.mousex = x;
-		pc()->player.mousey = y;
-	}
-	return (0);
+	int		dx;
+	float	sens;
+
+	sens = 0.0005;
+	if (mouse_cam_init())
+		return ;
+	dx = x - WIDTH / 2;
+	mlx_mouse_move(pc()->mlx, pc()->win, WIDTH / 2, HEIGHT / 2);
+	if (dx == 0)
+		return ;
+	mouse_cam_values_set(dx, sens);
 }
 
-void	mouse_move_pause_menu(int x, int y)
-{
-	(void)x;
-	(void)y;
-	return ;
-}
-void	mouse_move_lvls_menu(int x, int y)
-{
-	(void)x;
-	(void)y;
-	return ;
-}
-void	mouse_move_ctrls_menu(int x, int y)
-{
-	(void)x;
-	(void)y;
-	return ;
-}
-void	mouse_move_main_menu(int x, int y)
-{
-	(void)x;
-	(void)y;
-
-	return ;
-}
