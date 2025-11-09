@@ -24,6 +24,7 @@
 # include <sys/time.h>
 # include <unistd.h>
 
+# define BONUS 1
 # define MOUSE_HIDE 1
 # define WIDTH 1280
 # define HEIGHT 720
@@ -219,21 +220,24 @@ typedef struct s_game
 
 typedef struct s_parse
 {
-	int			n_tex;
-	int			s_tex;
-	int			e_tex;
-	int			o_tex;
-	int			c_floor;
-	int			c_ceil;
-	int			map_h;
-	int			x;
-	int			y;
-	int			map_start_in_fd;
-	int			bonus;
-	int			p_count;
-	int			ff_ret;
-	int			ff_coin;
-}				t_parse;
+    int c_col;
+    int c_hex;
+    int f_col;
+    int f_hex;
+    int map_idx;
+    int coin_check;
+    int coin_count;
+    int door_count;
+    int line_count;
+    int enemy_count;
+    char *e_path;
+    char *n_path;
+    char *s_path;
+    char *w_path;
+    char **map;
+    char **file;
+    char **map_cpy;
+} t_parse;
 
 typedef struct s_minimap
 {
@@ -332,39 +336,52 @@ void			free_game_values(void);
 t_game			*pc(void);
 
 // parsing
-// file_parsing.c
-bool			map_file_parsing(char *map_name);
-void			err_msg(char *msg, char var);
-void			free_cpy(char **array);
-t_parse			*ps(void);
-
-// info_parse_utils.c
-int				get_hex_num(char *line, int *dst, int *info);
-bool			valid_color_nums(int i, char **nums, int rgb[3]);
-int				get_tex_path(char *line, char **dst, int *info);
-
-// info_parsing.c
-int				find_tex_info(char *line);
-int				find_map_info(char *line);
-bool			check_missing_infos(void);
-bool			valid_map_info(int fd, char *map_name);
-
-// map_parsing.c
-bool			valid_map_characters(void);
-bool			characters_set_value(void);
-bool			flood_fill_map(char **map, int x, int y);
-char			**copy_matrix(char **src, int size);
-bool			surounded_walls(void);
-
-// map_parsing_utils.c
-bool			coins_pos(void);
-bool			check_door_pos(char chr, int x, int y);
-
-// set_map.c
-bool			fill_map(int fd, char *map_name);
-bool			create_map(int fd, char *map_name);
-bool			characters_count(char orientation);
-bool			set_elements_values(char character, int x, int y);
+// parse_file.c
+void parse_file_destroy(t_parse *f, int error);
+bool parse_file_load(t_parse *f, const char *filepath);
+bool parse_file_fill(t_parse *f, const char *filepath);
+// parse_flood_fill.c
+bool parse_validate_map(t_parse *f);
+bool parse_validate_coins_pos(t_parse *f);
+bool parse_coin_flood_fill(t_parse *f, int x, int y);
+bool parse_map_flood_fill(t_parse *f, int x, int y);
+// parse_header_utils
+bool parse_check_texture(char *line, char **dst);
+bool parse_get_texture(char *line, t_parse *f);
+bool parse_check_numbers(char **nums, int *id, int *dst);
+bool parse_check_color(char *line, int *id, int *dst);
+bool parse_get_color(char *line, t_parse *f);
+// parse_header.c
+bool parse_check_all_infos(t_parse *f);
+bool parse_header(t_parse *f);
+// parse_map_matrix.c
+void parse_free_array(char **arr);
+int parse_map_height(char **map);
+bool parse_map_matrix(t_parse *f);
+char	**parse_copy_matrix(char **src);
+bool parse_find_player(t_parse *f, int *px, int *py);
+// parse_map_utils.c
+bool parse_is_player(char c);
+bool parse_is_icon(char c);
+bool parse_is_map(char c);
+bool parse_out_of_bounds(char **map, int x, int y);
+// parse_set_values.c
+void parse_set_player(t_parse *f);
+bool parse_set_doors(t_parse *f);
+bool parse_set_enemies(t_parse *f);
+bool parse_set_coins(t_parse *f);
+bool parse_set_icons_values(t_parse *f);
+// parsing_utils.c
+bool parse_is_empty_line(const char *line);
+bool parse_is_space(char c);
+bool parse_is_map_line(const char *line);
+bool parse_is_texture(const char *line);
+bool parse_is_color(const char *line);
+// parsing.c
+void parse_map_file(const char *filepath);
+char parse_get_char(char *line);
+void	err_msg(char *msg, char var);
+void parse_init_f(t_parse *f);
 
 // game_features
 
@@ -403,6 +420,16 @@ void			main_menu_click(int x, int y);
 //mouse_click_lvls.c
 void			lvls_menu_click(int x, int y);
 
+//lvls
+// lvls_set_values.c
+bool			characters_count(char orientation);
+bool			set_elements_values(char character, int x, int y);
+// cub.lvls.c
+void			init_lvl_images(void);
+void			fill_values(void);
+void			set_lvl_1(void);
+void			lvl_mode_init(void);
+
 // to organize
 
 void			draw_game_menu(void);
@@ -412,10 +439,5 @@ void			draw_main_menu(void);
 void			draw_game_screen(void);
 void			draw_eval_screen(void);
 void			draw_lvls_game(void);
-
-void			init_lvl_images(void);
-void			fill_values(void);
-void			set_lvl_1(void);
-void			lvl_mode_init(void);
 
 #endif

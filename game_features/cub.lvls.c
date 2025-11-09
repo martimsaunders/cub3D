@@ -112,12 +112,60 @@ void	set_lvl_1()
 	pc()->player.plane_y = pc()->player.dir_x * 0.66;
 }
 
+char **file_matrix_fill(const char *filepath, char **matrix)
+{
+    int fd;
+    char *line;
+    int i;
+
+    fd = open(filepath, O_RDONLY);
+    if (fd == -1)
+        return (perror("Error\n"), NULL);
+    i = 0;
+    while (1)
+    {
+        line = get_next_line(fd);
+        if (!line)
+            break ;
+        matrix[i] = ft_strdup(line);
+        if (!matrix[i++])
+            return (perror("Error\n"), close(fd), NULL);
+    }
+    matrix[i] = NULL;
+    close(fd);
+    return (matrix);
+}
+
+char **file_matrix_load(const char *filepath)
+{
+    int fd;
+    char *line;
+	int line_count;
+	char **matrix;
+
+	line_count = 0;
+    fd = open(filepath, O_RDONLY);
+    if (fd == -1)
+        return (perror("Error\n"), NULL);
+    while (1)
+    {
+        line = get_next_line(fd);
+        if (!line)
+            break ;
+        line_count++;
+    }
+    matrix = ft_calloc(line_count + 1, sizeof(char *));
+    if (!matrix)
+        return (perror("Error\n"), close(fd), NULL);
+    close(fd);
+    return (file_matrix_fill(filepath, matrix));
+}
+
 void	lvl_mode_init()
 {
 	char *lvl_name;
 	char *lvl;
 	char *temp;
-	int fd;
 
 	lvl = ft_itoa(pc()->current_level);
 	if (!lvl)
@@ -130,16 +178,11 @@ void	lvl_mode_init()
 	free(lvl);
 	if (!lvl_name)
 		return (destroy_everything(1));
-	fd = open(lvl_name, O_RDONLY);
-	if (fd == -1)
-		return (free(lvl_name), destroy_everything(1));
-	ft_memset(ps(), 0, sizeof(t_parse));
-	ps()->map_start_in_fd = 1;
 	free_game_values();
-	if (!create_map(fd, lvl_name))
-		return (close(fd), free(lvl_name), destroy_everything(1));
-	close (fd);
+	pc()->map = file_matrix_load(lvl_name);
 	free(lvl_name);
+	if (!pc()->map)
+		destroy_everything(1);
 	init_lvl_images();
 	fill_values();
 	if (pc()->current_level == 1)

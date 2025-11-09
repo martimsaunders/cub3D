@@ -11,7 +11,7 @@ void minimap_init(t_minimap *mm)
     mm->angle = pc()->player.angle + PI / 2;
     mm->player = pc()->player;
     mm->map = pc()->map;
-    mm->map_h = ps()->map_h;
+    mm->map_h = parse_map_height(pc()->map);
     mm->char_size = BLOCK / 4;
     mm->coin_count = pc()->coin_count;
     mm->coins = pc()->coin;

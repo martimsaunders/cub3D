@@ -21,10 +21,11 @@ exec/cub_pixel.c exec/cub_move_player.c exec/cub_ray_cast.c exec/cub_ray_cast_ut
 exec/cub_ray_cast_cf.c exec/cub_sprite_rendering.c exec/cub_move_enemy.c \
 exec/cub_doors.c exec/cub_coins.c \
 \
-parsing/file_parsing.c parsing/info_parse_utils.c parsing/info_parsing.c \
-parsing/map_parsing.c parsing/set_map.c parsing/map_parse_utils.c\
+parsing/parsing.c parsing/parsing_utils.c parsing/parse_set_values.c \
+parsing/parse_map_utils.c parsing/parse_map_matrix.c parsing/parse_header.c \
+parsing/parse_header_utils.c parsing/parse_flood_fill.c parsing/parse_file.c \
 \
-game_features/cub.lvls.c \
+game_features/cub.lvls.c game_features/lvls_set_values.c\
 game_features/mouse/mouse_move.c game_features/mouse/mouse_clicks.c \
 game_features/mouse/mouse_click_lvls.c \
 game_features/minimap/minimap.c game_features/minimap/minimap_draws.c \

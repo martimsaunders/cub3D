@@ -12,53 +12,6 @@
 
 #include "../cub3d.h"
 
-bool	fill_map(int fd, char *map_name)
-{
-	char	*line;
-	int		i;
-
-	line = NULL;
-	close(fd);
-	fd = open(map_name, O_RDONLY);
-	while (ps()->map_start_in_fd--)
-	{
-		line = get_next_line(fd);
-		if (ps()->map_start_in_fd)
-			free(line);
-	}
-	i = 0;
-	while (line)
-	{
-		pc()->map[i] = ft_strdup(line);
-		free(line);
-		if (!pc()->map[i++])
-			return (perror("Error\n"), false);
-		line = get_next_line(fd);
-	}
-	pc()->map[i] = NULL;
-	return (true);
-}
-
-bool	create_map(int fd, char *map_name)
-{
-	char	*line;
-
-	ps()->map_h = 1;
-	line = get_next_line(fd);
-	while (line)
-	{
-		ps()->map_h++;
-		free(line);
-		line = get_next_line(fd);
-	}
-	if (ps()->map_h < 3)
-		return (err_msg("Invalid map height", 0), false);
-	pc()->map = ft_calloc(ps()->map_h + 1, sizeof(char *));
-	if (!pc()->map)
-		return (perror("Error\n"), false);
-	return (fill_map(fd, map_name));
-}
-
 bool	set_coin_value(int x, int y)
 {
 	static int	c_idx;
@@ -140,8 +93,5 @@ bool	characters_count(char chr)
 		pc()->door_count++;
 	else if (chr == 'c')
 		pc()->coin_count++;
-	else if (chr == 'E' || chr == 'O' || chr == 'S' || chr == 'N')
-		if (++ps()->p_count > 1)
-			return (err_msg("Player quantity limit exceeded: ", '1'), false);
 	return (true);
 }

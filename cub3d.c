@@ -92,28 +92,9 @@ void free_game_values()
 bool	avl_mode_init(int argc, char **argv)
 {
 	free_game_values();
-	ft_memset(ps(), 0, sizeof(t_parse));
-	// char *line;
 	if (argc != 2)
 		return (err_msg("1 argument only (./map_path)", 0), false);
-	// while (1)
-	// {
-	// 	ft_printf("Allow bonus features? (y/n)\n");
-	// 	line = get_next_line(0);
-	// 	if (!line)
-	// 		return (perror("Error\n"), 1);
-	// 	if (!ft_strncmp(line, "y\n", 3) || !ft_strncmp(line, "n\n", 3))
-	// 	{
-	// 		if (!ft_strncmp(line, "y\n", 3))
-	// 			ps()->bonus = 1;
-	// 		free(line);
-	// 		break ;
-	// 	}
-	// 	free(line);
-	// }
-	ps()->bonus = 1;
-	if (!map_file_parsing(argv[1]))
-		return (false);
+	parse_map_file(argv[1]);
 	init_eval_characters_values();
 	init_eval_images();
 	return (true);
