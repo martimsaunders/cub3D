@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cub_move_player.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 15:07:38 by mprazere          #+#    #+#             */
-/*   Updated: 2025/11/07 15:53:53 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/10 16:20:27 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	calculate_player_values(void)
+void	calculate_player_values(float *newx, float *newy)
 {
 	if (pc()->button.left)
 		pc()->player.angle -= pc()->player.rot_speed;
@@ -26,28 +26,44 @@ void	calculate_player_values(void)
 	pc()->player.dir_y = sin(pc()->player.angle);
 	pc()->player.plane_x = -pc()->player.dir_y * FOV;
 	pc()->player.plane_y = pc()->player.dir_x * FOV;
+	*newx = pc()->player.x;
+	*newy = pc()->player.y;
 }
 
 int		is_blocked(int map_y, int map_x)
 {
-	if (pc()->map[map_y][map_x] == '1' || pc()->map[map_y][map_x] == '2')
+	if (pc()->map[map_y][map_x] == '1')
 		return (1);
 	if (pc()->map[map_y][map_x]== 'd' && is_door_closed(map_y, map_x))
 		return (1);
 	if (pc()->map[map_y][map_x] == 'n')
 	{
-		mlx_mouse_show(pc()->mlx, pc()->win);
-		pc()->mode = LVLS;
+		if (pc()->mode == LVLS_GAME)
+		{
+			mlx_mouse_show(pc()->mlx, pc()->win);
+			pc()->mode = LVLS;
+			return (1);
+		}
+		else if (pc()->mode == GAME)
+		{
+			pc()->current_level++;
+			lvl_mode_init();
+			return (1);
+		}
 	}
 	return (0);
 }
 
-int		is_blocked_e(int map_y, int map_x)
+int		is_blocked_e(int map_y, int map_x, int type)
 {
-	if (pc()->map[map_y][map_x] == '1' || pc()->map[map_y][map_x] == '2')
-		return (1);
-	if (pc()->map[map_y][map_x]== 'd')
-		return (1);
+	if (type == 0)
+	{
+		if (pc()->map[map_y][map_x] == '1' || pc()->map[map_y][map_x] == 'd' || pc()->map[map_y][map_x] == 'g')
+			return (1);
+	}	
+	else
+		if (pc()->map[map_y][map_x] == '1' || pc()->map[map_y][map_x] == 'd')
+			return (1);
 	return (0);
 }
 
@@ -73,9 +89,7 @@ void	move_player(void)
 	float	newx;
 	float	newy;
 
-	calculate_player_values();
-	newx = pc()->player.x;
-	newy = pc()->player.y;
+	calculate_player_values(&newx, &newy);
 	if (pc()->button.w)
 	{
 		newx += pc()->player.dir_x * pc()->player.move_speed;

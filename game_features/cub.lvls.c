@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.lvls.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 16:54:22 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/07 16:54:24 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/10 16:28:51 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,10 @@ void	init_lvl_images(void)
 	safe_image("assets/roxo.xpm", &pc()->image.wall_o, NULL, 0);
 }
 
-void	fill_values()
+void	fill_values(int x, int y)
 {
-	int x;
-	int y;
 	char c;
 
-	y = -1;
 	while (pc()->map[++y])
 	{
 		x = -1;
@@ -50,6 +47,43 @@ void	fill_values()
 	}
 }
 
+void	find_player()
+{
+	int x;
+	int y;
+
+	y = -1;
+	while (pc()->map[++y])
+	{
+		x = -1;
+		while (pc()->map[y][++x])
+		{
+			if (pc()->map[y][x] == 'p')
+			{
+				pc()->player.x = x + 0.25;
+				pc()->player.y = y + 0.25;
+			}
+		}
+	}
+}
+
+void	init_player()
+{
+	find_player();
+	pc()->player.angle = PI * 2;
+	pc()->image.ceiling = 0xCA1568;
+	pc()->image.floor = 0x796446;
+	pc()->player.move_speed = 0.1;
+	pc()->player.rot_speed = 0.05;
+	pc()->player.dir_x = cos(pc()->player.angle);
+	pc()->player.dir_y = sin(pc()->player.angle);
+	pc()->player.plane_x = -pc()->player.dir_y * 0.66;
+	pc()->player.plane_y = pc()->player.dir_x * 0.66;
+	pc()->start.player.x = pc()->player.x;
+	pc()->start.player.y = pc()->player.y;
+	pc()->start.player.angle = pc()->player.angle;
+}
+
 void	set_lvl_2()
 {
 	int i;
@@ -61,21 +95,9 @@ void	set_lvl_2()
 			pc()->enemies[i].direction = 2;
 		else
 			pc()->enemies[i].direction = 3;
-		pc()->enemies[i].speed = 0.125;
+		pc()->enemies[i].speed = 0.1;
 	}
-	pc()->image.ceiling = 0xCA1568;
-	pc()->image.floor = 0x796446;
-	pc()->player.x = 3.25;
-	pc()->player.y = 4.25;
-	pc()->player.move_speed = 0.1;
-	pc()->player.rot_speed = 0.02;
-	pc()->player.angle = PI * 0.5;
-	pc()->player.dir_x = cos(pc()->player.angle);
-	pc()->player.dir_y = sin(pc()->player.angle);
-	pc()->player.plane_x = -pc()->player.dir_y * 0.66;
-	pc()->player.plane_y = pc()->player.dir_x * 0.66;
-	pc()->start.player.x = pc()->player.x;
-	pc()->start.player.y = pc()->player.y;
+	init_player();
 }
 
 void	set_lvl_1()
@@ -86,30 +108,12 @@ void	set_lvl_1()
 	while (++i < pc()->enemy_count)
 	{
 		if (i % 2 == 0)
-			pc()->enemies[i].direction = 3;
+			pc()->enemies[i].direction = 1;
 		else
-			pc()->enemies[i].direction = 4;
+			pc()->enemies[i].direction = 0;
 		pc()->enemies[i].speed = 0.1;
 	}
-	pc()->image.ceiling = 0xCA1568;
-	pc()->image.floor = 0x796446;
-	pc()->player.x = 3.25;
-	pc()->player.y = 4.25;
-	pc()->player.move_speed = 0.1;
-	pc()->player.rot_speed = 0.02;
-	pc()->player.angle = PI * 0.5;
-	pc()->player.dir_x = cos(pc()->player.angle);
-	pc()->player.dir_y = sin(pc()->player.angle);
-	pc()->player.plane_x = -pc()->player.dir_y * 0.66;
-	pc()->player.plane_y = pc()->player.dir_x * 0.66;
-	pc()->start.player.x = pc()->player.x;
-	pc()->start.player.y = pc()->player.y;
-	pc()->player.move_speed = 0.025;
-	pc()->player.rot_speed = 0.02;
-	pc()->player.dir_x = cos(pc()->player.angle);
-	pc()->player.dir_y = sin(pc()->player.angle);
-	pc()->player.plane_x = -pc()->player.dir_y * 0.66;
-	pc()->player.plane_y = pc()->player.dir_x * 0.66;
+	init_player();
 }
 
 char **file_matrix_fill(const char *filepath, char **matrix)
@@ -184,11 +188,9 @@ void	lvl_mode_init()
 	if (!pc()->map)
 		destroy_everything(1);
 	init_lvl_images();
-	fill_values();
+	fill_values(-1, -1);
 	if (pc()->current_level == 1)
 		set_lvl_1();
 	if (pc()->current_level == 2)
 		set_lvl_2();
 }
-
-	

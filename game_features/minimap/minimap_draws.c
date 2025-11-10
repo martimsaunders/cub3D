@@ -15,7 +15,7 @@ void minimap_draw_floor(t_minimap *mm, int x, int y)
 
 void minimap_draw_block(t_minimap *mm, int x, int y)
 {
-    if (is_blocked_e(mm->mapy, mm->mapx))
+    if (is_blocked_e(mm->mapy, mm->mapx, 1))
 	{
 		if (minimap_is_edge(mm->mapx, mm->mapy, mm))
 			minimap_draw_outside(mm, x, y);

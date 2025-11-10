@@ -13,23 +13,47 @@ static void lvls_10_end_click(int x, int y)
 static void lvls_7_9_click(int x, int y)
 {
     if ((x >= 307 && x <= 511) && (y >= 320 && y <= 525))
-		;
+	{
+		pc()->current_level = 7;
+		lvl_mode_init();
+		pc()->mode = LVLS_GAME;
+	}
 	else if ((x >= 539 && x <= 742) && (y >= 320 && y <= 525))
-		;
+	{
+		pc()->current_level = 8;
+		lvl_mode_init();
+		pc()->mode = LVLS_GAME;
+	}
 	else if ((x >= 770 && x <= 973) && (y >= 320 && y <= 525))
-		;
-    else
-        lvls_10_end_click(x, y);
+	{
+		pc()->current_level = 9;
+		lvl_mode_init();
+		pc()->mode = LVLS_GAME;
+	}
+	else
+		lvls_10_end_click(x, y);
 }
 
 static void lvls_4_6_click(int x, int y)
 {
     if ((x >= 770 && x <= 973) && (y >= 69 && y <= 275))
-		;
+	{
+		pc()->current_level = 4;
+		lvl_mode_init();
+		pc()->mode = LVLS_GAME;
+	}
 	else if ((x >= 1001 && x <= 1204) && (y >= 69 && y <= 275))
-		;
+	{
+		pc()->current_level = 5;
+		lvl_mode_init();
+		pc()->mode = LVLS_GAME;
+	}
 	else if ((x >= 74 && x <= 280) && (y >= 320 && y <= 525))
-		;
+	{
+		pc()->current_level = 6;
+		lvl_mode_init();
+		pc()->mode = LVLS_GAME;
+	}
     else
         lvls_7_9_click(x, y);
 }
@@ -49,7 +73,11 @@ void	lvls_menu_click(int x, int y)
 		pc()->mode = LVLS_GAME;
 	}
 	else if ((x >= 539 && x <= 742) && (y >= 69 && y <= 275))
-		;
+	{
+		pc()->current_level = 3;
+		lvl_mode_init();
+		pc()->mode = LVLS_GAME;
+	}
 	else
-        lvls_4_6_click(x, y);
+		lvls_4_6_click(x, y);
 }

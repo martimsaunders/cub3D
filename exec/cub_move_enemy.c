@@ -6,7 +6,7 @@
 /*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 17:06:19 by praders           #+#    #+#             */
-/*   Updated: 2025/11/05 12:39:56 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/10 15:58:31 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ int	iswall(float newx, float newy, t_sprite *enemy)
 
 	check = 0.5 - enemy->speed;
 	value = 0;
-	if (!is_blocked_e((int)(enemy->y), (int)(newx))
-		&& !is_blocked_e((int)(enemy->y + check), (int)(newx))
-		&& !is_blocked_e((int)(enemy->y), (int)(newx + check))
-		&& !is_blocked_e((int)(enemy->y + check), (int)(newx + check)))
+	if (!is_blocked_e((int)(enemy->y), (int)(newx), 0)
+		&& !is_blocked_e((int)(enemy->y + check), (int)(newx), 0)
+		&& !is_blocked_e((int)(enemy->y), (int)(newx + check), 0)
+		&& !is_blocked_e((int)(enemy->y + check), (int)(newx + check), 0))
 		value++;
-	if (!is_blocked_e((int)(newy), (int)(enemy->x))
-		&& !is_blocked_e((int)(newy + check), (int)(enemy->x))
-		&& !is_blocked_e((int)(newy), (int)(enemy->x + check))
-		&& !is_blocked_e((int)(newy + check), (int)(enemy->x + check)))
+	if (!is_blocked_e((int)(newy), (int)(enemy->x), 0)
+		&& !is_blocked_e((int)(newy + check), (int)(enemy->x), 0)
+		&& !is_blocked_e((int)(newy), (int)(enemy->x + check), 0)
+		&& !is_blocked_e((int)(newy + check), (int)(enemy->x + check), 0))
 		value++;
 	if (value == 2)
 		return (0);

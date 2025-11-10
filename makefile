@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+         #
+#    By: praders <praders@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/06 12:54:43 by mateferr          #+#    #+#              #
-#    Updated: 2025/11/07 12:47:04 by mprazere         ###   ########.fr        #
+#    Updated: 2025/11/10 15:15:23 by praders          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ MLX = $(MLX_DIR)/libmlx.a
 SRCS = cub3d.c exec/cub_init_everything.c exec/cub_error.c exec/cub_hook.c \
 exec/cub_pixel.c exec/cub_move_player.c exec/cub_ray_cast.c exec/cub_ray_cast_utils.c \
 exec/cub_ray_cast_cf.c exec/cub_sprite_rendering.c exec/cub_move_enemy.c \
-exec/cub_doors.c exec/cub_coins.c \
+exec/cub_doors.c exec/cub_coins.c exec/cub_draw_screen.c exec/cub_draw_levels.c\
+exec/cub_check_wall.c exec/cub_sprite_rendering_utils.c\
 \
 parsing/parsing.c parsing/parsing_utils.c parsing/parse_set_values.c \
 parsing/parse_map_utils.c parsing/parse_map_matrix.c parsing/parse_header.c \

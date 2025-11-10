@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_ray_cast_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 16:38:15 by mprazere          #+#    #+#             */
-/*   Updated: 2025/11/07 13:23:18 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/10 15:06:13 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,44 +67,6 @@ void	put_brightness(t_ray *ray, t_tex *tex, t_rend *rend, int x)
 			* tex->brightness);
 	put_pixel(x, ray->drawstart++, tex->color);
 	tex->texpos += tex->step;
-}
-
-void	check_wall(t_ray *ray)
-{
-	int door_index;
-	ray->hit = 0;
-	while (ray->hit == 0)
-	{
-		if (ray->sdistx < ray->sdisty)
-		{
-			ray->sdistx += ray->ddistx;
-			ray->mapx += ray->stepx;
-			ray->side = 0;
-		}
-		else
-		{
-			ray->sdisty += ray->ddisty;
-			ray->mapy += ray->stepy;
-			ray->side = 1;
-		}
-		if (pc()->map[ray->mapy][ray->mapx] == '1' || pc()->map[ray->mapy][ray->mapx] == '2')
-			ray->hit = 1;
-		else if (pc()->map[ray->mapy][ray->mapx] == 'd')
-		{
-			door_index = find_door_index(ray->mapx, ray->mapy);
-			if (pc()->door[door_index].state == 0)
-			{
-				ray->hit = 2;
-				break;
-			}
-		}
-	}
-	if (ray->side == 0)
-		ray->perpwalldist = (ray->mapx - ray->pctrx + (1 - ray->stepx) / 2)
-			/ ray->raydirx;
-	else
-		ray->perpwalldist = (ray->mapy - ray->pctry + (1 - ray->stepy) / 2)
-			/ ray->raydiry;
 }
 
 void	find_steps(t_ray *ray)
