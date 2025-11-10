@@ -179,6 +179,7 @@ typedef struct s_image
 	t_asset		m_ctrls[2];
 	t_asset hud_bar;
 	t_asset hud_bitmap;
+	t_asset compass;
 }				t_image;
 
 typedef struct s_start
@@ -263,9 +264,11 @@ typedef struct s_hud
     int lvl;
     int coins;
     int deaths;
+	double angle;
     t_mode mode;
-    t_asset hud_bar;
     t_asset bitmap;
+	t_asset compass;
+    t_asset hud_bar;
 
 } t_hud;
 
@@ -440,6 +443,7 @@ void			fill_values(void);
 void			set_lvl_1(void);
 void			lvl_mode_init(void);
 
+//hud
 //bitmap.c
 void draw_hud();
 void hud_init(t_hud *h);
@@ -449,6 +453,9 @@ unsigned int hud_get_pixel_color(t_asset asset, int x, int y);
 int hud_find_index(char c);
 void hud_draw_char(t_hud *h, char c, int px);
 void hud_draw_number(t_hud *h, int num, int px);
+//compass.c
+void hud_draw_compass(t_hud *h);
+void hud_rotated_compass(t_hud *h, int radius, int x, int y);
 
 // to organize
 

@@ -86,6 +86,7 @@ void	init_images(void)
 	init_menu_images();
 	safe_image("assets/hud_bar.xpm", &pc()->image.hud_bar, NULL, 0);
 	safe_image("assets/bitmap.xpm", &pc()->image.hud_bitmap, NULL, 0);
+	safe_image("assets/compass.xpm", &pc()->image.compass, NULL, 0);
 }
 
 void	init_game(void)

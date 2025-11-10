@@ -25,6 +25,8 @@ void hud_init(t_hud *h)
     h->deaths = pc()->death_count;
     h->coins = pc()->coin_captured;
     h->bitmap = pc()->image.hud_bitmap;
+    h->compass = pc()->image.compass;
+    h->angle = -(pc()->player.angle + PI / 2);
 }
 
 unsigned int hud_get_pixel_color(t_asset asset, int x, int y)
@@ -67,4 +69,5 @@ void draw_hud()
     else
         hud_draw_number(&h, h.lvl, h.lvl_px);
     hud_draw_number(&h, h.deaths, h.death_px);
+    hud_draw_compass(&h);
 }

@@ -33,7 +33,7 @@ game_features/mouse/mouse_click_lvls.c \
 game_features/minimap/minimap.c game_features/minimap/minimap_draws.c \
 game_features/minimap/minimap_icons.c game_features/minimap/minimap_utils.c \
 \
-game_features/hud/bitmap.c game_features/hud/bitmap_utils.c
+game_features/hud/bitmap.c game_features/hud/bitmap_utils.c game_features/hud/compass.c
 
 OBJ_DIR = obj
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
