@@ -33,6 +33,7 @@ void	restart_level(void)
 	i = -1;
 	while (++i < pc()->coin_count)
 		pc()->coin[i].state = 0;
+	pc()->death_count++;
 }
 
 void	init_eval_characters_values(void)
@@ -52,6 +53,10 @@ void	init_eval_characters_values(void)
 		pc()->enemies[i].direction = 0;
 		pc()->enemies[i].is_coin = 0;
 	}
+	pc()->start.player.x = pc()->player.x;
+	pc()->start.player.y = pc()->player.y;
+	pc()->start.player.angle = pc()->player.angle;
+	pc()->coin_captured = 0;
 }
 
 void safe_free(void **ptr)
@@ -79,6 +84,7 @@ void free_game_values()
 	pc()->coin_captured = 0;
 	safe_free((void **)&pc()->door);
 	pc()->door_count = 0;
+	pc()->death_count = 0;
 	safe_destroy_img(pc()->image.wall_s.image);
 	safe_destroy_img(pc()->image.wall_n.image);
 	safe_destroy_img(pc()->image.wall_e.image);

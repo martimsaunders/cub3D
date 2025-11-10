@@ -28,6 +28,8 @@
 # define MOUSE_HIDE 1
 # define WIDTH 1280
 # define HEIGHT 720
+# define MINIMAP HEIGHT / 6
+# define HUD 70
 # define BLOCK 32
 # define PI 3.14159265359
 # define FOV 0.66
@@ -155,17 +157,6 @@ typedef struct s_asset
 	void		*image;
 }				t_asset;
 
-typedef struct s_menu
-{
-	int			bpp;
-	int			floor;
-	int			endian;
-	int			ceiling;
-	int			line_lenght;
-	char		*addr;
-	void		*image;
-}				t_menu;
-
 typedef struct s_image
 {
 	int			bpp;
@@ -186,6 +177,8 @@ typedef struct s_image
 	t_asset		game_m[3];
 	t_asset		train[12];
 	t_asset		m_ctrls[2];
+	t_asset hud_bar;
+	t_asset hud_bitmap;
 }				t_image;
 
 typedef struct s_start
@@ -198,6 +191,7 @@ typedef struct s_game
 	int			argc;
 	int			coin_count;
 	int			coin_frame;
+	int			death_count;
 	int			door_count;
 	int			enemy_count;
 	int			mouse_in_win;
@@ -258,6 +252,22 @@ typedef struct s_minimap
     t_sprite *coins;
     t_sprite *enemies;
 } t_minimap;
+
+typedef struct s_hud
+{
+    int coin_px;
+    int lvl_px;
+    int death_px;
+    int height;
+    int width;
+    int lvl;
+    int coins;
+    int deaths;
+    t_mode mode;
+    t_asset hud_bar;
+    t_asset bitmap;
+
+} t_hud;
 
 // cub_coins.c
 int				find_coin_state(int x, int y);
@@ -429,6 +439,16 @@ void			init_lvl_images(void);
 void			fill_values(void);
 void			set_lvl_1(void);
 void			lvl_mode_init(void);
+
+//bitmap.c
+void draw_hud();
+void hud_init(t_hud *h);
+void hud_draw_background(t_hud *h);
+unsigned int hud_get_pixel_color(t_asset asset, int x, int y);
+//bitmap_utils.c
+int hud_find_index(char c);
+void hud_draw_char(t_hud *h, char c, int px);
+void hud_draw_number(t_hud *h, int num, int px);
 
 // to organize
 

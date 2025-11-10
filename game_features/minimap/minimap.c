@@ -2,12 +2,12 @@
 
 void minimap_put_pixel(t_minimap *mm, int x, int y, int color)
 {
-    put_pixel(mm->radius + x, mm->radius + y, color);
+    put_pixel(mm->radius + x, HUD + mm->radius + y, color);
 }
 
 void minimap_init(t_minimap *mm)
 {
-    mm->radius = HEIGHT / 6 - 2;
+    mm->radius = MINIMAP - 2;
     mm->angle = pc()->player.angle + PI / 2;
     mm->player = pc()->player;
     mm->map = pc()->map;
@@ -43,10 +43,10 @@ void draw_minimap(void)
     int y;
 
     minimap_init(&mm);
-    y = -mm.radius + 2 - 1;
+    y = -(mm.radius + 2) - 1;
     while (++y <= mm.radius)
     {
-        x = -mm.radius + 2 - 1;
+        x = -(mm.radius + 2) - 1;
         while (++x <= mm.radius)
         {
             if (!minimap_is_inside_circle(x, y, mm.radius))

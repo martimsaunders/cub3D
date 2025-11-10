@@ -26,10 +26,14 @@ parsing/parse_map_utils.c parsing/parse_map_matrix.c parsing/parse_header.c \
 parsing/parse_header_utils.c parsing/parse_flood_fill.c parsing/parse_file.c \
 \
 game_features/cub.lvls.c game_features/lvls_set_values.c\
+\
 game_features/mouse/mouse_move.c game_features/mouse/mouse_clicks.c \
 game_features/mouse/mouse_click_lvls.c \
+\
 game_features/minimap/minimap.c game_features/minimap/minimap_draws.c \
-game_features/minimap/minimap_icons.c game_features/minimap/minimap_utils.c
+game_features/minimap/minimap_icons.c game_features/minimap/minimap_utils.c \
+\
+game_features/hud/bitmap.c game_features/hud/bitmap_utils.c
 
 OBJ_DIR = obj
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))

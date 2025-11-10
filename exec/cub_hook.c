@@ -87,6 +87,7 @@ void	draw_eval_screen(void)
 	check_coin_colision();
 	ray_cast();
 	draw_minimap();
+	draw_hud();
 	mlx_put_image_to_window(pc()->mlx, pc()->win, pc()->image.image, 0, 0);
 }
 
@@ -148,6 +149,7 @@ void	draw_lvls_game(void)
 	check_coin_colision();
 	ray_cast();
 	draw_minimap();
+	draw_hud();
 	mlx_put_image_to_window(pc()->mlx, pc()->win, pc()->image.image, 0, 0);
 }
 

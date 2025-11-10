@@ -84,6 +84,8 @@ void	init_images(void)
 	safe_image("assets/coin7.xpm", &pc()->image.coin[6], NULL, 0);
 	safe_image("assets/coin8.xpm", &pc()->image.coin[7], NULL, 0);
 	init_menu_images();
+	safe_image("assets/hud_bar.xpm", &pc()->image.hud_bar, NULL, 0);
+	safe_image("assets/bitmap.xpm", &pc()->image.hud_bitmap, NULL, 0);
 }
 
 void	init_game(void)
