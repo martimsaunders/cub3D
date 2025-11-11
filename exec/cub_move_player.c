@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_move_player.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 15:07:38 by mprazere          #+#    #+#             */
-/*   Updated: 2025/11/10 16:20:27 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/11 13:01:47 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		is_blocked(int map_y, int map_x)
 		return (1);
 	if (pc()->map[map_y][map_x]== 'd' && is_door_closed(map_y, map_x))
 		return (1);
-	if (pc()->map[map_y][map_x] == 'n')
+	if (pc()->map[map_y][map_x] == 'n' && pc()->coin_captured == pc()->coin_count)
 	{
 		if (pc()->mode == LVLS_GAME)
 		{
@@ -51,6 +51,8 @@ int		is_blocked(int map_y, int map_x)
 			return (1);
 		}
 	}
+	if (pc()->map[map_y][map_x] == 'N')
+		return (pc()->start.player.y = map_y, pc()->start.player.x = map_x, 0);
 	return (0);
 }
 

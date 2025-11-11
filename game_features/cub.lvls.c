@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.lvls.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 16:54:22 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/10 16:28:51 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/11 12:55:53 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ void	find_player()
 		{
 			if (pc()->map[y][x] == 'p')
 			{
-				pc()->player.x = x + 0.25;
-				pc()->player.y = y + 0.25;
+				pc()->player.x = x;
+				pc()->player.y = y;
 			}
 		}
 	}
@@ -73,12 +73,12 @@ void	init_player()
 	pc()->player.angle = PI * 2;
 	pc()->image.ceiling = 0xCA1568;
 	pc()->image.floor = 0x796446;
-	pc()->player.move_speed = 0.1;
+	pc()->player.move_speed = 0.05;
 	pc()->player.rot_speed = 0.05;
 	pc()->player.dir_x = cos(pc()->player.angle);
 	pc()->player.dir_y = sin(pc()->player.angle);
-	pc()->player.plane_x = -pc()->player.dir_y * 0.66;
-	pc()->player.plane_y = pc()->player.dir_x * 0.66;
+	pc()->player.plane_x = -pc()->player.dir_y * FOV;
+	pc()->player.plane_y = pc()->player.dir_x * FOV;
 	pc()->start.player.x = pc()->player.x;
 	pc()->start.player.y = pc()->player.y;
 	pc()->start.player.angle = pc()->player.angle;

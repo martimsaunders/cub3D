@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 16:53:29 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/10 15:59:56 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/11 11:36:01 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define HEIGHT 720
 # define BLOCK 32
 # define PI 3.14159265359
-# define FOV 0.66
+# define FOV 1
 
 typedef enum e_mode
 {
