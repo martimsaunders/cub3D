@@ -6,7 +6,7 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 16:53:29 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/07 17:01:25 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/11 12:56:18 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,14 +256,15 @@ typedef struct s_minimap
 
 typedef struct s_hud
 {
-    int coin_px;
-    int lvl_px;
-    int death_px;
-    int height;
-    int width;
     int lvl;
     int coins;
+	int width;
     int deaths;
+    int height;
+	int lvl_px;
+    int radius;
+    int coin_px;
+    int death_px;
 	double angle;
     t_mode mode;
     t_asset bitmap;

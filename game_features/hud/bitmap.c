@@ -6,7 +6,7 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 16:59:21 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/07 17:21:09 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/11 13:05:51 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void hud_init(t_hud *h)
     h->coins = pc()->coin_captured;
     h->bitmap = pc()->image.hud_bitmap;
     h->compass = pc()->image.compass;
-    h->angle = -(pc()->player.angle + PI / 2);
+    h->angle = pc()->player.angle + PI / 2.0;
+    // h->radius = h->compass.width / 2;
 }
 
 unsigned int hud_get_pixel_color(t_asset asset, int x, int y)
@@ -69,5 +70,5 @@ void draw_hud()
     else
         hud_draw_number(&h, h.lvl, h.lvl_px);
     hud_draw_number(&h, h.deaths, h.death_px);
-    hud_draw_compass(&h);
+    // hud_draw_compass(&h);
 }
