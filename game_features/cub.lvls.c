@@ -6,7 +6,7 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 16:54:22 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/07 16:54:24 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/11 17:10:36 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ void	init_lvl_images(void)
 	safe_image("assets/roxo.xpm", &pc()->image.wall_o, NULL, 0);
 }
 
-void	fill_values()
+void	fill_values(void)
 {
-	int x;
-	int y;
-	char c;
+	int		x;
+	int		y;
+	char	c;
 
 	y = -1;
 	while (pc()->map[++y])
@@ -50,9 +50,9 @@ void	fill_values()
 	}
 }
 
-void	set_lvl_2()
+void	set_lvl_2(void)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < pc()->enemy_count)
@@ -78,9 +78,9 @@ void	set_lvl_2()
 	pc()->start.player.y = pc()->player.y;
 }
 
-void	set_lvl_1()
+void	set_lvl_1(void)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < pc()->enemy_count)
@@ -112,60 +112,60 @@ void	set_lvl_1()
 	pc()->player.plane_y = pc()->player.dir_x * 0.66;
 }
 
-char **file_matrix_fill(const char *filepath, char **matrix)
+char	**file_matrix_fill(const char *filepath, char **matrix)
 {
-    int fd;
-    char *line;
-    int i;
+	int		fd;
+	char	*line;
+	int		i;
 
-    fd = open(filepath, O_RDONLY);
-    if (fd == -1)
-        return (perror("Error\n"), NULL);
-    i = 0;
-    while (1)
-    {
-        line = get_next_line(fd);
-        if (!line)
-            break ;
-        matrix[i] = ft_strdup(line);
-        if (!matrix[i++])
-            return (perror("Error\n"), close(fd), NULL);
-    }
-    matrix[i] = NULL;
-    close(fd);
-    return (matrix);
+	fd = open(filepath, O_RDONLY);
+	if (fd == -1)
+		return (perror("Error\n"), NULL);
+	i = 0;
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		matrix[i] = ft_strdup(line);
+		if (!matrix[i++])
+			return (perror("Error\n"), close(fd), NULL);
+	}
+	matrix[i] = NULL;
+	close(fd);
+	return (matrix);
 }
 
-char **file_matrix_load(const char *filepath)
+char	**file_matrix_load(const char *filepath)
 {
-    int fd;
-    char *line;
-	int line_count;
-	char **matrix;
+	int		fd;
+	char	*line;
+	int		line_count;
+	char	**matrix;
 
 	line_count = 0;
-    fd = open(filepath, O_RDONLY);
-    if (fd == -1)
-        return (perror("Error\n"), NULL);
-    while (1)
-    {
-        line = get_next_line(fd);
-        if (!line)
-            break ;
-        line_count++;
-    }
-    matrix = ft_calloc(line_count + 1, sizeof(char *));
-    if (!matrix)
-        return (perror("Error\n"), close(fd), NULL);
-    close(fd);
-    return (file_matrix_fill(filepath, matrix));
+	fd = open(filepath, O_RDONLY);
+	if (fd == -1)
+		return (perror("Error\n"), NULL);
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		line_count++;
+	}
+	matrix = ft_calloc(line_count + 1, sizeof(char *));
+	if (!matrix)
+		return (perror("Error\n"), close(fd), NULL);
+	close(fd);
+	return (file_matrix_fill(filepath, matrix));
 }
 
-void	lvl_mode_init()
+void	lvl_mode_init(void)
 {
-	char *lvl_name;
-	char *lvl;
-	char *temp;
+	char	*lvl_name;
+	char	*lvl;
+	char	*temp;
 
 	lvl = ft_itoa(pc()->current_level);
 	if (!lvl)
@@ -190,5 +190,3 @@ void	lvl_mode_init()
 	if (pc()->current_level == 2)
 		set_lvl_2();
 }
-
-	

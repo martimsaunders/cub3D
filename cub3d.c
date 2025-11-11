@@ -6,7 +6,7 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 13:00:33 by mprazere          #+#    #+#             */
-/*   Updated: 2025/11/11 12:26:32 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/11 17:11:18 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	init_eval_characters_values(void)
 	pc()->coin_captured = 0;
 }
 
-void safe_free(void **ptr)
+void	safe_free(void **ptr)
 {
 	if (ptr && *ptr)
 	{
@@ -68,13 +68,13 @@ void safe_free(void **ptr)
 	}
 }
 
-void safe_destroy_img(void * img)
+void	safe_destroy_img(void *img)
 {
 	if (img)
 		mlx_destroy_image(pc()->mlx, img);
 }
 
-void free_game_values()
+void	free_game_values(void)
 {
 	free_array();
 	safe_free((void **)&pc()->enemies);

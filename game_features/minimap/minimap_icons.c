@@ -20,25 +20,25 @@ void	minimap_draw_player(t_minimap *mm)
 	}
 }
 
-void minimap_icon_coords(t_minimap *mm, t_sprite icon)
+void	minimap_icon_coords(t_minimap *mm, t_sprite icon)
 {
-    double distx;
-    double disty;
+	double	distx;
+	double	disty;
 
-    distx = icon.x - mm->player.x;
-    disty = icon.y - mm->player.y;
-    mm->rotx = distx * cos(-mm->angle) - disty * sin(-mm->angle);
-    mm->roty = distx * sin(-mm->angle) + disty * cos(-mm->angle);
-    mm->mapx = (int)(mm->rotx * BLOCK);
-    mm->mapy = (int)(mm->roty * BLOCK);
+	distx = icon.x - mm->player.x;
+	disty = icon.y - mm->player.y;
+	mm->rotx = distx * cos(-mm->angle) - disty * sin(-mm->angle);
+	mm->roty = distx * sin(-mm->angle) + disty * cos(-mm->angle);
+	mm->mapx = (int)(mm->rotx * BLOCK);
+	mm->mapy = (int)(mm->roty * BLOCK);
 }
 
-void minimap_draw_icon(t_minimap *mm, int color)
+void	minimap_draw_icon(t_minimap *mm, int color)
 {
-    int	x;
+	int	x;
 	int	y;
-    int px;
-    int py;
+	int	px;
+	int	py;
 
 	y = -mm->char_size - 1;
 	while (++y <= mm->char_size)
@@ -60,25 +60,26 @@ void minimap_draw_icon(t_minimap *mm, int color)
 	}
 }
 
-void minimap_draw_all_icons(t_minimap *mm)
+void	minimap_draw_all_icons(t_minimap *mm)
 {
-    int i;
+	int	i;
 
-    i = -1;
-    while (++i < mm->coin_count)
-    {
-        minimap_icon_coords(mm, mm->coins[i]);
-        if (!minimap_is_inside_circle(mm->mapx, mm->mapy, mm->radius + 2) || mm->coins[i].state)
-            continue;
-        minimap_draw_icon(mm, 0xF4DC0B);
-    }
-    i = -1;
-    while (++i < mm->enemy_count)
-    {
-        minimap_icon_coords(mm, mm->enemies[i]);
-        if (!minimap_is_inside_circle(mm->mapx, mm->mapy, mm->radius + 2))
-            continue;
-        minimap_draw_icon(mm, 0x0003D1);
-    }
-    minimap_draw_player(mm);
+	i = -1;
+	while (++i < mm->coin_count)
+	{
+		minimap_icon_coords(mm, mm->coins[i]);
+		if (!minimap_is_inside_circle(mm->mapx, mm->mapy, mm->radius + 2)
+			|| mm->coins[i].state)
+			continue ;
+		minimap_draw_icon(mm, 0xF4DC0B);
+	}
+	i = -1;
+	while (++i < mm->enemy_count)
+	{
+		minimap_icon_coords(mm, mm->enemies[i]);
+		if (!minimap_is_inside_circle(mm->mapx, mm->mapy, mm->radius + 2))
+			continue ;
+		minimap_draw_icon(mm, 0x0003D1);
+	}
+	minimap_draw_player(mm);
 }

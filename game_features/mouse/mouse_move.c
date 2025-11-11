@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mouse_ctrl.c                                       :+:      :+:    :+:   */
+/*   mouse_move.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:28:19 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/07 16:13:40 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/11 17:10:33 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	mouse_move(int x, int y)
 	return (0);
 }
 
-static bool mouse_cam_init()
+static bool	mouse_cam_init(void)
 {
 	if (!pc()->mouse_in_win)
 	{
@@ -37,7 +37,7 @@ static bool mouse_cam_init()
 	return (false);
 }
 
-static void mouse_cam_values_set(int dx, float sens)
+static void	mouse_cam_values_set(int dx, float sens)
 {
 	pc()->player.angle += dx * sens;
 	if (pc()->player.angle > 2 * PI)
@@ -64,4 +64,3 @@ void	mouse_cam_move(int x)
 		return ;
 	mouse_cam_values_set(dx, sens);
 }
-

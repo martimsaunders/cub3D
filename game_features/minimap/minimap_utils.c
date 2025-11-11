@@ -2,8 +2,8 @@
 
 bool	minimap_is_edge(int mapx, int mapy, t_minimap *mm)
 {
-    int relx;
-    int rely;
+	int	relx;
+	int	rely;
 
 	relx = (int)((mm->worldx - floor(mm->worldx)) * BLOCK);
 	rely = (int)((mm->worldy - floor(mm->worldy)) * BLOCK);
@@ -25,33 +25,34 @@ bool	minimap_is_edge(int mapx, int mapy, t_minimap *mm)
 	return (false);
 }
 
-bool minimap_is_inside_map(t_minimap *mm)
+bool	minimap_is_inside_map(t_minimap *mm)
 {
-    int map_line_size;
+	int	map_line_size;
 
-    if (mm->mapy < 0 || mm->mapy >= mm->map_h)
-        return (false);
-    map_line_size = ft_strlen(mm->map[mm->mapy]);
-    if (mm->mapx < 0 || mm->mapx >= map_line_size)
-        return (false);
-    if (!minimap_is_map(mm))
-        return (false);
-    return (true);
+	if (mm->mapy < 0 || mm->mapy >= mm->map_h)
+		return (false);
+	map_line_size = ft_strlen(mm->map[mm->mapy]);
+	if (mm->mapx < 0 || mm->mapx >= map_line_size)
+		return (false);
+	if (!minimap_is_map(mm))
+		return (false);
+	return (true);
 }
 
-bool minimap_is_wall(t_minimap *mm, int x, int y)
+bool	minimap_is_wall(t_minimap *mm, int x, int y)
 {
 	if (mm->map[y][x] == '1' || mm->map[y][x] == '2')
 		return (true);
 	return (false);
 }
 
-bool minimap_is_safe(t_minimap *mm)
+bool	minimap_is_safe(t_minimap *mm)
 {
-    char c;
+	char	c;
 
-    c = mm->map[mm->mapy][mm->mapx];
-	if (c == 'g' || c == 'n' || c == 'p')
+	c = mm->map[mm->mapy][mm->mapx];
+	if (c == 'g' || c == 'n' || c == 'p' || c == 's' || c == 'o' || c == 'r'
+		|| c == 't')
 		return (true);
 	return (false);
 }
@@ -62,7 +63,8 @@ bool	minimap_is_map(t_minimap *mm)
 
 	m = mm->map[mm->mapy][mm->mapx];
 	if (m == 'N' || m == 'E' || m == 'S' || m == 'O' || m == 'c' || m == 'e'
-		|| m == 'd' || m == 'g' || m == '2' || m == '0' || m == '1' || m == 'n' || m == 'p')
+		|| m == 'd' || m == 'g' || m == '2' || m == '0' || m == '1' || m == 'n'
+		|| m == 'p')
 		return (true);
 	return (false);
 }

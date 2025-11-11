@@ -1,44 +1,45 @@
 #include "../../cub3d.h"
 
+void	hud_get_image_pixel(t_hud *h, int dx, int dy)
+{
+	double	rotx;
+	double	roty;
+	double	srcx;
+	double	srcy;
 
+	rotx = dx * cos(h->angle) - dy * sin(h->angle);
+	roty = dx * sin(h->angle) + dy * cos(h->angle);
+	srcx = rotx + h->radius;
+	srcy = roty + h->radius;
+	if (srcx < 0 || srcx >= h->compass.width || srcy < 0
+		|| srcy >= h->compass.height)
+		return ;
+	h->imgx = (int)floor(srcx);
+	h->imgy = (int)floor(srcy);
+}
 
-// void hud_rotated_compass(t_hud *h, int x, int y, int color)
-// {
-//     int cx;
-//     int cy;
-//     double rotx;
-//     double roty;
-//     double wx;
-//     double wy;
-    
-//     cx = WIDTH - h->radius;
-//     cy = HUD + h->radius;
-//     rotx = x * cos(h->angle) - y * sin(h->angle);
-//     roty = x * sin(h->angle) + y * cos(h->angle);
-//     wx = cx + rotx;
-//     wy = cy + roty;
-//     if (x*x + y*y > 37*37)
-//         put_pixel(wx, wy, color);
-//     else
-//         put_pixel(cx + x, cy + y, color);
+void	hud_draw_compass(t_hud *h)
+{
+	int	win_cx;
+	int	win_cy;
+	int	winy;
+	int	winx;
+	int	color;
 
-// }
+	win_cx = WIDTH - h->radius;
+	win_cy = HUD + h->radius;
+	winy = win_cy - h->radius - 1;
+	while (++winy < win_cy + h->radius)
+	{
+		winx = win_cx - h->radius - 1;
+		while (++winx < win_cx + h->radius)
+		{
+			hud_get_image_pixel(h, winx - win_cx, winy - win_cy);
+			color = hud_get_pixel_color(h->compass, h->imgx, h->imgy);
+			if (color != 0xFFFFFF)
+				put_pixel(winx, winy, color);
+		}
+	}
+}
 
-// void hud_draw_compass(t_hud *h)
-// {
-//     int x;
-//     int y;
-//     int color;
-
-//     y = -h->radius - 1;
-//     while (++y < h->radius)
-//     {
-//         x = -h->radius - 1;
-//         while (++x <= h->radius)
-//         {
-//             color = hud_get_pixel_color(h->compass, h->radius + x, h->radius + y);
-//             hud_rotated_compass(h, x, y, color);
-//         }
-//     }
-    
-// }
+// desenhar bussola maior em minimapa
