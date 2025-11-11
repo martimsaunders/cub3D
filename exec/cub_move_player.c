@@ -6,7 +6,7 @@
 /*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 15:07:38 by mprazere          #+#    #+#             */
-/*   Updated: 2025/11/11 13:01:47 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/11 16:55:26 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,42 +30,41 @@ void	calculate_player_values(float *newx, float *newy)
 	*newy = pc()->player.y;
 }
 
-int		is_blocked(int map_y, int map_x)
+int	is_blocked(int map_y, int map_x)
 {
 	if (pc()->map[map_y][map_x] == '1')
 		return (1);
-	if (pc()->map[map_y][map_x]== 'd' && is_door_closed(map_y, map_x))
+	if (pc()->map[map_y][map_x] == 'd' && is_door_closed(map_y, map_x))
 		return (1);
-	if (pc()->map[map_y][map_x] == 'n' && pc()->coin_captured == pc()->coin_count)
+	if (pc()->map[map_y][map_x] == 'n'
+		&& pc()->coin_captured == pc()->coin_count)
 	{
 		if (pc()->mode == LVLS_GAME)
-		{
-			mlx_mouse_show(pc()->mlx, pc()->win);
-			pc()->mode = LVLS;
-			return (1);
-		}
+			return (mlx_mouse_show(pc()->mlx, pc()->win), pc()->mode = LVLS, 1);
+		else if (pc()->current_level == 10)
+			return (mlx_mouse_show(pc()->mlx, pc()->win), pc()->mode = MENU, 1);
 		else if (pc()->mode == GAME)
-		{
-			pc()->current_level++;
-			lvl_mode_init();
-			return (1);
-		}
+			return (pc()->current_level++, lvl_mode_init(), 1);
 	}
 	if (pc()->map[map_y][map_x] == 'N')
 		return (pc()->start.player.y = map_y, pc()->start.player.x = map_x, 0);
 	return (0);
 }
 
-int		is_blocked_e(int map_y, int map_x, int type)
+int	is_blocked_e(int map_y, int map_x, int type)
 {
+	char	tile;
+
+	tile = pc()->map[map_y][map_x];
 	if (type == 0)
 	{
-		if (pc()->map[map_y][map_x] == '1' || pc()->map[map_y][map_x] == 'd' || pc()->map[map_y][map_x] == 'g')
+		if (tile == '1' || tile == 'd' || tile == 'g' || tile == 'n' || tile == 'N')
 			return (1);
-	}	
-	else
-		if (pc()->map[map_y][map_x] == '1' || pc()->map[map_y][map_x] == 'd')
+		else if (tile == 's' || tile == 'o' || tile == 'r' || tile == 't')
 			return (1);
+	}
+	else if (tile == '1' || tile == 'd')
+		return (1);
 	return (0);
 }
 

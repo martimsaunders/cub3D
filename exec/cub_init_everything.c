@@ -6,7 +6,7 @@
 /*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:29:01 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/07 15:13:38 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/11 16:42:07 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	safe_image(char *str, t_asset *asset, t_image *image, int type)
 				&asset->height);
 		if (!asset->image)
 			return (ft_putstr_fd("Error: couldn't load images.\n", 2),
-			destroy_everything(1));
+				destroy_everything(1));
 		asset->addr = mlx_get_data_addr(asset->image, &asset->bpp,
 				&asset->line_lenght, &asset->endian);
 	}
@@ -29,7 +29,7 @@ void	safe_image(char *str, t_asset *asset, t_image *image, int type)
 		image->image = mlx_new_image(pc()->mlx, WIDTH, HEIGHT);
 		if (!image->image)
 			return (ft_putstr_fd("Error: couldn't load images.\n", 2),
-			destroy_everything(1));
+				destroy_everything(1));
 		image->addr = mlx_get_data_addr(image->image, &image->bpp,
 				&image->line_lenght, &image->endian);
 	}
@@ -43,7 +43,7 @@ void	init_eval_images(void)
 	safe_image(pc()->image.wall_o.path, &pc()->image.wall_o, NULL, 0);
 }
 
-void init_menu_images(void)
+void	init_menu_images(void)
 {
 	safe_image("assets/mm.xpm", &pc()->image.menu[0], NULL, 0);
 	safe_image("assets/mm_play.xpm", &pc()->image.menu[1], NULL, 0);

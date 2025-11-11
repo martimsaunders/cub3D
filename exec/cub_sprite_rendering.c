@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_sprite_rendering.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 15:05:32 by praders           #+#    #+#             */
-/*   Updated: 2025/11/10 15:21:38 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/11 16:49:45 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,8 @@ t_sprite	**create_sorted_sprites(void)
 	return (sprites);
 }
 
-void	sprite_rendering(float *zbuffer, int size)
+void	sprite_rendering(float *zbuffer, int size, int i)
 {
-	int			i;
 	t_tex		tex;
 	t_rend		rend;
 	t_sprite	*temp;
@@ -110,7 +109,6 @@ void	sprite_rendering(float *zbuffer, int size)
 	sprites = create_sorted_sprites();
 	if (!sprites)
 		return (free(zbuffer), destroy_everything(1));
-	i = -1;
 	size = pc()->coin_count + pc()->enemy_count;
 	ft_memset(&tex, 0, sizeof(t_tex));
 	ft_memset(&rend, 0, sizeof(t_rend));
@@ -120,7 +118,8 @@ void	sprite_rendering(float *zbuffer, int size)
 		if (set_rend_values(temp, &rend) && !temp->state)
 		{
 			if (temp->is_coin)
-				draw_sprite_columns(rend, tex, zbuffer, &pc()->image.coin[pc()->coin_frame]);
+				draw_sprite_columns(rend, tex, zbuffer,
+					&pc()->image.coin[pc()->coin_frame]);
 			else
 				draw_sprite_columns(rend, tex, zbuffer, &pc()->image.enemy);
 		}

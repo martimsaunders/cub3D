@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   cub_check_wall.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 15:05:47 by praders           #+#    #+#             */
-/*   Updated: 2025/11/10 15:47:07 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/11 16:34:53 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int		find_hit (t_ray *ray)
+int	find_hit(t_ray *ray)
 {
-	int door_index;
+	int	door_index;
 
 	if (pc()->map[ray->mapy][ray->mapx] == '1')
 		ray->hit = 1;
@@ -48,8 +48,7 @@ void	check_wall(t_ray *ray)
 			ray->side = 1;
 		}
 		if (!find_hit(ray))
-			break;
-		
+			break ;
 	}
 	if (ray->side == 0)
 		ray->perpwalldist = (ray->mapx - ray->pctrx + (1 - ray->stepx) / 2)

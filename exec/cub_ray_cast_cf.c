@@ -6,7 +6,7 @@
 /*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 11:10:23 by mprazere          #+#    #+#             */
-/*   Updated: 2025/11/11 12:18:09 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/11 18:05:19 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,25 +26,28 @@ int	put_brightness_cf(int color, float distance)
 	return (darker_color);
 }
 
-int		get_floor_color(float floor_x, float floor_y)
+int	get_floor_color(int mapx, int mapy, float distance, t_ray ray)
 {
-	int mapx;
-	int mapy;
-	char tile;
-	int checker;
+	float	floorx;
+	float	floory;
+	char	tile;
+	int		checker;
 
 	if (pc()->mode == EVAL)
 		return (pc()->image.floor);
-	mapx = (int)(floor_x + 0.25);
-	mapy = (int)(floor_y + 0.25);
+	floorx = pc()->player.x + ray.raydirx * distance;
+	floory = pc()->player.y + ray.raydiry * distance;
+	mapx = (int)(floorx + 0.25);
+	mapy = (int)(floory + 0.25);
 	tile = pc()->map[mapy][mapx];
-	if (tile == 'g' || tile == 'n' || tile == 'p')
+	if (tile == 'g' || tile == 'n' || tile == 'p' || tile == 'N')
+		return (0xBEFDB6);
+	else if (tile == 's' || tile == 'o' || tile == 't' || tile == 'r')
 		return (0xBEFDB6);
 	checker = (mapx + mapy) % 2;
 	if (checker == 0)
 		return (0xFFFFFF);
 	return (0xE6E6FA);
-	
 }
 
 void	draw_ceiling_floor(t_ray ray, int x)
@@ -53,8 +56,6 @@ void	draw_ceiling_floor(t_ray ray, int x)
 	int		horizon;
 	int		color;
 	float	row_distance;
-	float	floor_x;
-	float	floor_y;
 
 	y = 0;
 	horizon = HEIGHT / 2;
@@ -71,9 +72,7 @@ void	draw_ceiling_floor(t_ray ray, int x)
 	while (y <= HEIGHT)
 	{
 		row_distance = (float)HEIGHT / (2.0 * abs(y - horizon) + 1);
-		floor_x = pc()->player.x + ray.raydirx * row_distance;
-		floor_y = pc()->player.y + ray.raydiry * row_distance;
-		color = get_floor_color(floor_x, floor_y);
+		color = get_floor_color(0, 0, row_distance, ray);
 		color = put_brightness_cf(color, row_distance);
 		put_pixel(x, y++, color);
 	}

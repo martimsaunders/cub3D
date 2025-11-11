@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_ray_cast_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 16:38:15 by mprazere          #+#    #+#             */
-/*   Updated: 2025/11/10 15:06:13 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/11 16:46:38 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,17 @@ void	draw_n_s_wall(t_ray *ray, t_tex *tex)
 
 void	put_brightness(t_ray *ray, t_tex *tex, t_rend *rend, int x)
 {
-	if(rend)
+	if (rend)
 	{
 		tex->brightness = 1.0 - (rend->transform_y / 10.0);
 		if (tex->brightness < 0.2)
-		tex->brightness = 0.2;
+			tex->brightness = 0.2;
 		tex->color = ((int)(((tex->color >> 16) & 0xFF)
-				* tex->brightness) << 16) | ((int)(((tex->color >> 8) & 0xFF)
-				* tex->brightness) << 8) | (int)((tex->color & 0xFF)
-			* tex->brightness);
+					* tex->brightness) << 16) | ((int)(((tex->color >> 8) & 0xFF)
+					* tex->brightness) << 8) | (int)((tex->color & 0xFF)
+				* tex->brightness);
 		put_pixel(tex->x, tex->y, tex->color);
-		return;
+		return ;
 	}
 	tex->brightness = 1.0 - (ray->perpwalldist / 10.0);
 	if (tex->brightness < 0.2)

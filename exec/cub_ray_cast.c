@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_ray_cast.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 15:27:44 by mprazere          #+#    #+#             */
-/*   Updated: 2025/11/05 18:19:02 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/11 16:48:24 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,6 @@ void	ray_cast(void)
 		zbuffer[x] = ray.perpwalldist;
 		x++;
 	}
-	sprite_rendering(zbuffer, 0);
+	sprite_rendering(zbuffer, 0, -1);
 	free(zbuffer);
 }

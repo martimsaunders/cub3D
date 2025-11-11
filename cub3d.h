@@ -6,7 +6,7 @@
 /*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 16:53:29 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/11 11:36:01 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/11 17:29:16 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,12 @@ typedef struct s_door
 
 typedef struct s_sprite
 {
+	int			mov;
 	int			state;
 	int			is_coin;
 	int			direction;
+	int			mov_count;
+	int			number_mov;
 	float		x;
 	float		y;
 	float		min_x;
@@ -220,125 +223,127 @@ typedef struct s_game
 
 typedef struct s_parse
 {
-    int c_col;
-    int c_hex;
-    int f_col;
-    int f_hex;
-    int map_idx;
-    int coin_check;
-    int coin_count;
-    int door_count;
-    int line_count;
-    int enemy_count;
-    char *e_path;
-    char *n_path;
-    char *s_path;
-    char *w_path;
-    char **map;
-    char **file;
-    char **map_cpy;
-} t_parse;
+	int			c_col;
+	int			c_hex;
+	int			f_col;
+	int			f_hex;
+	int			map_idx;
+	int			coin_check;
+	int			coin_count;
+	int			door_count;
+	int			line_count;
+	int			enemy_count;
+	char		*e_path;
+	char		*n_path;
+	char		*s_path;
+	char		*w_path;
+	char		**map;
+	char		**file;
+	char		**map_cpy;
+}				t_parse;
 
 typedef struct s_minimap
 {
-    int mapx;
-    int mapy;
-    int map_h;
-    int radius;
-    int char_size;
-    int coin_count;
-    int enemy_count;
-    char **map;
-    double rotx;
-    double roty;
-    double angle;
-    double worldx;
-    double worldy;
-    t_player player;
-    t_sprite *coins;
-    t_sprite *enemies;
-} t_minimap;
+	int			mapx;
+	int			mapy;
+	int			map_h;
+	int			radius;
+	int			char_size;
+	int			coin_count;
+	int			enemy_count;
+	char		**map;
+	double		rotx;
+	double		roty;
+	double		angle;
+	double		worldx;
+	double		worldy;
+	t_player	player;
+	t_sprite	*coins;
+	t_sprite	*enemies;
+}				t_minimap;
 
-//cub_check_wall.c
-int				find_hit (t_ray *ray);
+// cub_check_wall.c
+int				find_hit(t_ray *ray);
 void			check_wall(t_ray *ray);
 
-//cub_coins.c
+// cub_coins.c
 int				find_coin_state(int x, int y);
 void			check_coin_colision(void);
 
-//cub_doors.c
+// cub_doors.c
 int				find_door_index(int x, int y);
 int				is_door_closed(int map_y, int map_x);
 void			interact_door(void);
 void			distance_door(t_door *door);
 
-//cub_draw_levels.c
+// cub_draw_levels.c
 void			draw_lvls_menu(void);
 
-//cub_draw_screen.c
+// cub_draw_screen.c
 void			draw_game_menu(void);
 void			draw_main_menu(void);
 void			draw_ctrls_menu(void);
 void			draw_game_screen(void);
 
-//cub_error.c
+// cub_error.c
 int				end_window(void);
 void			free_array(void);
 void			destroy_everything(int exit_status);
 
-//cub_hook.c
+// cub_hook.c
+int				is_mode(void);
 int				draw_screen(void);
 int				key_press(int keycode);
 int				key_release(int keycode);
 void			hook_and_loop(void);
 
-//cub_move_enemy.c
+// cub_move_enemy.c
 int				iswall(float newx, float newy, t_sprite *enemy);
 void			check_enemy_colision(void);
 void			move_enemy(t_sprite *enemy);
 
-//cub_init_everything.c
+// cub_init_everything.c
 void			init_eval_images(void);
 void			init_menu_images(void);
 void			safe_image(char *str, t_asset *asset, t_image *image, int type);
 void			init_images(void);
 void			init_game(void);
 
-//cub_move_player.c
+// cub_move_player.c
 int				is_blocked(int map_y, int map_x);
 int				is_blocked_e(int map_y, int map_x, int type);
 void			move_player(void);
 void			check_collision(float newx, float newy);
 void			calculate_player_values(float *newx, float *newy);
 
-//cub_draw_map.c
+// cub_draw_map.c
 void			put_pixel(int x, int y, int color);
 
-//cub_ray_cast_cf.c
+// cub_ray_cast_cf.c
 int				put_brightness_cf(int color, float distance);
+int				get_floor_color(int mapx, int mapy, float distance, t_ray ray);
 void			draw_ceiling_floor(t_ray ray, int x);
 
-//cub_ray_cast_utils.c
+// cub_ray_cast_utils.c
 void			find_steps(t_ray *ray);
 void			draw_e_o_wall(t_ray *ray, t_tex *tex);
 void			draw_n_s_wall(t_ray *ray, t_tex *tex);
 void			put_brightness(t_ray *ray, t_tex *tex, t_rend *rend, int x);
 
-//cub_ray_cast.c
+// cub_ray_cast.c
 void			ray_cast(void);
 void			set_ray_values_hit(t_ray *ray, int x);
 void			set_tex_values(t_ray *ray, t_tex *tex);
 void			draw_line(t_ray *ray, t_tex *tex, int x);
 
-//cub_sprite_rendering_utils.c
+// cub_sprite_rendering_utils.c
 void			distance(t_sprite *enemy);
 void			set_rend_values2(t_rend *rend);
 
-//cub_sprite_rendering.c
+// cub_sprite_rendering.c
 int				set_rend_values(t_sprite *sprite, t_rend *rend);
 void			sort_sprites(t_sprite **sprite, int size);
-void			sprite_rendering(float *zbuffer, int size);
+void			sprite_rendering(float *zbuffer, int size, int i);
 void			draw_sprite_columns(t_rend rend, t_tex tex, float *zbuffer,
 					t_asset *sprite);
 
@@ -352,89 +357,124 @@ t_game			*pc(void);
 
 // parsing
 // parse_file.c
-void parse_file_destroy(t_parse *f, int error);
-bool parse_file_load(t_parse *f, const char *filepath);
-bool parse_file_fill(t_parse *f, const char *filepath);
+void			parse_file_destroy(t_parse *f, int error);
+bool			parse_file_load(t_parse *f, const char *filepath);
+bool			parse_file_fill(t_parse *f, const char *filepath);
 
 // parse_flood_fill.c
-bool parse_validate_map(t_parse *f);
-bool parse_validate_coins_pos(t_parse *f);
-bool parse_coin_flood_fill(t_parse *f, int x, int y);
-bool parse_map_flood_fill(t_parse *f, int x, int y);
+bool			parse_validate_map(t_parse *f);
+bool			parse_validate_coins_pos(t_parse *f);
+bool			parse_coin_flood_fill(t_parse *f, int x, int y);
+bool			parse_map_flood_fill(t_parse *f, int x, int y);
 
 // parse_header_utils
-bool parse_check_texture(char *line, char **dst);
-bool parse_get_texture(char *line, t_parse *f);
-bool parse_check_numbers(char **nums, int *id, int *dst);
-bool parse_check_color(char *line, int *id, int *dst);
-bool parse_get_color(char *line, t_parse *f);
+bool			parse_check_texture(char *line, char **dst);
+bool			parse_get_texture(char *line, t_parse *f);
+bool			parse_check_numbers(char **nums, int *id, int *dst);
+bool			parse_check_color(char *line, int *id, int *dst);
+bool			parse_get_color(char *line, t_parse *f);
 
 // parse_header.c
-bool parse_check_all_infos(t_parse *f);
-bool parse_header(t_parse *f);
+bool			parse_check_all_infos(t_parse *f);
+bool			parse_header(t_parse *f);
 
 // parse_map_matrix.c
-void parse_free_array(char **arr);
-int parse_map_height(char **map);
-bool parse_map_matrix(t_parse *f);
-char	**parse_copy_matrix(char **src);
-bool parse_find_player(t_parse *f, int *px, int *py);
+void			parse_free_array(char **arr);
+int				parse_map_height(char **map);
+bool			parse_map_matrix(t_parse *f);
+char			**parse_copy_matrix(char **src);
+bool			parse_find_player(t_parse *f, int *px, int *py);
 
 // parse_map_utils.c
-bool parse_is_player(char c);
-bool parse_is_icon(char c);
-bool parse_is_map(char c);
-bool parse_out_of_bounds(char **map, int x, int y);
+bool			parse_is_player(char c);
+bool			parse_is_icon(char c);
+bool			parse_is_map(char c);
+bool			parse_out_of_bounds(char **map, int x, int y);
 
 // parse_set_values.c
-void parse_set_player(t_parse *f);
-bool parse_set_doors(t_parse *f);
-bool parse_set_enemies(t_parse *f);
-bool parse_set_coins(t_parse *f);
-bool parse_set_icons_values(t_parse *f);
+void			parse_set_player(t_parse *f);
+bool			parse_set_doors(t_parse *f);
+bool			parse_set_enemies(t_parse *f);
+bool			parse_set_coins(t_parse *f);
+bool			parse_set_icons_values(t_parse *f);
 
 // parsing_utils.c
-bool parse_is_empty_line(const char *line);
-bool parse_is_space(char c);
-bool parse_is_map_line(const char *line);
-bool parse_is_texture(const char *line);
-bool parse_is_color(const char *line);
+bool			parse_is_empty_line(const char *line);
+bool			parse_is_space(char c);
+bool			parse_is_map_line(const char *line);
+bool			parse_is_texture(const char *line);
+bool			parse_is_color(const char *line);
 
 // parsing.c
-void parse_map_file(const char *filepath);
-char parse_get_char(char *line);
-void	err_msg(char *msg, char var);
-void parse_init_f(t_parse *f);
+void			parse_map_file(const char *filepath);
+char			parse_get_char(char *line);
+void			err_msg(char *msg, char var);
+void			parse_init_f(t_parse *f);
 
 // game_features
 
+// lvls
+// cub_lev_1a5.c
+void			set_lvl_1(void);
+void			set_lvl_2(void);
+void			set_lvl_3(void);
+void			set_lvl_4(void);
+void			set_lvl_5(void);
+
+// cub_lev_6a10.c
+void			set_lvl_6(void);
+void			set_lvl_7(void);
+void			set_lvl_8(void);
+void			set_lvl_9(void);
+void			set_lvl_10(void);
+
+// cub_lvls_set_values.c
+bool			characters_count(char chr);
+bool			set_coin_value(int x, int y);
+bool			set_door_value(int x, int y);
+bool			set_enemy_value(int x, int y);
+bool			set_elements_values(char c, int x, int y);
+
+// cub_lvls_utils.c
+int				is_player(int y, int x);
+void			find_player(void);
+void			init_player(void);
+void			init_lvl_images(void);
+void			fill_values(int x, int y);
+
+// cub_lvls.c
+char			**file_matrix_load(const char *filepath);
+char			**file_matrix_fill(const char *filepath, char **matrix);
+void			choose_level(void);
+void			lvl_mode_init(void);
+
 // minimap
-//minimap_draws.c
-void minimap_draw_outside(t_minimap *mm, int x, int y);
-void minimap_draw_floor(t_minimap *mm, int x, int y);
-void minimap_draw_block(t_minimap *mm, int x, int y);
+// minimap_draws.c
+void			minimap_draw_outside(t_minimap *mm, int x, int y);
+void			minimap_draw_floor(t_minimap *mm, int x, int y);
+void			minimap_draw_block(t_minimap *mm, int x, int y);
 
-//minimap_icons.c
-void minimap_draw_all_icons(t_minimap *mm);
-void minimap_draw_icon(t_minimap *mm, int color);
-void minimap_icon_coords(t_minimap *mm, t_sprite icon);
-void	minimap_draw_player(t_minimap *mm);
+// minimap_icons.c
+void			minimap_draw_all_icons(t_minimap *mm);
+void			minimap_draw_icon(t_minimap *mm, int color);
+void			minimap_icon_coords(t_minimap *mm, t_sprite icon);
+void			minimap_draw_player(t_minimap *mm);
 
-//minimap_utils.c
-bool	minimap_is_map(t_minimap *mm);
-bool minimap_is_safe(t_minimap *mm);
-bool minimap_is_wall(t_minimap *mm, int x, int y);
-bool minimap_is_inside_map(t_minimap *mm);
-bool	minimap_is_edge(int mapx, int mapy, t_minimap *mm);
+// minimap_utils.c
+bool			minimap_is_map(t_minimap *mm);
+bool			minimap_is_safe(t_minimap *mm);
+bool			minimap_is_wall(t_minimap *mm, int x, int y);
+bool			minimap_is_inside_map(t_minimap *mm);
+bool			minimap_is_edge(int mapx, int mapy, t_minimap *mm);
 
-//minimap.c
-void minimap_put_pixel(t_minimap *mm, int x, int y, int color);
-void minimap_init(t_minimap *mm);
-bool minimap_is_inside_circle(int x, int y, int radius);
-void minimap_world_coords(t_minimap *mm, int x, int y);
-void draw_minimap(void);
+// minimap.c
+void			minimap_put_pixel(t_minimap *mm, int x, int y, int color);
+void			minimap_init(t_minimap *mm);
+bool			minimap_is_inside_circle(int x, int y, int radius);
+void			minimap_world_coords(t_minimap *mm, int x, int y);
+void			draw_minimap(void);
 
-//mouse
+// mouse
 // mouse_move.c
 int				mouse_move(int x, int y);
 void			mouse_cam_move(int x);
@@ -445,18 +485,7 @@ void			game_menu_click(int x, int y);
 void			ctrls_menu_click(int x, int y);
 void			main_menu_click(int x, int y);
 
-//mouse_click_lvls.c
+// mouse_click_lvls.c
 void			lvls_menu_click(int x, int y);
-
-//lvls
-// lvls_set_values.c
-bool			characters_count(char orientation);
-bool			set_elements_values(char character, int x, int y);
-
-// cub.lvls.c
-void			init_lvl_images(void);
-void			fill_values(int x, int y);
-void			set_lvl_1(void);
-void			lvl_mode_init(void);
 
 #endif
