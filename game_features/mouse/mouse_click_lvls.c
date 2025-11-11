@@ -3,7 +3,11 @@
 static void lvls_10_end_click(int x, int y)
 {
     if ((x >= 1001 && x <= 1204) && (y >= 320 && y <= 525))
-		;
+	{
+		pc()->current_level = 10;
+		lvl_mode_init();
+		pc()->mode = LVLS_GAME;
+	}
 	else if ((x >= 525 && x <= 755) && (y >= 549 && y <= 672))
 		pc()->mode = MENU;
     else
