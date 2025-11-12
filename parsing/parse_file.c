@@ -32,7 +32,7 @@ bool	parse_file_load(t_parse *f, const char *filepath)
 
 	fd = open(filepath, O_RDONLY);
 	if (fd == -1)
-		return (perror("Error\n"), false);
+		return (ft_putendl_fd("Error", 2), perror(filepath), false);
 	while (1)
 	{
 		line = get_next_line(fd);

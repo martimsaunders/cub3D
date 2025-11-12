@@ -64,6 +64,27 @@ bool	parse_validate_coins_pos(t_parse *f)
 	return (true);
 }
 
+bool	parse_flood_fill_extra_checks(t_parse *f)
+{
+	int		x;
+	int		y;
+	char	c;
+
+	y = -1;
+	while (f->map_cpy[++y])
+	{
+		x = -1;
+		while (f->map_cpy[y][++x])
+		{
+			c = f->map_cpy[y][x];
+			if (c == '0' || parse_is_player(c) || (BONUS && parse_is_icon(c)))
+				if (!parse_map_flood_fill(f, x, y))
+					return (false);
+		}
+	}
+	return (true);
+}
+
 bool	parse_validate_map(t_parse *f)
 {
 	int	x;
@@ -78,17 +99,8 @@ bool	parse_validate_map(t_parse *f)
 	f->map_cpy[y][x] = '0';
 	if (!parse_map_flood_fill(f, x, y))
 		return (parse_free_array(f->map_cpy), false);
-	y = -1;
-	while (f->map_cpy[++y])
-	{
-		x = -1;
-		while (f->map_cpy[y][++x])
-		{
-			if (f->map_cpy[y][x] == '0')
-				if (!parse_map_flood_fill(f, x, y))
-					return (parse_free_array(f->map_cpy), false);
-		}
-	}
+	if (!parse_flood_fill_extra_checks(f))
+		return (parse_free_array(f->map_cpy), false);
 	parse_free_array(f->map_cpy);
 	f->map_cpy = NULL;
 	return (parse_validate_coins_pos(f));
