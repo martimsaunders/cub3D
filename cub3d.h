@@ -6,7 +6,7 @@
 /*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 12:07:37 by praders           #+#    #+#             */
-/*   Updated: 2025/11/12 12:09:47 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/12 12:52:19 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -319,11 +319,11 @@ void			check_enemy_colision(void);
 void			move_enemy(t_sprite *enemy);
 
 // cub_init_everything.c
+void			init_game(void);
+void			init_images(void);
 void			init_eval_images(void);
 void			init_menu_images(void);
 void			safe_image(char *str, t_asset *asset, t_image *image, int type);
-void			init_images(void);
-void			init_game(void);
 
 // cub_move_player.c
 int				is_blocked(int map_y, int map_x);
@@ -373,33 +373,33 @@ t_game			*pc(void);
 
 // parsing
 // parse_file.c
-void			parse_file_destroy(t_parse *f, int error);
-bool			parse_file_load(t_parse *f, const char *filepath);
 bool			parse_file_fill(t_parse *f, const char *filepath);
+bool			parse_file_load(t_parse *f, const char *filepath);
+void			parse_file_destroy(t_parse *f, int error);
 
 // parse_flood_fill.c
 bool			parse_validate_map(t_parse *f);
 bool			parse_validate_coins_pos(t_parse *f);
-bool			parse_coin_flood_fill(t_parse *f, int x, int y);
 bool			parse_map_flood_fill(t_parse *f, int x, int y);
+bool			parse_coin_flood_fill(t_parse *f, int x, int y);
 
 // parse_header_utils
-bool			parse_check_texture(char *line, char **dst);
-bool			parse_get_texture(char *line, t_parse *f);
-bool			parse_check_numbers(char **nums, int *id, int *dst);
-bool			parse_check_color(char *line, int *id, int *dst);
 bool			parse_get_color(char *line, t_parse *f);
+bool			parse_get_texture(char *line, t_parse *f);
+bool			parse_check_texture(char *line, char **dst);
+bool			parse_check_color(char *line, int *id, int *dst);
+bool			parse_check_numbers(char **nums, int *id, int *dst);
 
 // parse_header.c
-bool			parse_check_all_infos(t_parse *f);
 bool			parse_header(t_parse *f);
+bool			parse_check_all_infos(t_parse *f);
 
 // parse_map_matrix.c
-void			parse_free_array(char **arr);
 int				parse_map_height(char **map);
 bool			parse_map_matrix(t_parse *f);
-char			**parse_copy_matrix(char **src);
 bool			parse_find_player(t_parse *f, int *px, int *py);
+char			**parse_copy_matrix(char **src);
+void			parse_free_array(char **arr);
 
 // parse_map_utils.c
 bool			parse_is_player(char c);
@@ -408,11 +408,11 @@ bool			parse_is_map(char c);
 bool			parse_out_of_bounds(char **map, int x, int y);
 
 // parse_set_values.c
-void			parse_set_player(t_parse *f);
+bool			parse_set_coins(t_parse *f);
 bool			parse_set_doors(t_parse *f);
 bool			parse_set_enemies(t_parse *f);
-bool			parse_set_coins(t_parse *f);
 bool			parse_set_icons_values(t_parse *f);
+void			parse_set_player(t_parse *f);
 
 // parsing_utils.c
 bool			parse_is_empty_line(const char *line);
@@ -422,10 +422,10 @@ bool			parse_is_texture(const char *line);
 bool			parse_is_color(const char *line);
 
 // parsing.c
-void			parse_map_file(const char *filepath);
 char			parse_get_char(char *line);
-void			err_msg(char *msg, char var);
 void			parse_init_f(t_parse *f);
+void			err_msg(char *msg, char var);
+void			parse_map_file(const char *filepath);
 
 // game_features
 // lvls
@@ -465,29 +465,29 @@ void			lvl_mode_init(void);
 
 // minimap
 // minimap_draws.c
-void			minimap_draw_outside(t_minimap *mm, int x, int y);
-void			minimap_draw_floor(t_minimap *mm, int x, int y);
 void			minimap_draw_block(t_minimap *mm, int x, int y);
+void			minimap_draw_floor(t_minimap *mm, int x, int y);
+void			minimap_draw_outside(t_minimap *mm, int x, int y);
 
 // minimap_icons.c
+void			minimap_draw_player(t_minimap *mm);
 void			minimap_draw_all_icons(t_minimap *mm);
 void			minimap_draw_icon(t_minimap *mm, int color);
 void			minimap_icon_coords(t_minimap *mm, t_sprite icon);
-void			minimap_draw_player(t_minimap *mm);
 
 // minimap_utils.c
 bool			minimap_is_map(t_minimap *mm);
 bool			minimap_is_safe(t_minimap *mm);
-bool			minimap_is_wall(t_minimap *mm, int x, int y);
 bool			minimap_is_inside_map(t_minimap *mm);
+bool			minimap_is_wall(t_minimap *mm, int x, int y);
 bool			minimap_is_edge(int mapx, int mapy, t_minimap *mm);
 
 // minimap.c
-void			minimap_put_pixel(t_minimap *mm, int x, int y, int color);
-void			minimap_init(t_minimap *mm);
 bool			minimap_is_inside_circle(int x, int y, int radius);
-void			minimap_world_coords(t_minimap *mm, int x, int y);
 void			draw_minimap(void);
+void			minimap_init(t_minimap *mm);
+void			minimap_world_coords(t_minimap *mm, int x, int y);
+void			minimap_put_pixel(t_minimap *mm, int x, int y, int color);
 
 // mouse
 // mouse_move.c
