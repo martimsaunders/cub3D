@@ -6,7 +6,7 @@
 #    By: praders <praders@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/12 12:09:56 by praders           #+#    #+#              #
-#    Updated: 2025/11/12 12:10:08 by praders          ###   ########.fr        #
+#    Updated: 2025/11/12 15:31:53 by praders          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ parsing/parse_header_utils.c parsing/parse_flood_fill.c parsing/parse_file.c \
 \
 game_features/lvls/cub_lvls.c game_features/lvls/cub_lvls_set_values.c\
 game_features/lvls/cub_lev_1a5.c game_features/lvls/cub_lev_6a10.c game_features/lvls/cub_lvls_utils.c\
+game_features/lvls/cub_initiate_lvl.c \
 game_features/mouse/mouse_move.c game_features/mouse/mouse_clicks.c \
 game_features/mouse/mouse_click_lvls.c \
 \

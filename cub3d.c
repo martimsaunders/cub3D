@@ -6,7 +6,7 @@
 /*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 12:02:31 by praders           #+#    #+#             */
-/*   Updated: 2025/11/12 14:55:07 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/12 15:47:32 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,47 +19,7 @@ t_game	*pc(void)
 	return (&pc);
 }
 
-void	restart_level(void)
-{
-	int	i;
-
-	pc()->player.x = pc()->start.player.x;
-	pc()->player.y = pc()->start.player.y;
-	pc()->player.angle = pc()->start.player.angle;
-	pc()->coin_captured = 0;
-	i = -1;
-	while (++i < pc()->door_count)
-		pc()->door[i].state = 0;
-	i = -1;
-	while (++i < pc()->coin_count)
-		pc()->coin[i].state = 0;
-	pc()->death_count++;
-}
-
-void	init_eval_characters_values(void)
-{
-	int	i;
-
-	pc()->player.move_speed = 0.025;
-	pc()->player.rot_speed = 0.02;
-	pc()->player.dir_x = cos(pc()->player.angle);
-	pc()->player.dir_y = sin(pc()->player.angle);
-	pc()->player.plane_x = -pc()->player.dir_y * 0.66;
-	pc()->player.plane_y = pc()->player.dir_x * 0.66;
-	i = -1;
-	while (++i < pc()->enemy_count)
-	{
-		pc()->enemies[i].speed = 0.02;
-		pc()->enemies[i].direction = 0;
-		pc()->enemies[i].is_coin = 0;
-	}
-	pc()->start.player.x = pc()->player.x;
-	pc()->start.player.y = pc()->player.y;
-	pc()->start.player.angle = pc()->player.angle;
-	pc()->coin_captured = 0;
-}
-
-void	safe_free(void **ptr)
+/* void	safe_free(void **ptr)
 {
 	if (ptr && *ptr)
 	{
@@ -97,18 +57,7 @@ void	free_game_values(void)
 	safe_free((void **)&pc()->image.wall_s.path);
 	safe_free((void **)&pc()->image.wall_e.path);
 	safe_free((void **)&pc()->image.wall_o.path);
-}
-
-bool	avl_mode_init(int argc, char **argv)
-{
-	free_game_values();
-	if (argc != 2)
-		return (err_msg("1 argument only (./map_path)", 0), false);
-	parse_map_file(argv[1]);
-	init_eval_characters_values();
-	init_eval_images();
-	return (true);
-}
+} */
 
 int	main(int argc, char **argv)
 {

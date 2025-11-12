@@ -6,7 +6,7 @@
 /*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 12:07:37 by praders           #+#    #+#             */
-/*   Updated: 2025/11/12 12:52:19 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/12 15:33:11 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -308,6 +308,8 @@ void			draw_game_screen(void);
 int				end_window(void);
 void			free_array(void);
 void			destroy_everything(int exit_status);
+void			safe_destroy(void **img, void **ptr);
+void			destroy_asset(t_asset *asset, int size);
 
 // cub_hook.c
 int				is_mode(void);
@@ -367,11 +369,6 @@ void			draw_sprite_columns(t_rend rend, t_tex tex, float *zbuffer,
 					t_asset *sprite);
 
 // cub3d.c
-bool			avl_mode_init(int argc, char **argv);
-void			init_eval_characters_values(void);
-void			free_game_values(void);
-void			restart_level(void);
-void			free_game_values(void);
 t_game			*pc(void);
 
 // parsing
@@ -432,6 +429,12 @@ void			parse_map_file(const char *filepath);
 
 // game_features
 // lvls
+// cub_initiate_lvl.c
+bool			avl_mode_init(int argc, char **argv);
+void			restart_level(void);
+void			free_game_values(void);
+void			init_eval_characters_values(void);
+
 // cub_lev_1a5.c
 void			set_lvl_1(void);
 void			set_lvl_2(void);

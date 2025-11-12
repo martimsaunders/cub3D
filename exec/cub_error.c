@@ -6,7 +6,7 @@
 /*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 13:00:56 by mprazere          #+#    #+#             */
-/*   Updated: 2025/11/12 14:36:42 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/12 15:54:55 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	destroy_asset(t_asset *asset, int size)
 	int	i;
 
 	i = 0;
+	if (!asset)
+		return;
 	while (i < size)
 	{
 		if (asset[i].image)
@@ -35,6 +37,9 @@ void	destroy_everything(int exit_status)
 	destroy_asset(pc()->image.m_ctrls, 2);
 	destroy_asset(pc()->image.train, 12);
 	destroy_asset(pc()->image.game_m, 3);
+	safe_destroy((void **)&pc()->image.hud_bar.image, NULL);
+	safe_destroy((void **)&pc()->image.hud_bitmap.image, NULL);
+	safe_destroy((void **)&pc()->image.compass.image, NULL);
 	if (pc()->image.enemy.image)
 		mlx_destroy_image(pc()->mlx, pc()->image.enemy.image);
 	free_game_values();
@@ -63,4 +68,18 @@ int	end_window(void)
 	ft_putstr_fd("You exited the game\n", 1);
 	destroy_everything(0);
 	return (0);
+}
+
+void	safe_destroy(void **img, void **ptr)
+{
+	if (img && *img)
+	{
+		mlx_destroy_image(pc()->mlx, *img);
+		*img = NULL;
+	}
+	if (ptr && *ptr)
+	{
+		free(*ptr);
+		*ptr = NULL;
+	}
 }
