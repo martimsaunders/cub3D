@@ -70,5 +70,4 @@ void	draw_hud(void)
 	else
 		hud_draw_number(&h, h.lvl, h.lvl_px);
 	hud_draw_number(&h, h.deaths, h.death_px);
-	hud_draw_compass(&h);
 }

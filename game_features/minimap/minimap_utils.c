@@ -62,9 +62,7 @@ bool	minimap_is_map(t_minimap *mm)
 	char	m;
 
 	m = mm->map[mm->mapy][mm->mapx];
-	if (m == 'N' || m == 'E' || m == 'S' || m == 'O' || m == 'c' || m == 'e'
-		|| m == 'd' || m == 'g' || m == '2' || m == '0' || m == '1' || m == 'n'
-		|| m == 'p')
+	if (parse_is_player(m) || parse_is_icon(m) || minimap_is_safe(mm) || m == '1' || m == '0')
 		return (true);
 	return (false);
 }

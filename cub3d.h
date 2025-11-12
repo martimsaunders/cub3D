@@ -239,6 +239,8 @@ typedef struct s_parse
 
 typedef struct s_minimap
 {
+	int			imgx;
+	int			imgy;
 	int			mapx;
 	int			mapy;
 	int			map_h;
@@ -252,6 +254,7 @@ typedef struct s_minimap
 	double		angle;
 	double		worldx;
 	double		worldy;
+	t_asset		compass;
 	t_player	player;
 	t_sprite	*coins;
 	t_sprite	*enemies;
@@ -464,6 +467,8 @@ void			choose_level(void);
 void			lvl_mode_init(void);
 
 // minimap
+// minimap_compass.c
+void			minimap_draw_compass(t_minimap *mm);
 // minimap_draws.c
 void			minimap_draw_block(t_minimap *mm, int x, int y);
 void			minimap_draw_floor(t_minimap *mm, int x, int y);
@@ -514,10 +519,5 @@ unsigned int	hud_get_pixel_color(t_asset asset, int x, int y);
 int				hud_find_index(char c);
 void			hud_draw_char(t_hud *h, char c, int px);
 void			hud_draw_number(t_hud *h, int num, int px);
-
-// compass.c
-void			hud_draw_compass(t_hud *h);
-void			hud_get_image_pixel(t_hud *h, int dx, int dy);
-//void			hud_rotated_compass(t_hud *h, int radius, int x, int y);
 
 #endif

@@ -7,7 +7,7 @@ void	minimap_put_pixel(t_minimap *mm, int x, int y, int color)
 
 void	minimap_init(t_minimap *mm)
 {
-	mm->radius = MINIMAP - 2;
+	mm->radius = MINIMAP;
 	mm->angle = pc()->player.angle + PI / 2;
 	mm->player = pc()->player;
 	mm->map = pc()->map;
@@ -17,6 +17,7 @@ void	minimap_init(t_minimap *mm)
 	mm->coins = pc()->coin;
 	mm->enemy_count = pc()->enemy_count;
 	mm->enemies = pc()->enemies;
+	mm->compass = pc()->image.compass;
 }
 
 bool	minimap_is_inside_circle(int x, int y, int radius)
@@ -50,11 +51,7 @@ void	draw_minimap(void)
 		while (++x <= mm.radius)
 		{
 			if (!minimap_is_inside_circle(x, y, mm.radius))
-			{
-				if (minimap_is_inside_circle(x, y, mm.radius + 2))
-					minimap_draw_outside(&mm, x, y);
 				continue ;
-			}
 			minimap_world_coords(&mm, x, y);
 			if (!minimap_is_inside_map(&mm))
 				minimap_draw_outside(&mm, x, y);
@@ -63,4 +60,5 @@ void	draw_minimap(void)
 		}
 	}
 	minimap_draw_all_icons(&mm);
+	minimap_draw_compass(&mm);
 }
