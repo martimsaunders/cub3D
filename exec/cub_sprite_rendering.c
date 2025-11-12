@@ -3,25 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cub_sprite_rendering.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 15:05:32 by praders           #+#    #+#             */
-/*   Updated: 2025/11/05 18:21:36 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/11 16:49:45 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-void	distance(t_sprite *enemy)
-{
-	float	dx;
-	float	dy;
-
-	dx = enemy->x - pc()->player.x;
-	dy = enemy->y - pc()->player.y;
-	enemy->distance = sqrt(dx * dx + dy * dy);
-	return ;
-}
 
 void	sort_sprites(t_sprite **sprite, int size)
 {
@@ -84,22 +73,7 @@ int	set_rend_values(t_sprite *sprite, t_rend *rend)
 			+ pc()->player.plane_x * rend->spritey);
 	if (rend->transform_y <= 0.1)
 		return (0);
-	rend->sprite_screen_x = (int)((WIDTH / 2) * (1 + rend->transform_x
-				/ rend->transform_y));
-	rend->sprite_height = abs((int)(HEIGHT / rend->transform_y));
-	rend->sprite_width = abs((int)(HEIGHT / rend->transform_y));
-	rend->draw_start_y = -rend->sprite_height / 2 + HEIGHT / 2;
-	if (rend->draw_start_y < 0)
-		rend->draw_start_y = 0;
-	rend->draw_end_y = rend->sprite_height / 2 + HEIGHT / 2;
-	if (rend->draw_end_y >= HEIGHT)
-		rend->draw_end_y = HEIGHT - 1;
-	rend->draw_start_x = -rend->sprite_width / 2 + rend->sprite_screen_x;
-	if (rend->draw_start_x < 0)
-		rend->draw_start_x = 0;
-	rend->draw_end_x = rend->sprite_width / 2 + rend->sprite_screen_x;
-	if (rend->draw_end_x >= WIDTH)
-		rend->draw_end_x = WIDTH - 1;
+	set_rend_values2(rend);
 	return (1);
 }
 
@@ -125,9 +99,8 @@ t_sprite	**create_sorted_sprites(void)
 	return (sprites);
 }
 
-void	sprite_rendering(float *zbuffer, int size)
+void	sprite_rendering(float *zbuffer, int size, int i)
 {
-	int			i;
 	t_tex		tex;
 	t_rend		rend;
 	t_sprite	*temp;
@@ -136,7 +109,6 @@ void	sprite_rendering(float *zbuffer, int size)
 	sprites = create_sorted_sprites();
 	if (!sprites)
 		return (free(zbuffer), destroy_everything(1));
-	i = -1;
 	size = pc()->coin_count + pc()->enemy_count;
 	ft_memset(&tex, 0, sizeof(t_tex));
 	ft_memset(&rend, 0, sizeof(t_rend));
@@ -146,7 +118,8 @@ void	sprite_rendering(float *zbuffer, int size)
 		if (set_rend_values(temp, &rend) && !temp->state)
 		{
 			if (temp->is_coin)
-				draw_sprite_columns(rend, tex, zbuffer, &pc()->image.coin[pc()->coin_frame]);
+				draw_sprite_columns(rend, tex, zbuffer,
+					&pc()->image.coin[pc()->coin_frame]);
 			else
 				draw_sprite_columns(rend, tex, zbuffer, &pc()->image.enemy);
 		}

@@ -41,5 +41,9 @@ void	game_menu_click(int x, int y)
 	if ((x >= 420 && x <= 651) && (y >= 518 && y <= 644))
 		pc()->mode = MENU;
 	else if ((x >= 703 && x <= 872) && (y >= 518 && y <= 644))
+	{
+		pc()->current_level = 1;
+		lvl_mode_init();
 		pc()->mode = GAME;
+	}
 }

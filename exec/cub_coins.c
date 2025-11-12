@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_coins.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 13:10:57 by mprazere          #+#    #+#             */
-/*   Updated: 2025/11/05 13:00:10 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/11 16:34:58 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	check_coin_colision(void)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < pc()->coin_count)
@@ -24,7 +24,7 @@ void	check_coin_colision(void)
 		{
 			pc()->coin[i].state = 1;
 			pc()->coin_captured++;
-			return;
+			return ;
 		}
 		i++;
 	}
@@ -32,7 +32,7 @@ void	check_coin_colision(void)
 
 int	find_coin_state(int x, int y)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < pc()->coin_count)

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+         #
+#    By: praders <praders@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/11/06 12:54:43 by mateferr          #+#    #+#              #
-#    Updated: 2025/11/11 12:26:25 by mateferr         ###   ########.fr        #
+#    Created: 2025/11/12 12:09:56 by praders           #+#    #+#              #
+#    Updated: 2025/11/12 12:10:08 by praders          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,14 +19,15 @@ MLX = $(MLX_DIR)/libmlx.a
 SRCS = cub3d.c exec/cub_init_everything.c exec/cub_error.c exec/cub_hook.c \
 exec/cub_pixel.c exec/cub_move_player.c exec/cub_ray_cast.c exec/cub_ray_cast_utils.c \
 exec/cub_ray_cast_cf.c exec/cub_sprite_rendering.c exec/cub_move_enemy.c \
-exec/cub_doors.c exec/cub_coins.c \
+exec/cub_doors.c exec/cub_coins.c exec/cub_draw_screen.c exec/cub_draw_levels.c\
+exec/cub_check_wall.c exec/cub_sprite_rendering_utils.c\
 \
 parsing/parsing.c parsing/parsing_utils.c parsing/parse_set_values.c \
 parsing/parse_map_utils.c parsing/parse_map_matrix.c parsing/parse_header.c \
 parsing/parse_header_utils.c parsing/parse_flood_fill.c parsing/parse_file.c \
 \
-game_features/cub.lvls.c game_features/lvls_set_values.c\
-\
+game_features/lvls/cub_lvls.c game_features/lvls/cub_lvls_set_values.c\
+game_features/lvls/cub_lev_1a5.c game_features/lvls/cub_lev_6a10.c game_features/lvls/cub_lvls_utils.c\
 game_features/mouse/mouse_move.c game_features/mouse/mouse_clicks.c \
 game_features/mouse/mouse_click_lvls.c \
 \

@@ -6,7 +6,7 @@
 /*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 13:00:56 by mprazere          #+#    #+#             */
-/*   Updated: 2025/11/07 15:38:31 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/11 16:35:40 by mprazere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	destroy_asset(t_asset *asset, int size)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < size)
