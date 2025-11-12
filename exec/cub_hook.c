@@ -6,7 +6,7 @@
 /*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:29:11 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/12 12:11:02 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/12 15:16:46 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ int	key_press(int keycode)
 	if (is_mode() && keycode == XK_Escape)
 	{
 		mlx_mouse_show(pc()->mlx, pc()->win);
-		pc()->mode = MENU;
+		if (pc()->mode == LVLS_GAME)
+			return (pc()->mode = LVLS);
+		else
+			pc()->mode = MENU;
 	}
 	if (is_mode() && keycode == XK_w)
 		pc()->button.w = true;

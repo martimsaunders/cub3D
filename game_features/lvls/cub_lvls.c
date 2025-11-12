@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_lvls.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 16:54:22 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/11 17:28:45 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/12 15:09:55 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ char	**file_matrix_fill(const char *filepath, char **matrix)
 		if (!line)
 			break ;
 		matrix[i] = ft_strdup(line);
+		free(line);
 		if (!matrix[i++])
 			return (perror("Error\n"), close(fd), NULL);
 	}
@@ -53,11 +54,12 @@ char	**file_matrix_load(const char *filepath)
 		if (!line)
 			break ;
 		line_count++;
+		free (line);
 	}
+	close(fd);
 	matrix = ft_calloc(line_count + 1, sizeof(char *));
 	if (!matrix)
 		return (perror("Error\n"), close(fd), NULL);
-	close(fd);
 	return (file_matrix_fill(filepath, matrix));
 }
 

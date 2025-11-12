@@ -6,7 +6,7 @@
 /*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 12:02:31 by praders           #+#    #+#             */
-/*   Updated: 2025/11/12 12:02:34 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/12 14:55:07 by praders          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,13 @@ void	safe_free(void **ptr)
 	}
 }
 
-void	safe_destroy_img(void *img)
+void	safe_destroy_img(void **img)
 {
-	if (img)
-		mlx_destroy_image(pc()->mlx, img);
+	if (img && *img)
+	{
+		mlx_destroy_image(pc()->mlx, *img);
+		*img = NULL;
+	}
 }
 
 void	free_game_values(void)
@@ -84,11 +87,12 @@ void	free_game_values(void)
 	pc()->coin_captured = 0;
 	safe_free((void **)&pc()->door);
 	pc()->door_count = 0;
-	pc()->death_count = 0;
-	safe_destroy_img(pc()->image.wall_s.image);
-	safe_destroy_img(pc()->image.wall_n.image);
-	safe_destroy_img(pc()->image.wall_e.image);
-	safe_destroy_img(pc()->image.wall_o.image);
+	if (pc()->mode == LVLS)
+		pc()->death_count = 0;
+	safe_destroy_img((void **)&pc()->image.wall_s.image);
+	safe_destroy_img((void **)&pc()->image.wall_n.image);
+	safe_destroy_img((void **)&pc()->image.wall_e.image);
+	safe_destroy_img((void **)&pc()->image.wall_o.image);
 	safe_free((void **)&pc()->image.wall_n.path);
 	safe_free((void **)&pc()->image.wall_s.path);
 	safe_free((void **)&pc()->image.wall_e.path);

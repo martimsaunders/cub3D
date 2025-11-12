@@ -1,0 +1,246 @@
+# ============================================
+# Supressões para MinilibX (MLX) e X11
+# ============================================
+
+# MLX - Leaks gerais
+{
+   mlx_leaks
+   Memcheck:Leak
+   match-leak-kinds: reachable,possible,indirect
+   fun:calloc
+   ...
+   fun:mlx_*
+}
+
+{
+   mlx_malloc_leaks
+   Memcheck:Leak
+   match-leak-kinds: reachable,possible,indirect
+   fun:malloc
+   ...
+   fun:mlx_*
+}
+
+# X11 - Leaks gerais
+{
+   X11_leaks
+   Memcheck:Leak
+   match-leak-kinds: reachable,possible,indirect
+   fun:calloc
+   ...
+   obj:*/libX11.so*
+}
+
+{
+   X11_malloc_leaks
+   Memcheck:Leak
+   match-leak-kinds: reachable,possible,indirect
+   fun:malloc
+   ...
+   obj:*/libX11.so*
+}
+
+# XCB - Leaks gerais
+{
+   xcb_leaks
+   Memcheck:Leak
+   match-leak-kinds: reachable,possible,indirect
+   fun:calloc
+   ...
+   obj:*/libxcb.so*
+}
+
+{
+   xcb_malloc_leaks
+   Memcheck:Leak
+   match-leak-kinds: reachable,possible,indirect
+   fun:malloc
+   ...
+   obj:*/libxcb.so*
+}
+
+# Xext - Leaks gerais
+{
+   xext_leaks
+   Memcheck:Leak
+   match-leak-kinds: reachable,possible,indirect
+   fun:calloc
+   ...
+   obj:*/libXext.so*
+}
+
+# ============================================
+# Valores não inicializados (writev)
+# ============================================
+
+{
+   writev_uninit_xcb
+   Memcheck:Param
+   writev(vector[...])
+   fun:writev
+   obj:*/libxcb.so*
+}
+
+{
+   writev_uninit_X11
+   Memcheck:Param
+   writev(vector[...])
+   fun:writev
+   ...
+   obj:*/libX11.so*
+}
+
+{
+   writev_uninit_generic
+   Memcheck:Param
+   writev(vector[...])
+   fun:writev
+   fun:_XSend
+}
+
+# ============================================
+# Condições não inicializadas
+# ============================================
+
+{
+   cond_uninit_xcb
+   Memcheck:Cond
+   ...
+   obj:*/libxcb.so*
+}
+
+{
+   cond_uninit_X11
+   Memcheck:Cond
+   ...
+   obj:*/libX11.so*
+}
+
+{
+   cond_uninit_mlx
+   Memcheck:Cond
+   ...
+   fun:mlx_*
+}
+
+# ============================================
+# Valores não inicializados (uso) - Value1
+# ============================================
+
+{
+   value1_uninit_xcb
+   Memcheck:Value1
+   ...
+   obj:*/libxcb.so*
+}
+
+{
+   value1_uninit_X11
+   Memcheck:Value1
+   ...
+   obj:*/libX11.so*
+}
+
+# ============================================
+# Valores não inicializados (uso) - Value2
+# ============================================
+
+{
+   value2_uninit_xcb
+   Memcheck:Value2
+   ...
+   obj:*/libxcb.so*
+}
+
+{
+   value2_uninit_X11
+   Memcheck:Value2
+   ...
+   obj:*/libX11.so*
+}
+
+# ============================================
+# Valores não inicializados (uso) - Value4
+# ============================================
+
+{
+   value4_uninit_xcb
+   Memcheck:Value4
+   ...
+   obj:*/libxcb.so*
+}
+
+{
+   value4_uninit_X11
+   Memcheck:Value4
+   ...
+   obj:*/libX11.so*
+}
+
+# ============================================
+# Valores não inicializados (uso) - Value8
+# ============================================
+
+{
+   value8_uninit_xcb
+   Memcheck:Value8
+   ...
+   obj:*/libxcb.so*
+}
+
+{
+   value8_uninit_X11
+   Memcheck:Value8
+   ...
+   obj:*/libX11.so*
+}
+
+# ============================================
+# Valores não inicializados (uso) - Value16
+# ============================================
+
+{
+   value16_uninit_xcb
+   Memcheck:Value16
+   ...
+   obj:*/libxcb.so*
+}
+
+{
+   value16_uninit_X11
+   Memcheck:Value16
+   ...
+   obj:*/libX11.so*
+}
+
+# ============================================
+# Acessos a endereços inválidos
+# ============================================
+
+{
+   addr1_xcb
+   Memcheck:Addr1
+   ...
+   obj:*/libxcb.so*
+}
+
+{
+   addr2_xcb
+   Memcheck:Addr2
+   ...
+   obj:*/libxcb.so*
+}
+
+{
+   addr4_xcb
+   Memcheck:Addr4
+   ...
+   obj:*/libxcb.so*
+}
+
+{
+   addr8_xcb
+   Memcheck:Addr8
+   ...
+   obj:*/libxcb.so*
+}
