@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_move_player.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 15:07:38 by mprazere          #+#    #+#             */
-/*   Updated: 2025/11/11 16:55:26 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/14 13:28:44 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ int	is_blocked_e(int map_y, int map_x, int type)
 	tile = pc()->map[map_y][map_x];
 	if (type == 0)
 	{
-		if (tile == '1' || tile == 'd' || tile == 'g' || tile == 'n' || tile == 'N')
+		if (tile == '1' || tile == 'd' || tile == 'g' || tile == 'n'
+			|| tile == 'N')
 			return (1);
 		else if (tile == 's' || tile == 'o' || tile == 'r' || tile == 't')
 			return (1);

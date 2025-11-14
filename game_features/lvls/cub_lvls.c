@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_lvls.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 16:54:22 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/12 15:09:55 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/14 13:26:19 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	**file_matrix_load(const char *filepath)
 		if (!line)
 			break ;
 		line_count++;
-		free (line);
+		free(line);
 	}
 	close(fd);
 	matrix = ft_calloc(line_count + 1, sizeof(char *));
@@ -65,7 +65,7 @@ char	**file_matrix_load(const char *filepath)
 
 void	choose_level(void)
 {
-	int level;
+	int	level;
 
 	level = pc()->current_level;
 	if (level == 1)

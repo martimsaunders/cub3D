@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mouse_clicks.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/14 13:34:47 by mateferr          #+#    #+#             */
+/*   Updated: 2025/11/14 13:35:15 by mateferr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../cub3d.h"
 
 int	mouse_click(int button, int x, int y)
@@ -30,6 +42,7 @@ void	main_menu_click(int x, int y)
 	else if ((x >= 1003 && x <= 1208) && (y >= 450 && y <= 611))
 		pc()->mode = CTRLS;
 }
+
 void	ctrls_menu_click(int x, int y)
 {
 	if (x >= 527 && x <= 752 && y >= 520 && y <= 639)

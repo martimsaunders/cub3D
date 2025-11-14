@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_initiate_lvl.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 15:22:08 by praders           #+#    #+#             */
-/*   Updated: 2025/11/12 15:47:38 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/14 13:26:04 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,14 @@ void	free_game_values(void)
 	pc()->door_count = 0;
 	if (pc()->mode == LVLS)
 		pc()->death_count = 0;
-	safe_destroy((void **)&pc()->image.wall_s.image, (void **)&pc()->image.wall_s.path);
-	safe_destroy((void **)&pc()->image.wall_n.image, (void **)&pc()->image.wall_n.path);
-	safe_destroy((void **)&pc()->image.wall_e.image, (void **)&pc()->image.wall_e.path);
-	safe_destroy((void **)&pc()->image.wall_o.image, (void **)&pc()->image.wall_o.path);
+	safe_destroy((void **)&pc()->image.wall_s.image,
+		(void **)&pc()->image.wall_s.path);
+	safe_destroy((void **)&pc()->image.wall_n.image,
+		(void **)&pc()->image.wall_n.path);
+	safe_destroy((void **)&pc()->image.wall_e.image,
+		(void **)&pc()->image.wall_e.path);
+	safe_destroy((void **)&pc()->image.wall_o.image,
+		(void **)&pc()->image.wall_o.path);
 }
 
 void	restart_level(void)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minimap_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/14 13:33:24 by mateferr          #+#    #+#             */
+/*   Updated: 2025/11/14 13:34:30 by mateferr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../cub3d.h"
 
 bool	minimap_is_edge(int mapx, int mapy, t_minimap *mm)
@@ -10,7 +22,7 @@ bool	minimap_is_edge(int mapx, int mapy, t_minimap *mm)
 	if (relx == 0 && (mapx == 0 || !minimap_is_wall(mm, mapx - 1, mapy)))
 		return (true);
 	if (relx == BLOCK - 1 && (mm->map[mapy][mapx + 1] == '\0'
-			|| !minimap_is_wall(mm, mapx + 1, mapy)))
+		|| !minimap_is_wall(mm, mapx + 1, mapy)))
 		return (true);
 	if (rely == 0 && (mapy == 0 || !minimap_is_wall(mm, mapx, mapy - 1)))
 		return (true);
@@ -62,7 +74,8 @@ bool	minimap_is_map(t_minimap *mm)
 	char	m;
 
 	m = mm->map[mm->mapy][mm->mapx];
-	if (parse_is_player(m) || parse_is_icon(m) || minimap_is_safe(mm) || m == '1' || m == '0')
+	if (parse_is_player(m) || parse_is_icon(m) || minimap_is_safe(mm)
+		|| m == '1' || m == '0')
 		return (true);
 	return (false);
 }

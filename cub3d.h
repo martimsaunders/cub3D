@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 12:07:37 by praders           #+#    #+#             */
-/*   Updated: 2025/11/12 15:33:11 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/14 13:59:18 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@
 # include <sys/time.h>
 # include <unistd.h>
 
-# define BONUS 1
-# define MOUSE_HIDE 1
+# define BONUS 0
+# define MOUSE_HIDE 0
 # define WIDTH 1280
 # define HEIGHT 720
-# define MINIMAP HEIGHT / 6
+# define MINIMAP 120
 # define HUD 70
 # define BLOCK 32
 # define PI 3.14159265359

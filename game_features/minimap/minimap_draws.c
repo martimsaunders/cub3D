@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minimap_draws.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/14 13:33:12 by mateferr          #+#    #+#             */
+/*   Updated: 2025/11/14 13:33:13 by mateferr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../cub3d.h"
 
 void	minimap_draw_outside(t_minimap *mm, int x, int y)
@@ -15,7 +27,7 @@ void	minimap_draw_floor(t_minimap *mm, int x, int y)
 
 void	minimap_draw_block(t_minimap *mm, int x, int y)
 {
-    if (is_blocked_e(mm->mapy, mm->mapx, 1))
+	if (is_blocked_e(mm->mapy, mm->mapx, 1))
 	{
 		if (minimap_is_edge(mm->mapx, mm->mapy, mm))
 			minimap_draw_outside(mm, x, y);

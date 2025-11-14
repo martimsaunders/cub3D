@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_move_enemy.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 17:06:19 by praders           #+#    #+#             */
-/*   Updated: 2025/11/11 16:48:47 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/14 13:28:30 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	move_enemy(t_sprite *enemy)
 
 void	check_enemy_colision(void)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < pc()->enemy_count)

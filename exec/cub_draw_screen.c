@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_draw_screen.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 11:58:55 by praders           #+#    #+#             */
-/*   Updated: 2025/11/11 16:35:37 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/14 13:27:43 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	draw_ctrls_menu(void)
 			pc()->image.m_ctrls[0].image, 0, 0);
 	return ;
 }
+
 void	draw_main_menu(void)
 {
 	int	x;

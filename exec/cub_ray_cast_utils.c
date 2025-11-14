@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_ray_cast_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 16:38:15 by mprazere          #+#    #+#             */
-/*   Updated: 2025/11/11 16:46:38 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/14 13:32:09 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ void	put_brightness(t_ray *ray, t_tex *tex, t_rend *rend, int x)
 		if (tex->brightness < 0.2)
 			tex->brightness = 0.2;
 		tex->color = ((int)(((tex->color >> 16) & 0xFF)
-					* tex->brightness) << 16) | ((int)(((tex->color >> 8) & 0xFF)
+					* tex->brightness) << 16)
+			| ((int)(((tex->color >> 8) & 0xFF)
 					* tex->brightness) << 8) | (int)((tex->color & 0xFF)
 				* tex->brightness);
 		put_pixel(tex->x, tex->y, tex->color);

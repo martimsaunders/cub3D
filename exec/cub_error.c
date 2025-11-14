@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_error.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: praders <praders@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 13:00:56 by mprazere          #+#    #+#             */
-/*   Updated: 2025/11/12 15:54:55 by praders          ###   ########.fr       */
+/*   Updated: 2025/11/14 13:27:53 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	destroy_asset(t_asset *asset, int size)
 
 	i = 0;
 	if (!asset)
-		return;
+		return ;
 	while (i < size)
 	{
 		if (asset[i].image)

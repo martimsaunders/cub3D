@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_draw_levels.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 12:03:35 by praders           #+#    #+#             */
-/*   Updated: 2025/11/11 16:35:24 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/14 13:27:08 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ static void	lvls_4_6_draw(int x, int y)
 
 void	draw_lvls_menu(void)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	x = pc()->player.mousex;
 	y = pc()->player.mousey;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_ray_cast.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mprazere <mprazere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 15:27:44 by mprazere          #+#    #+#             */
-/*   Updated: 2025/11/11 16:48:24 by mprazere         ###   ########.fr       */
+/*   Updated: 2025/11/14 13:29:15 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,15 +86,15 @@ void	draw_line(t_ray *ray, t_tex *tex, int x)
 		if (ray->hit == 2 && pc()->coin_captured == pc()->coin_count)
 		{
 			tex->index = tex->texy * pc()->image.door[1].line_lenght + tex->texx
-			* (pc()->image.door[1].bpp / 8);
+				* (pc()->image.door[1].bpp / 8);
 			tex->color = *(int *)(pc()->image.door[1].addr + tex->index);
 		}
 		else if (ray->hit == 2)
 		{
 			tex->index = tex->texy * pc()->image.door[0].line_lenght + tex->texx
-			* (pc()->image.door[0].bpp / 8);
+				* (pc()->image.door[0].bpp / 8);
 			tex->color = *(int *)(pc()->image.door[0].addr + tex->index);
-		}	
+		}
 		else if (ray->side == 0)
 			draw_e_o_wall(ray, tex);
 		else

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bitmap_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/14 13:25:10 by mateferr          #+#    #+#             */
+/*   Updated: 2025/11/14 13:25:33 by mateferr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../cub3d.h"
 
 int	hud_find_index(char c)
@@ -44,8 +56,8 @@ void	hud_draw_char(t_hud *h, char c, int px)
 
 void	hud_draw_number(t_hud *h, int num, int px)
 {
-	int i;
-	char *str;
+	int		i;
+	char	*str;
 
 	str = ft_itoa(num);
 	if (!str)

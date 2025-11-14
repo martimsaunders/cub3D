@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_header_utils.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/14 13:36:07 by mateferr          #+#    #+#             */
+/*   Updated: 2025/11/14 13:37:27 by mateferr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
 
 bool	parse_check_texture(char *line, char **dst)
@@ -63,7 +75,8 @@ bool	parse_check_numbers(char **nums, int *id, int *dst)
 		if (rgb[i] < 0 || rgb[i] > 255)
 			return (err_msg("Invalid color number", 0), false);
 	}
-	*dst = ((unsigned)rgb[0] << 16) | ((unsigned)rgb[1] << 8) | (unsigned)rgb[2];
+	*dst = ((unsigned)rgb[0] << 16) | ((unsigned)rgb[1] << 8)
+		| (unsigned)rgb[2];
 	*id = 1;
 	return (true);
 }
