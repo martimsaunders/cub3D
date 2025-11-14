@@ -52,7 +52,7 @@ bool	minimap_is_safe(t_minimap *mm)
 
 	c = mm->map[mm->mapy][mm->mapx];
 	if (c == 'g' || c == 'n' || c == 'p' || c == 's' || c == 'o' || c == 'r'
-		|| c == 't')
+		|| c == 't' || (pc()->mode != EVAL && c == 'N'))
 		return (true);
 	return (false);
 }
