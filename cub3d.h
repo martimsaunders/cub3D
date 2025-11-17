@@ -6,7 +6,7 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 12:07:37 by praders           #+#    #+#             */
-/*   Updated: 2025/11/14 13:59:18 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/17 13:04:44 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <sys/time.h>
 # include <unistd.h>
 
-# define BONUS 0
+# define BONUS 1
 # define MOUSE_HIDE 0
 # define WIDTH 1280
 # define HEIGHT 720

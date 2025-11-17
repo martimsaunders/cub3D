@@ -6,7 +6,7 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 13:36:07 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/14 13:37:27 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/17 14:51:19 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ bool	parse_check_texture(char *line, char **dst)
 {
 	char	tex;
 	int		tex_last;
+	int		fd;
 
 	if (*dst)
 		return (err_msg("Duplicated texture: ", *line), false);
@@ -31,8 +32,10 @@ bool	parse_check_texture(char *line, char **dst)
 	*dst = ft_strdup(line);
 	if (!*dst)
 		return (perror("Error\n"), false);
-	if (open(*dst, O_RDONLY) == -1)
+	fd = open(*dst, O_RDONLY);
+	if (fd == -1)
 		return (err_msg("Invalid texture: ", tex), false);
+	close(fd);
 	return (true);
 }
 
