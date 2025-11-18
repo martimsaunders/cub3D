@@ -6,7 +6,7 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 12:07:37 by praders           #+#    #+#             */
-/*   Updated: 2025/11/17 13:04:44 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/18 16:12:59 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -373,15 +373,17 @@ t_game			*pc(void);
 
 // parsing
 // parse_file.c
+bool			parse_validate_map(t_parse *f);
 bool			parse_file_fill(t_parse *f, const char *filepath);
 bool			parse_file_load(t_parse *f, const char *filepath);
 void			parse_file_destroy(t_parse *f, int error);
 
 // parse_flood_fill.c
-bool			parse_validate_map(t_parse *f);
 bool			parse_validate_coins_pos(t_parse *f);
 bool			parse_map_flood_fill(t_parse *f, int x, int y);
 bool			parse_coin_flood_fill(t_parse *f, int x, int y);
+bool			parse_flood_fill_check_icons(t_parse *f, int x, int y);
+bool			parse_flood_fill_extra_checks(t_parse *f);
 
 // parse_header_utils
 bool			parse_get_color(char *line, t_parse *f);
@@ -393,6 +395,7 @@ bool			parse_check_numbers(char **nums, int *id, int *dst);
 // parse_header.c
 bool			parse_header(t_parse *f);
 bool			parse_check_all_infos(t_parse *f);
+bool			parse_check_color_str(char *line, int *id, int *dst);
 
 // parse_map_matrix.c
 int				parse_map_height(char **map);

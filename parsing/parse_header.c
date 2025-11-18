@@ -6,7 +6,7 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 13:36:12 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/14 13:36:13 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/18 16:16:05 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,31 @@ bool	parse_header(t_parse *f)
 	}
 	f->map_idx = i;
 	return (parse_check_all_infos(f));
+}
+
+bool	parse_check_color_str(char *line, int *id, int *dst)
+{
+	char	**nums;
+	int		i;
+	int		count;
+
+	count = 0;
+	i = 0;
+	while (line[i])
+	{
+		if (line[i++] == ',')
+		{
+			count++;
+			if (!ft_isdigit(line[i]))
+				return (err_msg("Invalid color", 0), false);
+		}
+	}
+	if (count != 2)
+		return (err_msg("Invalid color", 0), false);
+	nums = ft_split(line, ',');
+	if (!nums)
+		return (perror("Error\n"), false);
+	if (!parse_check_numbers(nums, id, dst))
+		return (parse_free_array(nums), false);
+	return (parse_free_array(nums), true);
 }

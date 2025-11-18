@@ -6,7 +6,7 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 13:35:54 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/14 13:35:55 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/18 16:15:21 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,25 @@ void	parse_file_destroy(t_parse *f, int error)
 	pc()->image.wall_o.path = f->w_path;
 	if (error)
 		destroy_everything(1);
+}
+
+bool	parse_validate_map(t_parse *f)
+{
+	int	x;
+	int	y;
+
+	f->map_cpy = parse_copy_matrix(f->map);
+	if (!f->map_cpy)
+		return (false);
+	if (!parse_find_player(f, &x, &y))
+		return (err_msg("Player not set", 0), parse_free_array(f->map_cpy),
+			false);
+	f->map_cpy[y][x] = '0';
+	if (!parse_map_flood_fill(f, x, y))
+		return (parse_free_array(f->map_cpy), false);
+	if (!parse_flood_fill_extra_checks(f))
+		return (parse_free_array(f->map_cpy), false);
+	parse_free_array(f->map_cpy);
+	f->map_cpy = NULL;
+	return (parse_validate_coins_pos(f));
 }

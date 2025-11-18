@@ -6,7 +6,7 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 13:36:29 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/14 13:36:30 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/18 15:11:14 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	parse_set_player(t_parse *f)
 		pc()->player.angle = PI * 2;
 	if (c == 'N')
 		pc()->player.angle = PI * 1.5;
-	if (c == 'O')
+	if (c == 'W')
 		pc()->player.angle = PI;
 	if (c == 'S')
 		pc()->player.angle = PI * 0.5;
