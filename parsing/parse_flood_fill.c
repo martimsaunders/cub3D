@@ -6,7 +6,7 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 13:36:01 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/18 16:15:32 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/24 12:05:29 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@ bool	parse_flood_fill_check_icons(t_parse *f, int x, int y)
 				x + 1, y) || parse_out_of_bounds(f->map, x, y - 1)
 			|| parse_out_of_bounds(f->map, x, y + 1))
 			return (err_msg("Door not between walls", 0), false);
-		if ((f->map[y][x - 1] != '1' && f->map[y - 1][x] != '1') || (f->map[y][x
-				- 1] == '1' && f->map[y][x + 1] != '1') || (f->map[y
-				- 1][x] == '1' && f->map[y + 1][x] != '1'))
+		if ((f->map[y][x - 1] == '1' && f->map[y][x + 1] != '1') ||
+		(f->map[y - 1][x] == '1' && f->map[y + 1][x] != '1'))
 			return (err_msg("Door not between walls", 0), false);
 		f->door_count++;
 	}

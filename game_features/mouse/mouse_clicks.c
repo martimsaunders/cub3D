@@ -6,7 +6,7 @@
 /*   By: mateferr <mateferr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 13:34:47 by mateferr          #+#    #+#             */
-/*   Updated: 2025/11/14 13:35:15 by mateferr         ###   ########.fr       */
+/*   Updated: 2025/11/24 12:04:40 by mateferr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	game_menu_click(int x, int y)
 		pc()->mode = MENU;
 	else if ((x >= 703 && x <= 872) && (y >= 518 && y <= 644))
 	{
+		pc()->death_count = 0;
 		pc()->current_level = 1;
 		lvl_mode_init();
 		pc()->mode = GAME;
