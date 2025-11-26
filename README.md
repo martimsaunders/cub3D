@@ -59,10 +59,19 @@ This will generate the executable:
 ```
 
 <p align="center">
-  <img src="assets/solong.gif" alt="" width="1020">
+  <img src="assets/make_cub3D.mp4" alt="" width="1020">
 </p>
 <p align="center">
-  <img src="assets/solongbonus.gif" alt="" width="1020">
+  <img src="assets/Menus_cub3D.mp4" alt="" width="1020">
+</p>
+<p align="center">
+  <img src="assets/eval_mode.mp4" alt="" width="1020">
+</p>
+<p align="center">
+  <img src="assets/game_mode.mp4" alt="" width="1020">
+</p>
+<p align="center">
+  <img src="assets/train_mode.mp4" alt="" width="1020">
 </p>
 
 ---
