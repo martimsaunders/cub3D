@@ -57,19 +57,27 @@ This will generate the executable:
 ```bash
 ./cub3D maps/example.cub (you can play the game without a map argument)
 ```
-
+### Compilation
 <p align="center">
   <img src="assets/make_cub3D.gif" alt="" width="1020">
 </p>
+
+### Menus
 <p align="center">
   <img src="assets/menu_cub3D.gif" alt="" width="1020">
 </p>
+
+### Evaluation Mode
 <p align="center">
   <img src="assets/eval_cub3D.gif" alt="" width="1020">
 </p>
+
+### Game Mode
 <p align="center">
   <img src="assets/game_cub3D.gif" alt="" width="1020">
 </p>
+
+### Training Mode
 <p align="center">
   <img src="assets/train_cub3D.gif" alt="" width="1020">
 </p>
